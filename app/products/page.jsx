@@ -1,13 +1,13 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import TestimonialVideos from '@/components/TestimonialVideos';
 import Business from '@/components/Business';
 import FaqSection from '@/components/FaqSection';
 import FooterSection from '@/components/FooterSection';
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const searchParams = useSearchParams();
   const product = searchParams.get('product');
 
@@ -729,5 +729,18 @@ export default function ProductsPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading...</p>
+      </div>
+    </div>}>
+      <ProductsPageContent />
+    </Suspense>
   );
 }
