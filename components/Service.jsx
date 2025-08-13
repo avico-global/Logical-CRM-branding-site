@@ -15,7 +15,7 @@ export default function Service() {
           className="text-[#23282b] text-base md:text-lg font-normal text-center max-w-2xl"
           style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
         >
-          Customize Workiz to grow your business. Schedule jobs, dispatch, invoice and get paid all in one place.
+          Customize Logical CRM to grow your business. Schedule jobs, dispatch, invoice and get paid all in one place.
         </p>
       </section>
       {/* Services grid section */}
@@ -149,7 +149,7 @@ function VideoCtaSection() {
             It’s free to try.<br />We hope you do.
           </h2>
           <p className="text-white text-base md:text-lg font-normal mb-8 max-w-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            Increase the efficiency of your field service business with all-in-one platform trusted by over 120,000 pros. Manage all your daily tasks automate your key workflows, win more jobs, get paid in the field faster, and control your business in real-time with Workiz.
+            Increase the efficiency of your field service business with an all-in-one platform trusted by pros. Manage daily tasks, automate key workflows, win more jobs, get paid faster, and control your business in real-time with Logical CRM.
           </p>
           <button className="bg-[#FFD600] hover:bg-yellow-400 text-[#23272a] font-bold text-base md:text-lg rounded-md px-8 py-4 mb-8 transition-colors" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             Get started – It's free
@@ -213,7 +213,7 @@ function VideoCtaSection() {
               allowFullScreen
               className="w-full max-w-3xl rounded-xl shadow-2xl bg-black"
               style={{ maxHeight: '80vh' }}
-              title="Workiz Product Tour"
+              title="Logical CRM Product Tour"
             />
           </div>
         </div>

@@ -36,21 +36,33 @@ export default function Integrations() {
               unoptimized
             />
           </div>
-          <h2 className="text-[#23282b] font-bold text-4xl mb-6" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          <h2
+            className="text-[#23282b] font-bold text-4xl mb-6"
+            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          >
             Integrations
           </h2>
           <div
             className="text-[#23282b] text-base mb-8 text-left"
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", lineHeight: '1.4' }}
+            style={{
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              lineHeight: "1.4",
+            }}
           >
             <div>Incorporate marketing tools,</div>
-            <div>build customer loyalty and run your business like a well-oiled</div>
+            <div>
+              build customer loyalty and run your business like a well-oiled
+            </div>
             <div>machine</div>
           </div>
 
-
-          <a href="#" className="text-[#23282b] text-sm  flex items-center gap-2 hover:underline" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            See all integration <span className="ml-1 font-bold text-base">→</span>
+          <a
+            href="#"
+            className="text-[#23282b] text-sm  flex items-center gap-2 hover:underline"
+            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          >
+            See all integration{" "}
+            <span className="ml-1 font-bold text-base">→</span>
           </a>
         </div>
         {/* Right Side */}
@@ -69,7 +81,12 @@ export default function Integrations() {
                   className="mr-4"
                   unoptimized
                 />
-                <span className="text-[#23282b] text-[15px] font-medium" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{item.name}</span>
+                <span
+                  className="text-[#23282b] text-[15px] font-medium"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  {item.name}
+                </span>
               </div>
             ))}
           </div>
@@ -87,7 +104,12 @@ export default function Integrations() {
                   className="mr-4"
                   unoptimized
                 />
-                <span className="text-[#23282b] text-[15px] font-medium" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{item.name}</span>
+                <span
+                  className="text-[#23282b] text-[15px] font-medium"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  {item.name}
+                </span>
               </div>
             ))}
           </div>
@@ -95,4 +117,4 @@ export default function Integrations() {
       </div>
     </section>
   );
-} 
+}

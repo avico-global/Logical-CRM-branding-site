@@ -7,7 +7,7 @@ const testimonials = [
   {
     id: 1,
     youtubeId: "P7y6LRaOVPM",
-    quote: "How Workiz transformed COIT Cleaning & Restoration operations overnight",
+    quote: "How Logical CRM transformed COIT Cleaning & Restoration operations overnight",
     name: "COIT Cleaning & Restoration",
     title: "Operations Team",
     logo: "/images/logo-pro1.webp",
@@ -15,7 +15,7 @@ const testimonials = [
   {
     id: 2,
     youtubeId: "KF0qXjedWo0",
-    quote: "How Workiz Expense Cards gave Appliances USA Pro total financial control",
+    quote: "How Logical CRM expense tools gave Appliances USA Pro total financial control",
     name: "Appliances USA Pro",
     title: "Owner",
     logo: "/images/logo-pro2.webp",
@@ -23,7 +23,7 @@ const testimonials = [
   {
     id: 3,
     youtubeId: "QPJI2R7rozQ",
-    quote: "How Workiz transformed Brian Orchard’s HVAC business!",
+    quote: "How Logical CRM transformed Brian Orchard’s HVAC business!",
     name: "Brian Orchard",
     title: "Owner, Everett Air",
     logo: "/images/logo-pro3.webp",
@@ -31,7 +31,7 @@ const testimonials = [
   {
     id: 4,
     youtubeId: "_VApip3S7Fg",
-    quote: "Workiz:the all-in-one solution for HVAC pros",
+    quote: "Logical CRM: the all-in-one solution for HVAC pros",
     name: "HVAC Pro",
     title: "Owner",
     logo: "/images/logo-pro4.webp",
