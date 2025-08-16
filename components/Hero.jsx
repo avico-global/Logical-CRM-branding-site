@@ -3,12 +3,18 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <div className="min-h-screen w-full relative overflow-hidden">
+    <div
+      style={{
+        backgroundImage:
+          "url(https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2230&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+      }}
+      className="min-h-screen w-full relative overflow-hidden bg-cover"
+    >
       {/* Enhanced gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-blue-950/90 to-indigo-900/90"></div>
 
       {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-cyan-900/20 animate-pulse"></div>
+      <div className="absolute inset-0 bg-black/5"></div>
 
       {/* Floating orbs */}
       <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 rounded-full blur-3xl animate-float"></div>
@@ -16,7 +22,7 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-gradient-to-r from-purple-400/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
 
       {/* Enhanced grid overlay */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-50">
         <div
           className="h-full w-full"
           style={{

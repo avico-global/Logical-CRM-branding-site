@@ -2,48 +2,568 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
-const Navbar = () => {
-  const [industriesOpen, setIndustriesOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [isOverHero, setIsOverHero] = useState(true);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const productsDropdownRef = useRef(null);
+// Constants
+const NAVIGATION_ITEMS = ["Pricing"];
 
+const INDUSTRIES_DATA = [
+  {
+    id: "hvac",
+    name: "HVAC",
+    href: "/industry/hvac",
+    description: "Heating & cooling solutions",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2 17l10 5 10-5" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2 12l10 5 10-5" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    colorScheme: {
+      bg: "bg-blue-100",
+      hoverBg: "group-hover:bg-blue-200",
+      textHover: "group-hover:text-blue-700"
+    }
+  },
+  {
+    id: "plumbing",
+    name: "Plumbing",
+    href: "/industry/plumbing",
+    description: "Pipes, drains & water systems",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 11H7l5-8 5 8h-2" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8 21l5-8 5 8" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    colorScheme: {
+      bg: "bg-green-100",
+      hoverBg: "group-hover:bg-green-200",
+      textHover: "group-hover:text-green-700"
+    }
+  },
+  {
+    id: "electrician",
+    name: "Electrician",
+    href: "/industry/electricians",
+    description: "Wiring & electrical services",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L3 14h7v8l10-12h-7z" fill="#eab308"/>
+      </svg>
+    ),
+    colorScheme: {
+      bg: "bg-yellow-100",
+      hoverBg: "group-hover:bg-yellow-200",
+      textHover: "group-hover:text-yellow-700"
+    }
+  },
+  {
+    id: "garage-door",
+    name: "Garage Door",
+    href: "/industry/garage-door-repair",
+    description: "Installation & repair services",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="8" width="18" height="10" rx="2" stroke="#7c3aed" strokeWidth="2"/>
+        <path d="M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke="#7c3aed" strokeWidth="2"/>
+      </svg>
+    ),
+    colorScheme: {
+      bg: "bg-purple-100",
+      hoverBg: "group-hover:bg-purple-200",
+      textHover: "group-hover:text-purple-700"
+    }
+  },
+  {
+    id: "locksmith",
+    name: "Locksmith",
+    href: "/industry/locksmith",
+    description: "Lock & security solutions",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="#ea580c" strokeWidth="2"/>
+        <circle cx="12" cy="16" r="1" fill="#ea580c"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#ea580c" strokeWidth="2"/>
+      </svg>
+    ),
+    colorScheme: {
+      bg: "bg-orange-100",
+      hoverBg: "group-hover:bg-orange-200",
+      textHover: "group-hover:text-orange-700"
+    }
+  },
+  {
+    id: "junk-removal",
+    name: "Junk Removal",
+    href: "/industry/junk-removal",
+    description: "Cleanup & hauling services",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6h18l-2 13H5L3 6z" stroke="#dc2626" strokeWidth="2"/>
+        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#dc2626" strokeWidth="2"/>
+      </svg>
+    ),
+    colorScheme: {
+      bg: "bg-red-100",
+      hoverBg: "group-hover:bg-red-200",
+      textHover: "group-hover:text-red-700"
+    }
+  }
+];
+
+// Reusable Components
+const IndustryItem = ({ industry, onClick }) => {
+  const { name, href, description, icon, colorScheme } = industry;
+  const { bg, hoverBg, textHover } = colorScheme;
+
+  return (
+    <Link
+      href={href}
+      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-blue-50/80 transition-all duration-200 group"
+      onClick={onClick}
+    >
+      <div className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}>
+        {icon}
+      </div>
+      <div>
+        <div className={`font-semibold text-gray-900 ${textHover} transition-colors`}>
+          {name}
+        </div>
+        <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+          {description}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const AllIndustriesButton = ({ onClick }) => (
+  <Link
+    href="/industry"
+    className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-100 transition-all duration-200 group border border-gray-200 hover:border-gray-300"
+    onClick={onClick}
+  >
+    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors flex-shrink-0">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="3" stroke="#6b7280" strokeWidth="2"/>
+        <path d="M12 1v6m0 6v6" stroke="#6b7280" strokeWidth="2"/>
+        <path d="M21 12h-6m-6 0H3" stroke="#6b7280" strokeWidth="2"/>
+      </svg>
+    </div>
+    <div>
+      <div className="font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">
+        All Industries
+      </div>
+      <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+        View complete industry list
+      </div>
+    </div>
+  </Link>
+);
+
+// Products data and components (compact)
+const PRODUCTS_DATA = [
+  { 
+    id: "client-crm", 
+    name: "Client CRM", 
+    href: "/products?product=client-crm", 
+    icon: "fas fa-users", 
+    desc: "Contacts & history",
+    colorScheme: {
+      bg: "bg-blue-100",
+      textColor: "text-blue-600",
+      hoverBg: "group-hover:bg-blue-200",
+      textHover: "group-hover:text-blue-700"
+    }
+  },
+  { 
+    id: "scheduling", 
+    name: "Scheduling", 
+    href: "/products?product=scheduling", 
+    icon: "fas fa-calendar", 
+    desc: "Jobs & calendar",
+    colorScheme: {
+      bg: "bg-green-100",
+      textColor: "text-green-600",
+      hoverBg: "group-hover:bg-green-200",
+      textHover: "group-hover:text-green-700"
+    }
+  },
+  { 
+    id: "dispatching", 
+    name: "Dispatching", 
+    href: "/products?product=dispatching", 
+    icon: "fas fa-headset", 
+    desc: "Assign & route",
+    colorScheme: {
+      bg: "bg-purple-100",
+      textColor: "text-purple-600",
+      hoverBg: "group-hover:bg-purple-200",
+      textHover: "group-hover:text-purple-700"
+    }
+  },
+  { 
+    id: "invoicing", 
+    name: "Invoicing", 
+    href: "/products?product=invoicing", 
+    icon: "fas fa-file-invoice", 
+    desc: "Bills & payments",
+    colorScheme: {
+      bg: "bg-yellow-100",
+      textColor: "text-yellow-600",
+      hoverBg: "group-hover:bg-yellow-200",
+      textHover: "group-hover:text-yellow-700"
+    }
+  },
+  { 
+    id: "estimates-proposals", 
+    name: "Estimates", 
+    href: "/products?product=estimates-proposals", 
+    icon: "fas fa-clipboard", 
+    desc: "Quotes & proposals",
+    colorScheme: {
+      bg: "bg-orange-100",
+      textColor: "text-orange-600",
+      hoverBg: "group-hover:bg-orange-200",
+      textHover: "group-hover:text-orange-700"
+    }
+  },
+  { 
+    id: "mobile-app", 
+    name: "Mobile App", 
+    href: "/products?product=mobile-app", 
+    icon: "fas fa-mobile-alt", 
+    desc: "Crew on-the-go",
+    colorScheme: {
+      bg: "bg-indigo-100",
+      textColor: "text-indigo-600",
+      hoverBg: "group-hover:bg-indigo-200",
+      textHover: "group-hover:text-indigo-700"
+    }
+  },
+];
+
+const ProductItem = ({ item, onClick }) => {
+  const { name, href, icon, desc, colorScheme } = item;
+  const { bg, textColor, hoverBg, textHover } = colorScheme;
+
+  return (
+    <Link
+      href={href}
+      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-50/80 transition-all duration-200 group"
+      onClick={onClick}
+    >
+      <div className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}>
+        <i className={`${icon} ${textColor} text-sm`}></i>
+      </div>
+      <div>
+        <div className={`font-semibold text-gray-900 ${textHover} transition-colors`}>
+          {name}
+        </div>
+        <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+          {desc}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const AllProductsButton = ({ onClick }) => (
+  <Link
+    href="/products"
+    className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-100 transition-all duration-200 group border border-gray-200 hover:border-gray-300"
+    onClick={onClick}
+  >
+    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors flex-shrink-0">
+      <i className="fas fa-th-large text-gray-600 text-sm"></i>
+    </div>
+    <div>
+      <div className="font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">
+        All Products
+      </div>
+      <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+        Browse the full suite
+      </div>
+    </div>
+  </Link>
+);
+
+// Resources data and components (compact)
+const RESOURCES_DATA = [
+  { 
+    id: "blog", 
+    name: "Blog", 
+    href: "/blog", 
+    icon: "fas fa-newspaper", 
+    desc: "Get the inspiration and news for your success",
+    colorScheme: {
+      bg: "bg-blue-100",
+      textColor: "text-blue-600",
+      hoverBg: "group-hover:bg-blue-200",
+      textHover: "group-hover:text-blue-700"
+    }
+  },
+  { 
+    id: "webinars", 
+    name: "Webinars", 
+    href: "/webinars", 
+    icon: "fas fa-play-circle", 
+    desc: "Get advice directly from industry experts",
+    colorScheme: {
+      bg: "bg-red-100",
+      textColor: "text-red-600",
+      hoverBg: "group-hover:bg-red-200",
+      textHover: "group-hover:text-red-700"
+    }
+  },
+  { 
+    id: "free-tools", 
+    name: "Free tools", 
+    href: "/free-tools", 
+    icon: "fas fa-tools", 
+    desc: "Discover useful tools to make your business a success",
+    badge: "New",
+    colorScheme: {
+      bg: "bg-green-100",
+      textColor: "text-green-600",
+      hoverBg: "group-hover:bg-green-200",
+      textHover: "group-hover:text-green-700"
+    }
+  },
+  { 
+    id: "faqs", 
+    name: "FAQ's", 
+    href: "/faqs", 
+    icon: "fas fa-question-circle", 
+    desc: "Get all the answers to your frequently asked questions",
+    colorScheme: {
+      bg: "bg-yellow-100",
+      textColor: "text-yellow-600",
+      hoverBg: "group-hover:bg-yellow-200",
+      textHover: "group-hover:text-yellow-700"
+    }
+  },
+  { 
+    id: "help-center", 
+    name: "Help center", 
+    href: "/help-center", 
+    icon: "fas fa-life-ring", 
+    desc: "Get your questions answered with our 24/7 knowledge hub",
+    colorScheme: {
+      bg: "bg-purple-100",
+      textColor: "text-purple-600",
+      hoverBg: "group-hover:bg-purple-200",
+      textHover: "group-hover:text-purple-700"
+    }
+  },
+  { 
+    id: "podcast", 
+    name: "Podcast", 
+    href: "/podcast", 
+    icon: "fas fa-podcast", 
+    desc: "Listen and learn with the Workiz Unplugged podcast",
+    badge: "New",
+    colorScheme: {
+      bg: "bg-indigo-100",
+      textColor: "text-indigo-600",
+      hoverBg: "group-hover:bg-indigo-200",
+      textHover: "group-hover:text-indigo-700"
+    }
+  },
+];
+
+const ResourceItem = ({ item, onClick }) => {
+  const { name, href, icon, desc, badge, colorScheme } = item;
+  const { bg, textColor, hoverBg, textHover } = colorScheme;
+
+  return (
+    <Link
+      href={href}
+      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-50/80 transition-all duration-200 group relative"
+      onClick={onClick}
+    >
+      <div className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}>
+        <i className={`${icon} ${textColor} text-sm`}></i>
+      </div>
+      <div className="flex-1">
+        <div className={`font-semibold text-gray-900 ${textHover} transition-colors flex items-center gap-2`}>
+          {name}
+          {badge && (
+            <span className="px-2 py-1 text-xs font-bold text-white bg-green-500 rounded-full">
+              {badge}
+            </span>
+          )}
+        </div>
+        <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+          {desc}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const AllResourcesButton = ({ onClick }) => (
+  <Link
+    href="/resources"
+    className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-100 transition-all duration-200 group border border-gray-200 hover:border-gray-300 relative"
+    onClick={onClick}
+  >
+    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors flex-shrink-0">
+      <i className="fas fa-archive text-gray-600 text-sm"></i>
+    </div>
+    <div className="flex-1">
+      <div className="font-semibold text-gray-700 group-hover:text-gray-900 transition-colors flex items-center gap-2">
+        All Resources
+        <span className="px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded-full">
+          New
+        </span>
+      </div>
+      <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+        Discover more resources for your field service business
+      </div>
+    </div>
+  </Link>
+);
+
+// Company data and components (compact)
+const COMPANY_DATA = [
+  { 
+    id: "about-us", 
+    name: "About us", 
+    href: "/about-us", 
+    icon: "fas fa-building", 
+    desc: "Find out all about what we do and why we love the field service industry",
+    colorScheme: {
+      bg: "bg-blue-100",
+      textColor: "text-blue-600",
+      hoverBg: "group-hover:bg-blue-200",
+      textHover: "group-hover:text-blue-700"
+    }
+  },
+  { 
+    id: "contact-us", 
+    name: "Contact us", 
+    href: "/contact-us", 
+    icon: "fas fa-comments", 
+    desc: "Talk to us! We are real people who would love to help in any way we can",
+    colorScheme: {
+      bg: "bg-green-100",
+      textColor: "text-green-600",
+      hoverBg: "group-hover:bg-green-200",
+      textHover: "group-hover:text-green-700"
+    }
+  },
+  { 
+    id: "become-partner", 
+    name: "Become a partner", 
+    href: "/become-partner", 
+    icon: "fas fa-handshake", 
+    desc: "Do you have a field service network? Join our affiliate program and get paid",
+    colorScheme: {
+      bg: "bg-purple-100",
+      textColor: "text-purple-600",
+      hoverBg: "group-hover:bg-purple-200",
+      textHover: "group-hover:text-purple-700"
+    }
+  },
+  { 
+    id: "reviews", 
+    name: "Reviews", 
+    href: "/reviews", 
+    icon: "fas fa-star", 
+    desc: "See why our customers trust us to grow their business every day",
+    colorScheme: {
+      bg: "bg-yellow-100",
+      textColor: "text-yellow-600",
+      hoverBg: "group-hover:bg-yellow-200",
+      textHover: "group-hover:text-yellow-700"
+    }
+  },
+  { 
+    id: "career", 
+    name: "Career", 
+    href: "/career", 
+    icon: "fas fa-globe", 
+    desc: "Looking for your next challenge? Come join our talented, smart, and fun team!",
+    colorScheme: {
+      bg: "bg-indigo-100",
+      textColor: "text-indigo-600",
+      hoverBg: "group-hover:bg-indigo-200",
+      textHover: "group-hover:text-indigo-700"
+    }
+  },
+  { 
+    id: "investors", 
+    name: "Investors", 
+    href: "/investors", 
+    icon: "fas fa-chart-line", 
+    desc: "Learn about some of the best VC's who believe in us and support our mission",
+    colorScheme: {
+      bg: "bg-orange-100",
+      textColor: "text-orange-600",
+      hoverBg: "group-hover:bg-orange-200",
+      textHover: "group-hover:text-orange-700"
+    }
+  },
+];
+
+const CompanyItem = ({ item, onClick }) => {
+  const { name, href, icon, desc, colorScheme } = item;
+  const { bg, textColor, hoverBg, textHover } = colorScheme;
+
+  return (
+    <Link
+      href={href}
+      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-50/80 transition-all duration-200 group"
+      onClick={onClick}
+    >
+      <div className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}>
+        <i className={`${icon} ${textColor} text-sm`}></i>
+      </div>
+      <div className="flex-1">
+        <div className={`font-semibold text-gray-900 ${textHover} transition-colors`}>
+          {name}
+        </div>
+        <div className="text-xs text-gray-600 mt-1 leading-relaxed">
+          {desc}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+// Custom Hooks
+const useClickOutside = (refs, callback) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIndustriesOpen(false);
-      }
-      if (
-        productsDropdownRef.current &&
-        !productsDropdownRef.current.contains(event.target)
-      ) {
-        setProductsOpen(false);
+      const isOutside = refs.every(ref => 
+        ref.current && !ref.current.contains(event.target)
+      );
+      if (isOutside) {
+        callback();
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [refs, callback]);
+};
+
+const useScrollBehavior = () => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isOverHero, setIsOverHero] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // Check if navbar is over hero section (including cards - approximately 1.8x viewport height)
       const heroWithCardsHeight = window.innerHeight * 1.8;
+      
       setIsOverHero(currentScrollY < heroWithCardsHeight - 80);
 
       if (currentScrollY < lastScrollY) {
-        // Scrolling up
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down and past 100px
         setIsVisible(false);
       }
 
@@ -54,18 +574,78 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // Add this function
+  return { isVisible, isOverHero };
+};
+
+const Navbar = () => {
+  // State
+  const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Refs
+  const dropdownRef = useRef(null);
+  const productsDropdownRef = useRef(null);
+  const resourcesDropdownRef = useRef(null);
+  const companyDropdownRef = useRef(null);
+
+  // Custom hooks
+  const { isVisible, isOverHero } = useScrollBehavior();
+  
+  useClickOutside(
+    [dropdownRef, productsDropdownRef, resourcesDropdownRef, companyDropdownRef], 
+    () => {
+      setIndustriesOpen(false);
+      setProductsOpen(false);
+      setResourcesOpen(false);
+      setCompanyOpen(false);
+    }
+  );
+
+  // Event handlers
   const handleDropdownLinkClick = () => {
     setIndustriesOpen(false);
     setProductsOpen(false);
+    setResourcesOpen(false);
+    setCompanyOpen(false);
   };
 
-  return (
-    <nav
-      className={`fixed top-0 left-0 right-0 w-full px-6 py-3 flex items-center justify-between z-50 transition-all duration-300 ease-in-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
-      style={{
+  const toggleIndustries = () => {
+    setIndustriesOpen(!industriesOpen);
+    setProductsOpen(false);
+    setResourcesOpen(false);
+    setCompanyOpen(false);
+  };
+
+  const toggleProducts = () => {
+    setProductsOpen(!productsOpen);
+    setIndustriesOpen(false);
+    setResourcesOpen(false);
+    setCompanyOpen(false);
+  };
+
+  const toggleResources = () => {
+    setResourcesOpen(!resourcesOpen);
+    setIndustriesOpen(false);
+    setProductsOpen(false);
+    setCompanyOpen(false);
+  };
+
+  const toggleCompany = () => {
+    setCompanyOpen(!companyOpen);
+    setIndustriesOpen(false);
+    setProductsOpen(false);
+    setResourcesOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  // Styles
+  const navbarStyles = {
         background: isOverHero
           ? "rgba(15, 23, 42, 0.85)"
           : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
@@ -77,7 +657,17 @@ const Navbar = () => {
         boxShadow: isOverHero
           ? "0 4px 24px rgba(0, 0, 0, 0.1)"
           : "0 8px 32px rgba(0, 0, 0, 0.3)",
-      }}
+  };
+
+  const navItemClasses = "flex items-center gap-2 cursor-pointer transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white/10 group";
+  const fontStyle = { fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 500 };
+
+  return (
+    <nav
+      className={`fixed top-0 left-0 right-0 w-full px-6 py-3 flex items-center justify-between z-50 transition-all duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+      style={navbarStyles}
     >
       {/* Logo and Navigation Links */}
       <div className="flex items-center">
@@ -100,33 +690,18 @@ const Navbar = () => {
 
         {/* Navigation Links - Desktop */}
         <div className="hidden lg:flex items-center gap-8 ml-8">
-          <div
-            className="flex items-center gap-2 text-white text-[16px] font-medium tracking-wide"
-            style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontWeight: 500,
-            }}
-          >
-            {/* Industries with dropdown */}
+          <div className="flex items-center gap-2 text-white text-[16px] font-medium tracking-wide" style={fontStyle}>
+            
+            {/* Industries Dropdown */}
             <div className="relative" ref={dropdownRef}>
-              <div
-                className="flex items-center gap-2 cursor-pointer transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white/10 group"
-                onClick={() => {
-                  setIndustriesOpen(!industriesOpen);
-                  setProductsOpen(false);
-                }}
-              >
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  Industries
-                </span>
+              <div className={navItemClasses} onClick={toggleIndustries}>
+                <span className="group-hover:text-cyan-300 transition-colors">Industries</span>
                 <svg
                   width="16"
                   height="16"
                   fill="none"
                   viewBox="0 0 24 24"
-                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                    industriesOpen ? "rotate-180" : ""
-                  }`}
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${industriesOpen ? "rotate-180" : ""}`}
                 >
                   <path
                     d="M7 10l5 5 5-5"
@@ -137,1587 +712,36 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
+              
               {industriesOpen && (
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[1300px] min-h-[300px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 pt-8 pb-6 px-12 z-[9999] animate-fadeIn">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-2xl" />
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
                   <div className="relative z-10">
-                    <div className="grid grid-cols-4 gap-x-10 gap-y-8">
-                      {/* HVAC */}
-                      <Link
-                        href="/industry/hvac"
-                        className="flex items-start gap-4 no-underline p-4 rounded-xl hover:bg-blue-50/80 transition-all duration-200 group border border-transparent hover:border-blue-200/50 hover:shadow-md"
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {INDUSTRIES_DATA.map((industry) => (
+                        <IndustryItem
+                          key={industry.id}
+                          industry={industry}
                         onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 130 160"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_166">
-                                <rect
-                                  width="130"
-                                  height="160"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                              <clipPath id="__lottie_element_168">
-                                <path d="M0,0 L119,0 L119,160 L0,160z"></path>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_166)">
-                              <g
-                                clipPath="url(#__lottie_element_168)"
-                                transform="matrix(1,0,0,1,5.5,0)"
-                                opacity="1"
-                              >
-                                <g
-                                  transform="matrix(1,0,0,1,87.64,65.605)"
-                                  opacity="1"
-                                >
-                                  <g
-                                    opacity="1"
-                                    transform="matrix(0.5,-0.866,0.866,0.5,0,0)"
-                                  >
-                                    <path
-                                      fill="#23282b"
-                                      fillOpacity="1"
-                                      d=" M30.673-4.036C32.341-8.21 33.2-12.683 33.2-17.2 33.2-17.2 0-17.2 0-17.2 0-17.2-33.2-17.2-33.2-17.2-33.2-12.683-32.341-8.21-30.673-4.036-29.005 0.138-26.559 3.93-23.476 7.124-20.393 10.318-16.733 12.852-12.705 14.581-8.677 16.31-4.36 17.2 0 17.2 4.36 17.2 8.677 16.31 12.705 14.581 16.733 12.852 20.393 10.318 23.476 7.124 26.559 3.93 29.005 0.138 30.673-4.036z"
-                                    ></path>
-                                  </g>
-                                </g>
-                                <g
-                                  transform="matrix(-1,0,0,-1,31.496,94.049)"
-                                  opacity="1"
-                                >
-                                  <g
-                                    opacity="1"
-                                    transform="matrix(0.5,-0.866,0.866,0.5,0,0)"
-                                  >
-                                    <path
-                                      fill="#23282b"
-                                      fillOpacity="1"
-                                      d=" M30.673-4.036C32.341-8.21 33.2-12.683 33.2-17.2 33.2-17.2 0-17.2 0-17.2 0-17.2-33.2-17.2-33.2-17.2-33.2-12.683-32.341-8.21-30.673-4.036-29.005 0.138-26.559 3.93-23.476 7.124-20.393 10.318-16.733 12.852-12.705 14.581-8.677 16.31-4.36 17.2 0 17.2 4.36 17.2 8.677 16.31 12.705 14.581 16.733 12.852 20.393 10.318 23.476 7.124 26.559 3.93 29.005 0.138 30.673-4.036z"
-                                    ></path>
-                                  </g>
-                                </g>
-                                <g
-                                  transform="matrix(1,0,0,1,74.001,108.14)"
-                                  opacity="1"
-                                >
-                                  <g
-                                    opacity="1"
-                                    transform="matrix(0.866,0.5,-0.5,0.866,0,0)"
-                                  >
-                                    <path
-                                      fill="#23282b"
-                                      fillOpacity="1"
-                                      d=" M30.673-4.036C32.341-8.21 33.2-12.683 33.2-17.2 33.2-17.2 0-17.2 0-17.2 0-17.2-33.2-17.2-33.2-17.2-33.2-12.683-32.341-8.21-30.673-4.036-29.005 0.138-26.559 3.93-23.476 7.124-20.393 10.318-16.733 12.852-12.705 14.581-8.677 16.31-4.36 17.2 0 17.2 4.36 17.2 8.677 16.31 12.705 14.581 16.733 12.852 20.393 10.318 23.476 7.124 26.559 3.93 29.005 0.138 30.673-4.036z"
-                                    ></path>
-                                  </g>
-                                </g>
-                                <g
-                                  transform="matrix(-1,0,0,-1,45.557,51.996)"
-                                  opacity="1"
-                                >
-                                  <g
-                                    opacity="1"
-                                    transform="matrix(0.866,0.5,-0.5,0.866,0,0)"
-                                  >
-                                    <path
-                                      fill="#23282b"
-                                      fillOpacity="1"
-                                      d=" M30.673-4.036C32.341-8.21 33.2-12.683 33.2-17.2 33.2-17.2 0-17.2 0-17.2 0-17.2-33.2-17.2-33.2-17.2-33.2-12.683-32.341-8.21-30.673-4.036-29.005 0.138-26.559 3.93-23.476 7.124-20.393 10.318-16.733 12.852-12.705 14.581-8.677 16.31-4.36 17.2 0 17.2 4.36 17.2 8.677 16.31 12.705 14.581 16.733 12.852 20.393 10.318 23.476 7.124 26.559 3.93 29.005 0.138 30.673-4.036z"
-                                    ></path>
-                                  </g>
-                                </g>
-                                <g
-                                  transform="matrix(1,0,0,1,59.184,79.684)"
-                                  opacity="1"
-                                >
-                                  <g
-                                    opacity="1"
-                                    transform="matrix(1,0,0,1,0,0)"
-                                  >
-                                    <path
-                                      fill="white"
-                                      fillOpacity="1"
-                                      d=" M0-13.6315C7.523-13.6315 13.6315-7.5232 13.6315 0 13.6315 7.5232 7.523 13.6315 0 13.6315-7.523 13.6315-13.6315 0-13.6315-7.5232-7.523-13.6315 0-13.6315z"
-                                    ></path>
-                                  </g>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900 group-hover:text-blue-700 transition-colors">
-                            HVAC
-                          </div>
-                          <div className="text-gray-600 text-sm leading-relaxed group-hover:text-gray-700 transition-colors">
-                            Win more HVAC jobs and deliver an exceptional
-                            customer experience
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Plumbing */}
-                      <Link
-                        href="/industry/plumbing"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 130 160"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_111">
-                                <rect
-                                  width="130"
-                                  height="160"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_111)">
-                              <g
-                                transform="matrix(1,0,0,1,105.6,44.8)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M17.435667037963867,-4.8812689781188965 C17.747121810913086,-5.940217018127441 17.10379981994629,-6.800000190734863 16,-6.800000190734863 C16,-6.800000190734863 -16,-6.800000190734863 -16,-6.800000190734863 C-17.10379981994629,-6.800000190734863 -17.747121810913086,-5.940217018127441 -17.435667037963867,-4.8812689781188965 C-17.435667037963867,-4.8812689781188965 -14.564332962036133,4.8812689781188965 -14.564332962036133,4.8812689781188965 C-14.252877235412598,5.940217018127441 -13.103799819946289,6.800000190734863 -12,6.800000190734863 C-12,6.800000190734863 12,6.800000190734863 12,6.800000190734863 C13.103799819946289,6.800000190734863 14.252877235412598,5.940217018127441 14.564332962036133,4.8812689781188965 C14.564332962036133,4.8812689781188965 17.435667037963867,-4.8812689781188965 17.435667037963867,-4.8812689781188965z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,24,96.8)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M15.32699966430664,6.800000190734863 C16.66200065612793,6.800000190734863 17.62299919128418,5.517000198364258 17.246000289916992,4.236000061035156 C17.246000289916992,4.236000061035156 14.42199993133545,-5.363999843597412 14.42199993133545,-5.363999843597412 C14.17199993133545,-6.215000152587891 13.390999794006348,-6.800000190734863 12.503999710083008,-6.800000190734863 C12.503999710083008,-6.800000190734863 -12.503999710083008,-6.800000190734863 -12.503999710083008,-6.800000190734863 C-13.390999794006348,-6.800000190734863 -14.17199993133545,-6.215000152587891 -14.42199993133545,-5.363999843597412 C-14.42199993133545,-5.363999843597412 -17.246000289916992,4.236000061035156 -17.246000289916992,4.236000061035156 C-17.62299919128418,5.517000198364258 -16.66200065612793,6.800000190734863 -15.32699966430664,6.800000190734863 C-15.32699966430664,6.800000190734863 15.32699966430664,6.800000190734863 15.32699966430664,6.800000190734863z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g transform="matrix(1,0,0,1,65,75)" opacity="1">
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    strokeLinecap="butt"
-                                    strokeLinejoin="miter"
-                                    fillOpacity="0"
-                                    strokeMiterlimit="4"
-                                    stroke="#23282B"
-                                    strokeOpacity="1"
-                                    strokeWidth="24"
-                                    d=" M41,-18 C41,-18 41,14.5 41,14.5 C41,25.82200050354004 31.82200050354004,35 20.5,35 C9.178000450134277,35 0,25.82200050354004 0,14.5 C0,14.5 0,-14.5 0,-14.5 C0,-25.82200050354004 -9.178000450134277,-35 -20.5,-35 C-31.82200050354004,-35 -41,-25.82200050354004 -41,-14.5 C-41,-14.5 -41,10 -41,10"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,85.5,120)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M0,26 C9.664999961853027,26 17.5,17.93400001525879 17.5,7.984000205993652 C17.5,-11.670000076293945 0,-26 0,-26 C0,-26 -17.5,-8.803000450134277 -17.5,7.984000205993652 C-17.5,17.93400001525879 -9.664999961853027,26 0,26z"
-                                  ></path>
-                                  <path
-                                    strokeLinecap="butt"
-                                    strokeLinejoin="miter"
-                                    fillOpacity="0"
-                                    strokeMiterlimit="4"
-                                    stroke="#fff"
-                                    strokeOpacity="1"
-                                    strokeWidth="8"
-                                    d=" M0,26 C9.664999961853027,26 17.5,17.93400001525879 17.5,7.984000205993652 C17.5,-11.670000076293945 0,-26 0,-26 C0,-26 -17.5,-8.803000450134277 -17.5,7.984000205993652 C-17.5,17.93400001525879 -9.664999961853027,26 0,26z"
-                                  ></path>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Plumbing
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Automate your daily plumbing tasks and get back out
-                            in the field faster
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Electrician */}
-                      <Link
-                        href="/industry/electricians"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span className="mt-1 text-2xl text-gray-800">
-                          <svg
-                            width="32"
-                            height="32"
-                            fill="#23282B"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M13 2L3 14h7v8l10-12h-7z" />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Electrician
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Improve your electric companies efficiency and
-                            increase profits by 22%
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Garage door */}
-                      <Link
-                        href="/industry/garage-door-repair"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 130 160"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_140">
-                                <rect
-                                  width="130"
-                                  height="160"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_140)">
-                              <g transform="matrix(1,0,0,1,65,96)" opacity="1">
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M17.25,2.8570001125335693 C17.25,4.464000225067139 15.902000427246094,5.714000225067139 14.375,5.714000225067139 C12.758000373840332,5.714000225067139 11.5,4.464000225067139 11.5,2.8570001125335693 C11.5,1.3389999866485596 12.758000373840332,0 14.375,0 C15.902000427246094,0 17.25,1.3389999866485596 17.25,2.8570001125335693z M-17.25,2.8570001125335693 C-17.25,1.3389999866485596 -15.991999626159668,0 -14.375,0 C-12.847999572753906,0 -11.5,1.3389999866485596 -11.5,2.8570001125335693 C-11.5,4.464000225067139 -12.847999572753906,5.714000225067139 -14.375,5.714000225067139 C-15.991999626159668,5.714000225067139 -17.25,4.464000225067139 -17.25,2.8570001125335693z M13.116999626159668,-5.714000225067139 C13.116999626159668,-5.714000225067139 -13.206999778747559,-5.714000225067139 -13.206999778747559,-5.714000225067139 C-13.206999778747559,-5.714000225067139 -10.871000289916992,-12.321000099182129 -10.871000289916992,-12.321000099182129 C-10.51200008392334,-13.482000350952148 -9.434000015258789,-14.28600025177002 -8.175999641418457,-14.28600025177002 C-8.175999641418457,-14.28600025177002 8.086000442504883,-14.28600025177002 8.086000442504883,-14.28600025177002 C9.343999862670898,-14.28600025177002 10.42199993133545,-13.482000350952148 10.781000137329102,-12.321000099182129 C10.781000137329102,-12.321000099182129 13.116999626159668,-5.714000225067139 13.116999626159668,-5.714000225067139z M-16.351999282836914,-14.196000099182129 C-16.351999282836914,-14.196000099182129 -19.496000289916992,-5.26800012588501 -19.496000289916992,-5.26800012588501 C-21.562000274658203,-4.375 -23,-2.321000099182129 -23,0 C-23,0 -23,17.14299964904785 -23,17.14299964904785 C-23,18.75 -21.742000579833984,20 -20.125,20 C-20.125,20 -17.25,20 -17.25,20 C-15.722999572753906,20 -14.375,18.75 -14.375,17.14299964904785 C-14.375,17.14299964904785 -14.375,12.857000350952148 -14.375,12.857000350952148 C-14.375,12.857000350952148 14.375,12.857000350952148 14.375,12.857000350952148 C14.375,12.857000350952148 14.375,17.14299964904785 14.375,17.14299964904785 C14.375,18.75 15.633000373840332,20 17.25,20 C17.25,20 20.125,20 20.125,20 C21.652000427246094,20 23,18.75 23,17.14299964904785 C23,17.14299964904785 23,0 23,0 C23,-2.321000099182129 21.472000122070312,-4.375 19.4060001373291,-5.26800012588501 C19.4060001373291,-5.26800012588501 16.261999130249023,-14.196000099182129 16.261999130249023,-14.196000099182129 C15.003999710083008,-17.67799949645996 11.770000457763672,-20 8.086000442504883,-20 C8.086000442504883,-20 -8.175999641418457,-20 -8.175999641418457,-20 C-11.859999656677246,-20 -15.093999862670898,-17.67799949645996 -16.351999282836914,-14.196000099182129z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,66,85.19999694824219)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M-28,-42.400001525878906 C-32.417999267578125,-42.400001525878906 -36,-38.81800079345703 -36,-34.400001525878906 C-36,-34.400001525878906 -36,24.399999618530273 -36,24.399999618530273 C-36,28.81800079345703 -32.417999267578125,32.400001525878906 -28,32.400001525878906 C-28,32.400001525878906 28,32.400001525878906 28,32.400001525878906 C32.417999267578125,32.400001525878906 36,28.81800079345703 36,24.399999618530273 C36,24.399999618530273 36,-34.400001525878906 36,-34.400001525878906 C36,-38.81800079345703 32.417999267578125,-42.400001525878906 28,-42.400001525878906 C28,-42.400001525878906 -28,-42.400001525878906 -28,-42.400001525878906z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,65.5999984741211,62.80099868774414)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#ffffff"
-                                    fillOpacity="1"
-                                    d=" M6.921999931335449,-24.56999969482422 C2.630000114440918,-27.01099967956543 -2.630000114440918,-27.01099967956543 -6.921999931335449,-24.56999969482422 C-6.921999931335449,-24.56999969482422 -50.52199935913086,0.23000000417232513 -50.52199935913086,0.23000000417232513 C-57.24300003051758,4.052999973297119 -59.59199905395508,12.600000381469727 -55.76900100708008,19.320999145507812 C-51.94599914550781,26.04199981689453 -43.39899826049805,28.391000747680664 -36.678001403808594,24.56800079345703 C-36.678001403808594,24.56800079345703 0,3.7049999237060547 0,3.7049999237060547 C0,3.7049999237060547 36.678001403808594,24.56800079345703 36.678001403808594,24.56800079345703 C43.39899826049805,28.391000747680664 51.94599914550781,26.04199981689453 55.76900100708008,19.320999145507812 C59.59199905395508,12.600000381469727 57.24300003051758,4.052999973297119 50.52199935913086,0.23000000417232513 C50.52199935913086,0.23000000417232513 6.921999931335449,-24.56999969482422 6.921999931335449,-24.56999969482422z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,65.5999984741211,52.4010009765625)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M6.921999931335449,-24.56999969482422 C2.630000114440918,-27.01099967956543 -2.630000114440918,-27.01099967956543 -6.921999931335449,-24.56999969482422 C-6.921999931335449,-24.56999969482422 -50.52199935913086,0.23000000417232513 -50.52199935913086,0.23000000417232513 C-57.24300003051758,4.052999973297119 -59.59199905395508,12.600000381469727 -55.76900100708008,19.320999145507812 C-51.94599914550781,26.04199981689453 -43.39899826049805,28.391000747680664 -36.678001403808594,24.56800079345703 C-36.678001403808594,24.56800079345703 0,3.7049999237060547 0,3.7049999237060547 C0,3.7049999237060547 36.678001403808594,24.56800079345703 36.678001403808594,24.56800079345703 C43.39899826049805,28.391000747680664 51.94599914550781,26.04199981689453 55.76900100708008,19.320999145507812 C59.59199905395508,12.600000381469727 57.24300003051758,4.052999973297119 50.52199935913086,0.23000000417232513 C50.52199935913086,0.23000000417232513 6.921999931335449,-24.56999969482422 6.921999931335449,-24.56999969482422z"
-                                  ></path>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Garage door
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Streamline operations and make your garage door
-                            business work for you
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Locksmith */}
-                      <Link
-                        href="/industry/locksmith"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 113 160"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_153">
-                                <rect
-                                  width="113"
-                                  height="160"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_153)">
-                              <g
-                                transform="matrix(1,0,0,1,39.79999542236328,58.367000579833984)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282B"
-                                    fillOpacity="1"
-                                    d=" M0,-38.367000579833984 C-21.429000854492188,-38.367000579833984 -38.79999923706055,-20.996000289916992 -38.79999923706055,0.43299999833106995 C-38.79999923706055,0.43299999833106995 -38.79999923706055,34.361000061035156 -38.79999923706055,34.361000061035156 C-38.79999923706055,37.334999084472656 -35.67100143432617,39.26900100708008 -33.01100158691406,37.93899917602539 C-33.01100158691406,37.93899917602539 -18.611000061035156,30.73900032043457 -18.611000061035156,30.73900032043457 C-17.256000518798828,30.06100082397461 -16.399999618530273,28.676000595092773 -16.399999618530273,27.160999298095703 C-16.399999618530273,27.160999298095703 -16.399999618530273,0.43299999833106995 -16.399999618530273,0.43299999833106995 C-16.399999618530273,-8.62399959564209 -9.057000160217285,-15.967000007629395 0,-15.967000007629395 C9.057000160217285,-15.967000007629395 16.399999618530273,-8.62399959564209 16.399999618530273,0.43299999833106995 C16.399999618530273,0.43299999833106995 16.399999618530273,3.632999897003174 16.399999618530273,3.632999897003174 C16.399999618530273,5.8420000076293945 18.19099998474121,7.632999897003174 20.399999618530273,7.632999897003174 C20.399999618530273,7.632999897003174 34.79999923706055,7.632999897003174 34.79999923706055,7.632999897003174 C37.00899887084961,7.632999897003174 38.79999923706055,5.8420000076293945 38.79999923706055,3.632999897003174 C38.79999923706055,3.632999897003174 38.79999923706055,0.43299999833106995 38.79999923706055,0.43299999833106995 C38.79999923706055,-20.996000289916992 21.429000854492188,-38.367000579833984 0,-38.367000579833984z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,69.49999237060547,104.5)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M0.5,-16.15399932861328 C-4.870999813079834,-16.15399932861328 -9.22599983215332,-11.8149995803833 -9.22599983215332,-6.461999893188477 C-9.22599983215332,-3.2980000972747803 -7.704999923706055,-0.4869999885559082 -5.35099983215332,1.281999945640564 C-5.35099983215332,1.281999945640564 -7.818999767303467,15.041999816894531 -7.818999767303467,15.041999816894531 C-8.008999824523926,16.10300064086914 -7.190000057220459,17.07699966430664 -6.109000205993652,17.07699966430664 C-6.109000205993652,17.07699966430664 7.743000030517578,17.07699966430664 7.743000030517578,17.07699966430664 C8.845000267028809,17.07699966430664 9.666999816894531,16.069000244140625 9.442999839782715,14.994000434875488 C9.442999839782715,14.994000434875488 6.547999858856201,1.1299999952316284 6.547999858856201,1.1299999952316284 C8.788999557495117,-0.6460000276565552 10.22599983215332,-3.38700008392334 10.22599983215332,-6.461999893188477 C10.22599983215332,-11.8149995803833 5.870999813079834,-16.15399932861328 0.5,-16.15399932861328z M-39,-17.231000900268555 C-39,-23.179000854492188 -34.1619987487793,-28 -28.194000244140625,-28 C-28.194000244140625,-28 28.194000244140625,-28 28.194000244140625,-28 C34.1619987487793,-28 39,-23.179000854492188 39,-17.231000900268555 C39,-17.231000900268555 39,17.231000900268555 39,17.231000900268555 C39,23.179000854492188 34.1619987487793,28 28.194000244140625,28 C28.194000244140625,28 -28.194000244140625,28 -28.194000244140625,28 C-34.1619987487793,28 -39,23.179000854492188 -39,17.231000900268555 C-39,17.231000900268555 -39,-17.231000900268555 -39,-17.231000900268555z"
-                                  ></path>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Locksmith
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Get paid in the field faster and win more locksmith
-                            jobs
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Junk removal */}
-                      <Link
-                        href="/industry/junk-removal"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 133 160"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_160">
-                                <rect
-                                  width="133"
-                                  height="160"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_160)">
-                              <g
-                                transform="matrix(1,0,0,1,113.69999694824219,81.0999984741211)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M-0.1509999930858612,-23.600000381469727 C-0.1509999930858612,-23.600000381469727 -16.799999237060547,-23.600000381469727 -16.799999237060547,-23.600000381469727 C-16.799999237060547,-23.600000381469727 -16.799999237060547,23.600000381469727 -16.799999237060547,23.600000381469727 C-16.799999237060547,23.600000381469727 16.799999237060547,23.600000381469727 16.799999237060547,23.600000381469727 C16.799999237060547,23.600000381469727 16.799999237060547,-2.184999942779541 16.799999237060547,-2.184999942779541 C16.799999237060547,-2.184999942779541 -0.1509999930858612,-23.600000381469727 -0.1509999930858612,-23.600000381469727z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,50.46099853515625,64.61399841308594)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282B"
-                                    fillOpacity="1"
-                                    d=" M38.56100082397461,-32.472999572753906 C38.56100082397461,-35.20000076293945 35.89699935913086,-37.08100128173828 33.31100082397461,-36.18000030517578 C33.31100082397461,-36.18000030517578 18.92099952697754,-31.167999267578125 18.92099952697754,-31.167999267578125 C17.284000396728516,-30.597999572753906 16.177000045776367,-29.04599952697754 16.177000045776367,-27.319000244140625 C16.177000045776367,-27.319000244140625 16.177000045776367,13.913999557495117 16.177000045776367,13.913999557495117 C16.177000045776367,13.913999557495117 -13.836000442504883,13.812000274658203 -13.836000442504883,13.812000274658203 C-13.836000442504883,13.812000274658203 -17.702999114990234,4.980000019073486 -17.702999114990234,4.980000019073486 C-18.583999633789062,2.9690001010894775 -20.940000534057617,2.0820000171661377 -22.964000701904297,3 C-22.964000701904297,3 -36.15800094604492,8.980999946594238 -36.15800094604492,8.980999946594238 C-38.18199920654297,9.89900016784668 -39.11000061035156,12.27299976348877 -38.229000091552734,14.284000396728516 C-38.229000091552734,14.284000396728516 -28.639999389648438,36.178001403808594 -28.639999389648438,36.178001403808594 C-28.639999389648438,36.178001403808594 38.5620002746582,36.40800094604492 38.5620002746582,36.40800094604492 C38.5620002746582,36.40800094604492 38.56100082397461,-32.472999572753906 38.56100082397461,-32.472999572753906z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g transform="matrix(1,0,0,1,48,107)" opacity="1">
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#ffffff"
-                                    fillOpacity="1"
-                                    d=" M0,-21 C11.589900016784668,-21 21,-11.589900016784668 21,0 C21,11.589900016784668 11.589900016784668,21 0,21 C-11.589900016784668,21 -21,11.589900016784668 -21,0 C-21,-11.589900016784668 -11.589900016784668,-21 0,-21z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,47.79999923706055,107.4000015258789)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M0,-13 C7.174699783325195,-13 13,-7.174699783325195 13,0 C13,7.174699783325195 7.174699783325195,13 0,13 C-7.174699783325195,13 -13,7.174699783325195 -13,0 C-13,-7.174699783325195 -7.174699783325195,-13 0,-13z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,102,109)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#ffffff"
-                                    fillOpacity="1"
-                                    d=" M0,-21 C11.589900016784668,-21 21,-11.589900016784668 21,0 C21,11.589900016784668 11.589900016784668,21 0,21 C-11.589900016784668,21 -21,11.589900016784668 -21,0 C-21,-11.589900016784668 -21 0,-21z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,101.91400146484375,109.25)"
-                                opacity="1"
-                              >
-                                <g
-                                  opacity="1"
-                                  transform="matrix(0.9870887994766235,-0.16017407178878784,0.16017407178878784,0.9870887994766235,0,0)"
-                                >
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M0,-13 C7.174699783325195,-13 13,-7.174699783325195 13,0 C13,7.174699783325195 7.174699783325195,13 0,13 C-7.174699783325195,13 -13,7.174699783325195 -13,0 C-13,-7.174699783325195 -7.174699783325195,-13 0,-13z"
-                                  ></path>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Junk removal
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Get your entire junk removal team working together
-                            at maximum efficiency
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Appliance Repair */}
-                      <Link
-                        href="/industry/appliance-repair"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 120 120"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_179">
-                                <rect
-                                  width="120"
-                                  height="120"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_179)">
-                              <g
-                                transform="matrix(1,0,0,1,62.231998443603516,57.702999114990234)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282B"
-                                    fillOpacity="1"
-                                    d=" M39.34600067138672,-25.052000045776367 C40.1609992980957,-25.731000900268555 41.382999420166016,-25.594999313354492 41.790000915527344,-24.509000778198242 C41.790000915527344,-24.509000778198242 41.79100036621094,-24.510000228881836 41.79100036621094,-24.510000228881836 C42.470001220703125,-22.20199966430664 42.875999450683594,-19.756999969482422 42.742000579833984,-17.17799949645996 C42.742000579833984,-1.9700000286102295 29.707000732421875,10.114999771118164 14.227999687194824,8.350000381469727 C11.920000076293945,7.942999839782715 9.611000061035156,7.534999847412109 7.438000202178955,6.584000110626221 C7.438000202178955,6.584000110626221 -25.69300079345703,39.71500015258789 -25.69300079345703,39.71500015258789 C-27.5939998626709,41.61600112915039 -30.309999465942383,42.702999114990234 -32.75400161743164,42.702999114990234 C-35.19900131225586,42.702999114990234 -37.91400146484375,41.61600112915039 -39.814998626708984,39.71500015258789 C-43.75199890136719,35.91299819946289 -43.75199890136719,29.5310001373291 -39.814998626708984,25.5939998626709 C-39.814998626708984,25.5939998626709 -6.547999858856201,-7.39900016784668 -6.547999858856201,-7.39900016784668 C-7.36299991607666,-9.571999549865723 -7.906000137329102,-11.744000434875488 -8.312999725341797,-14.187999725341797 C-10.07800006866455,-29.66699981689453 2.1419999599456787,-42.702999114990234 17.214000701904297,-42.702999114990234 C19.658000946044922,-42.702999114990234 22.374000549316406,-42.29499816894531 24.81800079345703,-41.61600112915039 C25.76799964904785,-41.073001861572266 26.040000915527344,-39.85200119018555 25.361000061035156,-39.17300033569336 C25.361000061035156,-39.17300033569336 10.696000099182129,-24.780000686645508 10.696000099182129,-24.780000686645508 C9.609999656677246,-23.69499969482422 9.609999656677246,-21.929000854492188 10.696000099182129,-20.843000411987305 C10.696000099182129,-20.843000411987305 20.8799991607666,-10.659000396728516 20.8799991607666,-10.659000396728516 C21.96500015258789,-9.572999954223633 23.731000900268555,-9.572999954223633 24.816999435424805,-10.659000396728516 C24.816999435424805,-10.659000396728516 39.34600067138672,-25.052000045776367 39.34600067138672,-25.052000045776367z M-33.189998626708984,37.6510009765625 C-30.451000213623047,37.6510009765625 -28.23200035095215,35.430999755859375 -28.23200035095215,32.69200134277344 C-28.23200035095215,29.952999114990234 -30.451000213623047,27.733999252319336 -33.189998626708984,27.733999252319336 C-35.92900085449219,27.733999252319336 -38.14899826049805,29.952999114990234 -38.14899826049805,32.69200134277344 C-38.14899826049805,35.430999755859375 -35.92900085449219,37.6510009765625 -33.189998626708984,37.6510009765625z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1,0,0,1,60.45600128173828,61.1879997253418)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282b"
-                                    fillOpacity="1"
-                                    d=" M44.45600128173828,26.558000564575195 C44.45600128173828,26.558000564575195 25.981000900268555,43.87799835205078 25.981000900268555,43.87799835205078 C25.981000900268555,43.87799835205078 -4.040999889373779,13.855999946594238 -4.040999889373779,13.855999946594238 C-4.040999889373779,13.855999946594238 -2.9809999465942383,7.2870001792907715 -2.9809999465942383,7.2870001792907715 C-2.9809999465942383,7.2870001792907715 -21.45599937438965,-11.187999725341797 -21.45599937438965,-11.187999725341797 C-21.45599937438965,-11.187999725341797 -30.599000930786133,-12.70199966430664 -30.599000930786133,-12.70199966430664 C-30.599000930786133,-12.70199966430664 -44.45600128173828,-32.909000396728516 -44.45600128173828,-32.909000396728516 C-44.45600128173828,-32.909000396728516 -33.486000061035156,-43.87799835205078 -33.486000061035156,-43.87799835205078 C-33.486000061035156,-43.87799835205078 -12.70199966430664,-29.44499969482422 -12.70199966430664,-29.44499969482422 C-12.70199966430664,-29.44499969482422 -11.854000091552734,-19.843000411987305 -11.854000091552734,-19.843000411987305 C-11.854000091552734,-19.843000411987305 6.044000148773193,-1.687999963760376 6.044000148773193,-1.687999963760376 C6.044000148773193,-1.687999963760376 13.279000282287598,-4.040999889373779 13.279000282287598,-4.040999889373779 C13.279000282287598,-4.040999889373779 44.45600128173828,26.558000564575195 44.45600128173828,26.558000564575195z"
-                                  ></path>
-                                  <path
-                                    strokeLinecap="butt"
-                                    strokeLinejoin="miter"
-                                    fillOpacity="0"
-                                    strokeMiterlimit="4"
-                                    stroke="#ffffff"
-                                    strokeOpacity="1"
-                                    strokeWidth="4"
-                                    d=" M44.45600128173828,26.558000564575195 C44.45600128173828,26.558000564575195 25.981000900268555,43.87799835205078 25.981000900268555,43.87799835205078 C25.981000900268555,43.87799835205078 -4.040999889373779,13.855999946594238 -4.040999889373779,13.855999946594238 C-4.040999889373779,13.855999946594238 -2.9809999465942383,7.2870001792907715 -2.9809999465942383,7.2870001792907715 C-2.9809999465942383,7.2870001792907715 -21.45599937438965,-11.187999725341797 -21.45599937438965,-11.187999725341797 C-21.45599937438965,-11.187999725341797 -30.599000930786133,-12.70199966430664 -30.599000930786133,-12.70199966430664 C-30.599000930786133,-12.70199966430664 -44.45600128173828,-32.909000396728516 -44.45600128173828,-32.909000396728516 C-44.45600128173828,-32.909000396728516 -33.486000061035156,-43.87799835205078 -33.486000061035156,-43.87799835205078 C-33.486000061035156,-43.87799835205078 -12.70199966430664,-29.44499969482422 -12.70199966430664,-29.44499969482422 C-12.70199966430664,-29.44499969482422 -11.854000091552734,-19.843000411987305 -11.854000091552734,-19.843000411987305 C-11.854000091552734,-19.843000411987305 6.044000148773193,-1.687999963760376 6.044000148773193,-1.687999963760376 C6.044000148773193,-1.687999963760376 13.279000282287598,-4.040999889373779 13.279000282287598,-4.040999889373779 C13.279000282287598,-4.040999889373779 44.45600128173828,26.558000564575195 44.45600128173828,26.558000564575195z"
-                                  ></path>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Appliance Repair
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Streamline your appliance repair operations and
-                            increase productivity
-                          </div>
-                        </div>
-                      </Link>
-                      {/* All industries */}
-                      <Link
-                        href="/industry/all-industries"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 120 160"
-                            width="32"
-                            height="40"
-                            preserveAspectRatio="xMidYMid meet"
-                          >
-                            <defs>
-                              <clipPath id="__lottie_element_186">
-                                <rect
-                                  width="120"
-                                  height="160"
-                                  x="0"
-                                  y="0"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                            <g clipPath="url(#__lottie_element_186)">
-                              <g transform="matrix(1,0,0,1,60,80)" opacity="1">
-                                <g
-                                  opacity="1"
-                                  transform="matrix(1,0,0,1,0,0)"
-                                ></g>
-                              </g>
-                              <g
-                                transform="matrix(1.1883217096328735,0.16700772941112518,-0.16700772941112518,1.1883217096328735,40.05500030517578,103.0530014038086)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="rgb(78,100,109)"
-                                    fillOpacity="1"
-                                    d=" M-10.329999923706055,0.02800000086426735 C-10.329999923706055,4.501999855041504 -6.739999771118164,10.232000350952148 -0.11999999731779099,10.232000350952148 C6.5,10.232000350952148 10.09000015258789,4.001999855041504 10.09000015258789,0.02800000086426735 C10.09000015258789,-3.946000099182129 7.5,-10.178000450134277 -0.11999999731779099,-10.178000450134277 C-7.739999771118164,-10.178000450134277 -10.329999923706055,-4.446000099182129 -10.329999923706055,0.02800000086426735z M25.929000854492188,1.3309999704360962 C25.929000854492188,1.3309999704360962 30.559999465942383,5.815999984741211 30.559999465942383,5.815999984741211 C30.9950008392334,6.250999927520752 31.138999938964844,6.829999923706055 30.850000381469727,7.264999866485596 C30.850000381469727,7.264999866485596 28.679000854492188,13.631999969482422 28.679000854492188,13.631999969482422 C28.389999389648438,14.211000442504883 27.954999923706055,14.645999908447266 27.375999450683594,14.645999908447266 C27.375999450683594,14.645999908447266 21.009000778198242,15.223999977111816 21.009000778198242,15.223999977111816 C19.85099983215332,16.67099952697754 18.54800033569336,17.974000930786133 17.246000289916992,19.275999069213867 C17.246000289916992,19.275999069213867 17.391000747680664,25.64299964904785 17.391000747680664,25.64299964904785 C17.391000747680664,26.222000122070312 17.10099983215332,26.656999588012695 16.52199935913086,26.945999145507812 C16.52199935913086,26.945999145507812 10.444000244140625,29.84000015258789 10.444000244140625,29.84000015258789 C9.864999771118164,30.128999710083008 9.28600025177002,30.128999710083008 8.85200023651123,29.69499969482422 C8.85200023651123,29.69499969482422 3.931999921798706,25.643999099731445 3.931999921798706,25.643999099731445 C2.0510001182556152,25.933000564575195 0.3140000104904175,25.933000564575195 -1.5670000314712524,25.933000564575195 C-1.5670000314712524,25.933000564575195 -6.052999973297119,30.56399917602539 -6.052999973297119,30.56399917602539 C-6.3420000076293945,30.85300064086914 -6.631999969482422,30.99799919128418 -7.065999984741211,30.99799919128418 C-7.210999965667725,30.99799919128418 -7.355000019073486,30.85300064086914 -7.5,30.85300064086914 C-7.5,30.85300064086914 -13.866999626159668,28.68199920654297 -13.866999626159668,28.68199920654297 C-14.446000099182129,28.53700065612793 -14.880000114440918,28.104000091552734 -14.880000114440918,27.524999618530273 C-14.880000114440918,27.524999618530273 -15.458999633789062,21.156999588012695 -15.458999633789062,21.156999588012695 C-16.9060001373291,20.143999099731445 -18.208999633789062,18.986000061035156 -19.51099967956543,17.538999557495117 C-19.51099967956543,17.538999557495117 -25.878000259399414,17.68400001525879 -25.878000259399414,17.68400001525879 C-26.457000732421875,17.68400001525879 -26.892000198364258,17.249000549316406 -27.180999755859375,16.815000534057617 C-27.180999755859375,16.815000534057617 -30.075000762939453,10.737000465393066 -30.075000762939453,10.737000465393066 C-30.36400032043457,10.157999992370605 -30.36400032043457,9.579000473022461 -29.93000030517578,9.145000457763672 C-29.93000030517578,9.145000457763672 -25.878000259399414,4.224999904632568 -25.878000259399414,4.224999904632568 C-26.16699981689453,2.489000082015991 -26.312999725341797,0.6069999933242798 -26.167999267578125,-1.2740000486373901 C-26.167999267578125,-1.2740000486373901 -30.65399932861328,-5.760000228881836 -30.65399932861328,-5.760000228881836 C-30.94300079345703,-6.048999786376953 -31.08799934387207,-6.627999782562256 -30.94300079345703,-7.206999778747559 C-30.94300079345703,-7.206999778747559 -28.77199935913086,-13.574000358581543 -28.77199935913086,-13.574000358581543 C-28.62700080871582,-14.152999877929688 -28.194000244140625,-14.586999893188477 -27.614999771118164,-14.586999893188477 C-27.614999771118164,-14.586999893188477 -21.246999740600586,-15.166999816894531 -21.246999740600586,-15.166999816894531 C-20.09000015258789,-16.61400032043457 -18.93199920654297,-18.06100082397461 -17.483999252319336,-19.36400032043457 C-17.483999252319336,-19.36400032043457 -17.628999710083008,-25.731000900268555 -17.628999710083008,-25.731000900268555 C-17.628999710083008,-26.309999465942383 -17.339000701904297,-26.7450008392334 -16.760000228881836,-27.034000396728516 C-16.760000228881836,-27.034000396728516 -10.682000160217285,-29.92799949645996 -10.682000160217285,-29.92799949645996 C-10.102999687194824,-30.216999053955078 -9.524999618530273,-30.216999053955078 -9.090999603271484,-29.783000946044922 C-9.090999603271484,-29.783000946044922 -4.170000076293945,-25.731000900268555 -4.170000076293945,-25.731000900268555 C-2.434000015258789,-26.020000457763672 -0.5519999861717224,-26.166000366210938 1.3289999961853027,-26.020999908447266 C1.3289999961853027,-26.020999908447266 5.814000129699707,-30.652000427246094 5.814000129699707,-30.652000427246094 C6.103000164031982,-30.94099998474121 6.682000160217285,-31.086000442504883 7.261000156402588,-30.94099998474121 C7.261000156402588,-30.94099998474121 13.628999710083008,-28.770000457763672 13.628999710083008,-28.770000457763672 C14.208000183105469,-28.481000900268555 14.642000198364258,-28.047000885009766 14.642000198364258,-27.468000411987305 C14.642000198364258,-27.468000411987305 15.220999717712402,-21.100000381469727 15.220999717712402,-21.100000381469727 C16.667999267578125,-20.086999893188477 17.969999313354492,-18.784000396728516 19.27199935913086,-17.48200035095215 C19.27199935913086,-17.48200035095215 25.639999389648438,-17.62700080871582 25.639999389648438,-17.62700080871582 C26.2189998626709,-17.62700080871582 26.652999877929688,-17.19300079345703 26.941999435424805,-16.759000778198242 C26.941999435424805,-16.759000778198242 29.836000442504883,-10.680000305175781 29.836000442504883,-10.680000305175781 C30.125,-10.10099983215332 30.125999450683594,-9.52299976348877 29.691999435424805,-9.08899974822998 C29.691999435424805,-9.08899974822998 25.639999389648438,-4.168000221252441 25.639999389648438,-4.168000221252441 C25.929000854492188,-2.2869999408721924 26.073999404907227,-0.550000011920929 25.929000854492188,1.3309999704360962z"
-                                  ></path>
-                                </g>
-                              </g>
-                              <g
-                                transform="matrix(1.153363823890686,-0.33128824830055237,0.33128824830055237,1.153363823890686,89.95500183105469,58.95399856567383)"
-                                opacity="1"
-                              >
-                                <g opacity="1" transform="matrix(1,0,0,1,0,0)">
-                                  <path
-                                    fill="#23282B"
-                                    fillOpacity="1"
-                                    d=" M-7.664000034332275,0.020999999716877937 C-7.664000034332275,3.3399999141693115 -5,7.5920000076293945 -0.08900000154972076,7.5920000076293945 C4.822000026702881,7.5920000076293945 7.486000061035156,2.9690001010894775 7.486000061035156,0.020999999716877937 C7.486000061035156,-2.927000045776367 5.564000129699707,-7.551000118255615 -0.08900000154972076,-7.551000118255615 C-5.742000102996826,-7.551000118255615 -7.664000034332275,-3.2980000972747803 -7.664000034332275,0.020999999716877937z M19.238000869750977,0.9869999885559082 C19.238000869750977,0.9869999885559082 22.67300033569336,4.315000057220459 22.67300033569336,4.315000057220459 C22.9950008392334,4.63700008392334 23.10300064086914,5.066999912261963 22.88800048828125,5.389999866485596 C22.88800048828125,5.389999866485596 21.277999877929688,10.11400032043457 21.277999877929688,10.11400032043457 C21.062999725341797,10.543999671936035 20.739999771118164,10.866000175476074 20.31100082397461,10.866000175476074 C20.31100082397461,10.866000175476074 15.586999893188477,11.295000076293945 15.586999893188477,11.295000076293945 C14.727999687194824,12.369000434875488 13.76099967956543,13.335000038146973 12.795000076293945,14.300999641418457 C12.795000076293945,14.300999641418457 12.902999877929688,19.025999069213867 12.902999877929688,19.025999069213867 C12.902999877929688,19.454999923706055 12.687000274658203,19.777000427246094 12.258000373840332,19.992000579833984 C12.258000373840332,19.992000579833984 7.749000072479248,22.138999938964844 7.749000072479248,22.138999938964844 C7.320000171661377,22.354000091552734 6.889999866485596,22.354000091552734 6.567999839782715,22.031999588012695 C6.567999839782715,22.031999588012695 2.9170000553131104,19.025999069213867 2.9170000553131104,19.025999069213867 C1.5210000276565552,19.240999221801758 0.23199999332427979,19.239999771118164 -1.1629999876022339,19.239999771118164 C-1.1629999876022339,19.239999771118164 -4.491000175476074,22.677000045776367 -4.491000175476074,22.677000045776367 C-4.705999851226807,22.892000198364258 -4.920000076293945,22.99799919128418 -5.242000102996826,22.99799919128418 C-5.348999977111816,22.99799919128418 -5.456999778747559,22.891000747680664 -5.564000129699707,22.891000747680664 C-5.564000129699707,22.891000747680664 -10.288999557495117,21.280000686645508 -10.288999557495117,21.280000686645508 C-10.718999862670898,21.17300033569336 -11.039999961853027,20.850000381469727 -11.039999961853027,20.42099952697754 C-11.039999961853027,20.42099952697754 -11.468999862670898,15.696999549865723 -11.468999862670898,15.696999549865723 C-12.543000221252441,14.944999694824219 -13.510000228881836,14.086999893188477 -14.47599983215332,13.012999534606934 C-14.47599983215332,13.012999534606934 -19.200000762939453,13.119999885559082 -19.200000762939453,13.119999885559082 C-19.628999710083008,13.119999885559082 -19.951000213623047,12.79800033569336 -20.166000366210938,12.47599983215332 C-20.166000366210938,12.47599983215332 -22.31399917602539,7.966000080108643 -22.31399917602539,7.966000080108643 C-22.52899932861328,7.5370001792907715 -22.527999877929688,7.10699987411499 -22.20599937438965,6.784999847412109 C-22.20599937438965,6.784999847412109 -19.200000762939453,3.134999990463257 -19.200000762939453,3.134999990463257 C-19.415000915527344,1.847000002861023 -19.52199935913086,0.44999998807907104 -19.415000915527344,-0.9449999928474426 C-19.415000915527344,-0.9449999928474426 -22.743000030517578,-4.2729997634887695 -22.743000030517578,-4.2729997634887695 C-22.95800018310547,-4.48799991607666 -23.065000534057617,-4.918000221252441 -22.95800018310547,-5.3470001220703125 C-22.95800018310547,-5.3470001220703125 -21.347000122070312,-10.071000099182129 -21.347000122070312,-10.071000099182129 C-21.239999771118164,-10.50100040435791 -20.91699981689453,-10.822999954223633 -20.488000869750977,-10.822999954223633 C-20.488000869750977,-10.822999954223633 -15.763999938964844,-11.253000259399414 -15.763999938964844,-11.253000259399414 C-14.906000137329102,-12.32699966430664 -14.045999526977539,-13.399999618530273 -12.972000122070312,-14.366999626159668 C-12.972000122070312,-14.366999626159668 -13.079999923706055,-19.090999603271484 -13.079999923706055,-19.090999603271484 C-13.079999923706055,-19.520000457763672 -12.86400032043457,-19.841999053955078 -12.4350004196167,-20.05699920654297 C-12.4350004196167,-20.05699920654297 -7.926000118255615,-22.204999923706055 -7.926000118255615,-22.204999923706055 C-7.497000217437744,-22.420000076293945 -7.066999912261963,-22.41900062561035 -6.744999885559082,-22.097000122070312 C-6.744999885559082,-22.097000122070312 -3.0940001010894775,-19.090999603271484 -3.0940001010894775,-19.090999603271484 C-1.805999994277954,-19.305999755859375 -0.4090000092983246,-19.413000106811523 0.9860000014305115,-19.305999755859375 C0.9860000014305115,-19.305999755859375 4.314000129699707,-22.742000579833984 4.314000129699707,-22.742000579833984 C4.5289998054504395,-22.957000732421875 4.958000183105469,-23.062999725341797 5.38700008392334,-22.95599937438965 C5.38700008392334,-22.95599937438965 10.112000465393066,-21.34600067138672 10.112000465393066,-21.34600067138672 C10.541999816894531,-21.131000518798828 10.86299991607666,-20.808000564575195 10.86299991607666,-20.378999710083008 C10.86299991607666,-20.378999710083008 11.293000221252441,-15.654999732971191 11.293000221252441,-15.654999732971191 C12.366999626159668,-14.902999877929688 13.333000183105469,-13.937000274658203 14.298999786376953,-12.970999717712402 C14.298999786376953,-12.970999717712402 19.023000717163086,-13.07800006866455 19.023000717163086,-13.07800006866455 C19.45199966430664,-13.07800006866455 19.77400016784668,-12.755999565124512 19.98900032043457,-12.434000015258789 C19.98900032043457,-12.434000015258789 22.136999130249023,-7.923999786376953 22.136999130249023,-7.923999786376953 C22.351999282836914,-7.494999885559082 22.35099983215332,-7.065000057220459 22.02899932861328,-6.743000030517578 C22.02899932861328,-6.743000030517578 19.023000717163086,-3.0929999351501465 19.023000717163086,-3.0929999351501465 C19.238000869750977,-1.6970000267028809 19.344999313354492,-0.40799999237060547 19.238000869750977,0.9869999885559082z"
-                                  ></path>
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            All industries
-                          </div>
-                          <div className="text-gray-700 text-sm leading-snug">
-                            Logical CRM caters to multiple industries and
-                            growing field service businesses
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Towing Near Me */}
-                      <Link
-                        href="/industry/towing-near-me"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <path
-                              d="M8 32L24 8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Towing Near Me
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Handyman */}
-                      <Link
-                        href="/industry/handyman"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <circle
-                              cx="16"
-                              cy="20"
-                              r="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Handyman
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Garage Door Repair */}
-                      <Link
-                        href="/industry/garage-door-repair"
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Garage Door Repair
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Chimney Sweep */}
-                      <Link
-                        href={`/industry/chimney-sweep`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="14"
-                              y="10"
-                              width="4"
-                              height="20"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Chimney Sweep
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Carpet Cleaning */}
-                      <Link
-                        href={`/industry/carpet-cleaning`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <ellipse
-                              cx="16"
-                              cy="28"
-                              rx="8"
-                              ry="4"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Carpet Cleaning
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Locksmith Near Me */}
-                      <Link
-                        href={`/industry/locksmith-near-me`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <circle
-                              cx="16"
-                              cy="20"
-                              r="6"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                            <rect
-                              x="14"
-                              y="26"
-                              width="4"
-                              height="6"
-                              fill="#23282B"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Locksmith Near Me
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Dryervent Cleaning */}
-                      <Link
-                        href={`/industry/dryervent-cleaning`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="10"
-                              y="10"
-                              width="12"
-                              height="20"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Dryervent Cleaning
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Air Duct Cleaning */}
-                      <Link
-                        href={`/industry/air-duct-cleaning`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Air Duct Cleaning
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Gate Repair */}
-                      <Link
-                        href={`/industry/gate-repair`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Gate Repair
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Plumbers Near Me */}
-                      <Link
-                        href={`/industry/plumbers-near-me`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <circle
-                              cx="16"
-                              cy="20"
-                              r="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Plumbers Near Me
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Movers Nearme */}
-                      <Link
-                        href={`/industry/movers-nearme`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Movers Nearme
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Appliance Repair */}
-                      <Link
-                        href={`/industry/appliance-repair`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Appliance Repair
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Sliding Door Repair */}
-                      <Link
-                        href={`/industry/sliding-door-repair`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Sliding Door Repair
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Pestcontrol */}
-                      <Link
-                        href={`/industry/pestcontrol`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <circle
-                              cx="16"
-                              cy="20"
-                              r="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Pestcontrol
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Roofing */}
-                      <Link
-                        href={`/industry/roofing`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Roofing
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Fire Damage Restoration */}
-                      <Link
-                        href={`/industry/fire-damage-restoration`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Fire Damage Restoration
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Water Damage Restoration */}
-                      <Link
-                        href={`/industry/water-damage-restoration`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Water Damage Restoration
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Mold Removal Nearme */}
-                      <Link
-                        href={`/industry/mold-removal-nearme`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Mold Removal Nearme
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Roadside Tows */}
-                      <Link
-                        href={`/industry/roadside-tows`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Roadside Tows
-                          </div>
-                        </div>
-                      </Link>
-                      {/* Allusa Towing */}
-                      <Link
-                        href={`/industry/allusa-towing`}
-                        className="flex items-start gap-4 no-underline"
-                        onClick={handleDropdownLinkClick}
-                      >
-                        <span
-                          className="mt-1"
-                          style={{
-                            width: 32,
-                            height: 40,
-                            display: "inline-block",
-                          }}
-                        >
-                          <svg
-                            width="32"
-                            height="40"
-                            viewBox="0 0 32 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect
-                              width="32"
-                              height="40"
-                              rx="8"
-                              fill="#F3F4F6"
-                            />
-                            <rect
-                              x="8"
-                              y="16"
-                              width="16"
-                              height="8"
-                              stroke="#23282B"
-                              strokeWidth="2"
-                            />
-                          </svg>
-                        </span>
-                        <div>
-                          <div className="font-bold text-lg text-gray-900">
-                            Allusa Towing
-                          </div>
-                        </div>
-                      </Link>
+                        />
+                      ))}
+                      <AllIndustriesButton onClick={handleDropdownLinkClick} />
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Products with dropdown */}
+            {/* Products Dropdown */}
             <div className="relative" ref={productsDropdownRef}>
-              <div
-                className="flex items-center gap-2 cursor-pointer transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white/10 group"
-                onClick={() => {
-                  setProductsOpen(!productsOpen);
-                  setIndustriesOpen(false);
-                }}
-              >
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  Products
-                </span>
+              <div className={navItemClasses} onClick={toggleProducts}>
+                <span className="group-hover:text-cyan-300 transition-colors">Products</span>
                 <svg
                   width="16"
                   height="16"
                   fill="none"
                   viewBox="0 0 24 24"
-                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                    productsOpen ? "rotate-180" : ""
-                  }`}
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${productsOpen ? "rotate-180" : ""}`}
                 >
                   <path
                     d="M7 10l5 5 5-5"
@@ -1729,308 +753,107 @@ const Navbar = () => {
                 </svg>
               </div>
               {productsOpen && (
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[1300px] min-h-[400px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 pt-8 pb-6 px-12 z-[9999] animate-fadeIn">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-2xl" />
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
                   <div className="relative z-10">
-                    <div className="grid grid-cols-4 gap-x-12 gap-y-8">
-                      {/* Essentials Column */}
-                      <div className="flex flex-col">
-                        <h3
-                          className="text-lg font-bold text-gray-900 mb-6"
-                          style={{
-                            fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          }}
-                        >
-                          Essentials
-                        </h3>
-                        <div className="space-y-4">
-                          <Link
-                            href="/products?product=client-crm"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-users text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Client CRM
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=scheduling"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-calendar text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Scheduling
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=dispatching"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-headset text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Dispatching
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=invoicing"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-file-invoice text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Invoicing
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=estimates-proposals"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-clipboard text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Estimates & proposals
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=inventory-management"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-boxes text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Inventory management
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=online-booking"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-mouse-pointer text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Online booking
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=mobile-app"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-mobile-alt text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Mobile app
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=advanced-reporting"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-chart-line text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Advanced reporting
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-
-                      {/* Efficiency Tools Column */}
-                      <div className="flex flex-col">
-                        <h3
-                          className="text-lg font-bold text-gray-900 mb-6"
-                          style={{
-                            fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          }}
-                        >
-                          Efficiency Tools
-                        </h3>
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-bolt text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Automations
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-link text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Lead source integrations
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-home text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Service plans
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-calendar-check text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Equipment tracking
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-book text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Price Book
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fab fa-google text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Reserve with Google
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Financial Services Column */}
-                      <div className="flex flex-col">
-                        <h3
-                          className="text-lg font-bold text-gray-900 mb-6"
-                          style={{
-                            fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          }}
-                        >
-                          Financial Services
-                        </h3>
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-credit-card text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Payment processing
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-users text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Expense management
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-file-contract text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Consumer financing
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-credit-card text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Expense card
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-external-link-alt text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Branded client portal
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-lock text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Purchase orders
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                            <i className="fas fa-circle text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              QuickBooks
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Communication & AI Column */}
-                      <div className="flex flex-col">
-                        <h3
-                          className="text-lg font-bold text-gray-900 mb-6"
-                          style={{
-                            fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          }}
-                        >
-                          Communication & AI
-                        </h3>
-                        <div className="space-y-4">
-                          <Link
-                            href="/products?product=built-in-phone-messages"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-phone text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Built-in phone & messages
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=ai-answering"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-robot text-purple-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              AI answering
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=ai-leads-capture"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-user-plus text-purple-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              AI leads capture
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=ai-call-insights"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-chart-bar text-purple-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              AI call Insights
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=call-recordings-tags"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-microphone text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Call recordings & tags
-                            </span>
-                          </Link>
-                          <Link
-                            href="/products?product=ad-source-tracking"
-                            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded no-underline"
-                            onClick={handleDropdownLinkClick}
-                          >
-                            <i className="fas fa-eye text-gray-600"></i>
-                            <span className="text-gray-700 font-medium">
-                              Ad & source tracking
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {PRODUCTS_DATA.map((product) => (
+                        <ProductItem
+                          key={product.id}
+                          item={product}
+                          onClick={handleDropdownLinkClick}
+                        />
+                      ))}
+                      <AllProductsButton onClick={handleDropdownLinkClick} />
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Other navigation items */}
-            {["Pricing", "Resources", "Company"].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 cursor-pointer transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white/10 group"
-              >
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  {item}
-                </span>
+            {/* Resources Dropdown */}
+            <div className="relative" ref={resourcesDropdownRef}>
+              <div className={navItemClasses} onClick={toggleResources}>
+                <span className="group-hover:text-cyan-300 transition-colors">Resources</span>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${resourcesOpen ? "rotate-180" : ""}`}
+                >
+                  <path
+                    d="M7 10l5 5 5-5"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              
+              {resourcesOpen && (
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                  <div className="relative z-10">
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {RESOURCES_DATA.map((resource) => (
+                        <ResourceItem
+                          key={resource.id}
+                          item={resource}
+                          onClick={handleDropdownLinkClick}
+                        />
+                      ))}
+                      <AllResourcesButton onClick={handleDropdownLinkClick} />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Company Dropdown */}
+            <div className="relative" ref={companyDropdownRef}>
+              <div className={navItemClasses} onClick={toggleCompany}>
+                <span className="group-hover:text-cyan-300 transition-colors">Company</span>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${companyOpen ? "rotate-180" : ""}`}
+                >
+                  <path
+                    d="M7 10l5 5 5-5"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              
+              {companyOpen && (
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                  <div className="relative z-10">
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {COMPANY_DATA.map((company) => (
+                        <CompanyItem
+                          key={company.id}
+                          item={company}
+                          onClick={handleDropdownLinkClick}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Other Navigation Items */}
+            {NAVIGATION_ITEMS.map((item, index) => (
+              <div key={index} className={navItemClasses}>
+                <span className="group-hover:text-cyan-300 transition-colors">{item}</span>
                 {item !== "Pricing" && (
                   <svg
                     width="16"
@@ -2057,7 +880,7 @@ const Navbar = () => {
       {/* Mobile Menu Button */}
       <button
         className="lg:hidden text-white/90 hover:text-white p-2.5 rounded-lg hover:bg-white/10 transition-all duration-200 group"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        onClick={toggleMobileMenu}
       >
         <svg
           width="24"
@@ -2071,11 +894,7 @@ const Navbar = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2.5"
-            d={
-              mobileMenuOpen
-                ? "M6 18L18 6M6 6l12 12"
-                : "M3 12h18M3 6h18M3 18h18"
-            }
+            d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M3 12h18M3 6h18M3 18h18"}
           />
         </svg>
       </button>
@@ -2106,8 +925,7 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-xl border-t border-white/10 p-6 z-40 mobile-menu shadow-2xl">
           <div className="flex flex-col gap-2">
-            {["Industries", "Products", "Pricing", "Resources", "Company"].map(
-              (item, index) => (
+            {["Industries", "Products", "Resources", "Company", ...NAVIGATION_ITEMS].map((item, index) => (
                 <div
                   key={index}
                   className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
@@ -2115,8 +933,7 @@ const Navbar = () => {
                 >
                   {item}
                 </div>
-              )
-            )}
+            ))}
             <div className="border-t border-white/20 pt-6 mt-4 flex flex-col gap-3">
               <button
                 className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10"
