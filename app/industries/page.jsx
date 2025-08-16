@@ -505,15 +505,15 @@ export default function IndustriesPage() {
                 "Maid & Cleaning",
                 "Moving",
                 "Pest Control",
-                "Window Cleaning",
-                "Landscaping",
-                "Lawn Care",
-                "Maid & Cleaning",
-                "Moving",
-                "Pest Control",
-              ].map((service, index) => (
+                "Pool Services",
+                "Snow Removal",
+                "Property Maintenance",
+                "Restoration",
+                "Roofing",
+                "Pressure Washing"
+              ].map((service) => (
                 <a
-                  key={index}
+                  key={service}
                   href={`/industry/${service
                     .toLowerCase()
                     .replace(/\s+/g, "-")}`}

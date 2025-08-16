@@ -9,7 +9,7 @@ const INDUSTRIES_DATA = [
   {
     id: "hvac",
     name: "HVAC",
-    href: "/industries/hvac",
+    href: "/industry/hvac",
     description: "Heating & cooling solutions",
     icon: (
       <svg
@@ -51,7 +51,7 @@ const INDUSTRIES_DATA = [
   {
     id: "plumbing",
     name: "Plumbing",
-    href: "/industries/plumbing",
+    href: "/industry/plumbing",
     description: "Pipes, drains & water systems",
     icon: (
       <svg
@@ -86,7 +86,7 @@ const INDUSTRIES_DATA = [
   {
     id: "electrician",
     name: "Electrician",
-    href: "/industries/electricians",
+    href: "/industry/electricians",
     description: "Wiring & electrical services",
     icon: (
       <svg
@@ -108,7 +108,7 @@ const INDUSTRIES_DATA = [
   {
     id: "garage-door",
     name: "Garage Door",
-    href: "/industries/garage-door-repair",
+    href: "/industry/garage-door-repair",
     description: "Installation & repair services",
     icon: (
       <svg
@@ -143,7 +143,7 @@ const INDUSTRIES_DATA = [
   {
     id: "locksmith",
     name: "Locksmith",
-    href: "/industries/locksmith",
+    href: "/industry/locksmith",
     description: "Lock & security solutions",
     icon: (
       <svg
@@ -176,7 +176,7 @@ const INDUSTRIES_DATA = [
   {
     id: "junk-removal",
     name: "Junk Removal",
-    href: "/industries/junk-removal",
+    href: "/industry/junk-removal",
     description: "Cleanup & hauling services",
     icon: (
       <svg
@@ -344,7 +344,7 @@ const PRODUCTS_DATA = [
   },
 ];
 
-const ProductItem = ({ item, onClick }) => {
+const ProductItem = ({ item, onClick, isClient }) => {
   const { name, href, icon, desc, colorScheme } = item;
   const { bg, textColor, hoverBg, textHover } = colorScheme;
 
@@ -357,7 +357,7 @@ const ProductItem = ({ item, onClick }) => {
       <div
         className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}
       >
-        <i className={`${icon} ${textColor} text-sm`}></i>
+        {isClient && <i className={`${icon} ${textColor} text-sm`}></i>}
       </div>
       <div>
         <div
@@ -371,14 +371,14 @@ const ProductItem = ({ item, onClick }) => {
   );
 };
 
-const AllProductsButton = ({ onClick }) => (
+const AllProductsButton = ({ onClick, isClient }) => (
   <Link
     href="/products"
     className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-100 transition-all duration-200 group border border-gray-200 hover:border-gray-300"
     onClick={onClick}
   >
     <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors flex-shrink-0">
-      <i className="fas fa-th-large text-gray-600 text-sm"></i>
+      {isClient && <i className="fas fa-th-large text-gray-600 text-sm"></i>}
     </div>
     <div>
       <div className="font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">
@@ -475,7 +475,7 @@ const RESOURCES_DATA = [
   },
 ];
 
-const ResourceItem = ({ item, onClick }) => {
+const ResourceItem = ({ item, onClick, isClient }) => {
   const { name, href, icon, desc, badge, colorScheme } = item;
   const { bg, textColor, hoverBg, textHover } = colorScheme;
 
@@ -488,7 +488,7 @@ const ResourceItem = ({ item, onClick }) => {
       <div
         className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}
       >
-        <i className={`${icon} ${textColor} text-sm`}></i>
+        {isClient && <i className={`${icon} ${textColor} text-sm`}></i>}
       </div>
       <div className="flex-1">
         <div
@@ -507,14 +507,14 @@ const ResourceItem = ({ item, onClick }) => {
   );
 };
 
-const AllResourcesButton = ({ onClick }) => (
+const AllResourcesButton = ({ onClick, isClient }) => (
   <Link
     href="/resources"
     className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-100 transition-all duration-200 group border border-gray-200 hover:border-gray-300 relative"
     onClick={onClick}
   >
     <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors flex-shrink-0">
-      <i className="fas fa-archive text-gray-600 text-sm"></i>
+      {isClient && <i className="fas fa-archive text-gray-600 text-sm"></i>}
     </div>
     <div className="flex-1">
       <div className="font-semibold text-gray-700 group-hover:text-gray-900 transition-colors flex items-center gap-2">
@@ -612,7 +612,7 @@ const COMPANY_DATA = [
   },
 ];
 
-const CompanyItem = ({ item, onClick }) => {
+const CompanyItem = ({ item, onClick, isClient }) => {
   const { name, href, icon, desc, colorScheme } = item;
   const { bg, textColor, hoverBg, textHover } = colorScheme;
 
@@ -625,7 +625,7 @@ const CompanyItem = ({ item, onClick }) => {
       <div
         className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}
       >
-        <i className={`${icon} ${textColor} text-sm`}></i>
+        {isClient && <i className={`${icon} ${textColor} text-sm`}></i>}
       </div>
       <div className="flex-1">
         <div
@@ -685,12 +685,20 @@ const useScrollBehavior = () => {
 };
 
 const Navbar = () => {
+  // Hydration guard
+  const [isClient, setIsClient] = useState(false);
+  
   // State
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Effect to set client-side flag
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Refs
   const dropdownRef = useRef(null);
@@ -888,9 +896,10 @@ const Navbar = () => {
                           key={product.id}
                           item={product}
                           onClick={handleDropdownLinkClick}
+                          isClient={isClient}
                         />
                       ))}
-                      <AllProductsButton onClick={handleDropdownLinkClick} />
+                      <AllProductsButton onClick={handleDropdownLinkClick} isClient={isClient} />
                     </div>
                   </div>
                 </div>
@@ -932,9 +941,10 @@ const Navbar = () => {
                           key={resource.id}
                           item={resource}
                           onClick={handleDropdownLinkClick}
+                          isClient={isClient}
                         />
                       ))}
-                      <AllResourcesButton onClick={handleDropdownLinkClick} />
+                      <AllResourcesButton onClick={handleDropdownLinkClick} isClient={isClient} />
                     </div>
                   </div>
                 </div>
@@ -976,6 +986,7 @@ const Navbar = () => {
                           key={company.id}
                           item={company}
                           onClick={handleDropdownLinkClick}
+                          isClient={isClient}
                         />
                       ))}
                     </div>
