@@ -9,7 +9,7 @@ const INDUSTRIES_DATA = [
   {
     id: "hvac",
     name: "HVAC",
-    href: "/industry/hvac",
+    href: "/industries/hvac",
     description: "Heating & cooling solutions",
     icon: (
       <svg
@@ -51,7 +51,7 @@ const INDUSTRIES_DATA = [
   {
     id: "plumbing",
     name: "Plumbing",
-    href: "/industry/plumbing",
+    href: "/industries/plumbing",
     description: "Pipes, drains & water systems",
     icon: (
       <svg
@@ -86,7 +86,7 @@ const INDUSTRIES_DATA = [
   {
     id: "electrician",
     name: "Electrician",
-    href: "/industry/electricians",
+    href: "/industries/electricians",
     description: "Wiring & electrical services",
     icon: (
       <svg
@@ -108,7 +108,7 @@ const INDUSTRIES_DATA = [
   {
     id: "garage-door",
     name: "Garage Door",
-    href: "/industry/garage-door-repair",
+    href: "/industries/garage-door-repair",
     description: "Installation & repair services",
     icon: (
       <svg
@@ -143,7 +143,7 @@ const INDUSTRIES_DATA = [
   {
     id: "locksmith",
     name: "Locksmith",
-    href: "/industry/locksmith",
+    href: "/industries/locksmith",
     description: "Lock & security solutions",
     icon: (
       <svg
@@ -176,7 +176,7 @@ const INDUSTRIES_DATA = [
   {
     id: "junk-removal",
     name: "Junk Removal",
-    href: "/industry/junk-removal",
+    href: "/industries/junk-removal",
     description: "Cleanup & hauling services",
     icon: (
       <svg
@@ -687,7 +687,7 @@ const useScrollBehavior = () => {
 const Navbar = () => {
   // Hydration guard
   const [isClient, setIsClient] = useState(false);
-  
+
   // State
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
@@ -899,7 +899,10 @@ const Navbar = () => {
                           isClient={isClient}
                         />
                       ))}
-                      <AllProductsButton onClick={handleDropdownLinkClick} isClient={isClient} />
+                      <AllProductsButton
+                        onClick={handleDropdownLinkClick}
+                        isClient={isClient}
+                      />
                     </div>
                   </div>
                 </div>
@@ -944,7 +947,10 @@ const Navbar = () => {
                           isClient={isClient}
                         />
                       ))}
-                      <AllResourcesButton onClick={handleDropdownLinkClick} isClient={isClient} />
+                      <AllResourcesButton
+                        onClick={handleDropdownLinkClick}
+                        isClient={isClient}
+                      />
                     </div>
                   </div>
                 </div>
