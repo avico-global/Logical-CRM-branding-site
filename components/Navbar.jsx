@@ -267,7 +267,7 @@ const PRODUCTS_DATA = [
   {
     id: "client-crm",
     name: "Client CRM",
-    href: "/products",
+    href: "/products/client-crm",
     icon: "fas fa-users",
     desc: "Contacts & history",
     colorScheme: {
@@ -280,7 +280,7 @@ const PRODUCTS_DATA = [
   {
     id: "scheduling",
     name: "Scheduling",
-    href: "/products",
+    href: "/products/scheduling",
     icon: "fas fa-calendar",
     desc: "Jobs & calendar",
     colorScheme: {
@@ -293,7 +293,7 @@ const PRODUCTS_DATA = [
   {
     id: "dispatching",
     name: "Dispatching",
-    href: "/products",
+    href: "/products/dispatching",
     icon: "fas fa-headset",
     desc: "Assign & route",
     colorScheme: {
@@ -306,7 +306,7 @@ const PRODUCTS_DATA = [
   {
     id: "invoicing",
     name: "Invoicing",
-    href: "/products",
+    href: "/products/invoicing",
     icon: "fas fa-file-invoice",
     desc: "Bills & payments",
     colorScheme: {
@@ -319,7 +319,7 @@ const PRODUCTS_DATA = [
   {
     id: "estimates-proposals",
     name: "Estimates",
-    href: "/products",
+    href: "/products/estimates-proposals",
     icon: "fas fa-clipboard",
     desc: "Quotes & proposals",
     colorScheme: {
@@ -332,7 +332,7 @@ const PRODUCTS_DATA = [
   {
     id: "mobile-app",
     name: "Mobile App",
-    href: "/products",
+    href: "/products/mobile-app",
     icon: "fas fa-mobile-alt",
     desc: "Crew on-the-go",
     colorScheme: {
