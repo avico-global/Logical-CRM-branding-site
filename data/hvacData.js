@@ -27,7 +27,7 @@ export const hvacData = {
     ]
   },
   preferredVendors: {
-    title: "WORKIZ IS THE PREFERRED VENDOR OF:",
+    title: "TRUSTED BY INDUSTRY LEADERS",
     logos: [
       {
         src: "/images/american-logo.svg",
@@ -54,9 +54,9 @@ export const hvacData = {
       title: ["Win 25%", "more jobs"],
       description: "Close larger deals by providing sales proposals to fit your customers budget requirements.",
       ctaText: "Learn more",
-      ctaUrl: "https://www.workiz.com/features/sales-proposals/",
-      desktopImage: "https://www.workiz.com/wp-content/uploads/2023/07/hl-sales-proposals.webp",
-      mobileImage: "https://www.workiz.com/wp-content/uploads/2023/07/hl-sales-proposals-mob.webp",
+      ctaUrl: "#",
+      desktopImage: "/images/illustration.webp",
+      mobileImage: "/images/illustration.webp",
       background: "linear-gradient(169.48deg, #096187 5.7%, #23282B 98.96%)",
       textColor: "#fff",
       titleColor: "#ffd400"
@@ -67,9 +67,9 @@ export const hvacData = {
       title: "Recurring revenue all year round",
       description: "Boost company profits and ensure consistent repair and tune-up work by offering service plans.",
       ctaText: "Learn more",
-      ctaUrl: "https://www.workiz.com/features/service-plans/",
-      desktopImage: "https://www.workiz.com/wp-content/uploads/2023/05/hl-service-plan.webp",
-      mobileImage: "https://www.workiz.com/wp-content/uploads/2023/05/hl-service-plans-mob.webp",
+      ctaUrl: "#",
+      desktopImage: "/images/client-plans.png",
+      mobileImage: "/images/client-plans.png",
       background: "linear-gradient(180deg, #F6F8FA 0%, #E4E9EC 100%)",
       textColor: "#23282B",
       titleColor: "#3b4b52",
@@ -110,7 +110,7 @@ export const hvacData = {
       subtitle: "HVAC SCHEDULING SOFTWARE",
       subtitleColor: "#f25c4d",
       title: "Schedule and dispatch efficiently",
-      description: "Boost your business productivity and visibility with our advanced scheduling software from Workiz. Offer your customers 24/7 online booking to access your services at their convenience. Managing your HVAC tasks becomes a breeze as it enables you to organize and monitor all tasks from one versatile platform, improving your workflow efficiency.",
+      description: "Boost your business productivity and visibility with our advanced scheduling software from Logical CRM. Offer your customers 24/7 online booking to access your services at their convenience. Managing your HVAC tasks becomes a breeze as it enables you to organize and monitor all tasks from one versatile platform, improving your workflow efficiency.",
       ctaType: "link",
       ctaText: "Learn More →",
       ctaUrl: "#",
@@ -132,18 +132,18 @@ export const hvacData = {
       imageAlt: "Online Booking Illustration"
     },
     {
-      id: "workiz-pay",
+      id: "logical-pay",
       layout: "text-left",
       background: "#f6f8fa",
-      subtitle: "WORKIZ PAY",
+      subtitle: "LOGICAL PAY",
       subtitleColor: "#f25c4d",
       title: "All-in-one financial solution",
-      description: "Get paid in the field faster with Workiz Pay, an all-in-one financial solution for your HVAC business. No more dealing with cash and checks, our card readers give you and your customers an easy and accessible solution. With flexible payment plans now you can close bigger deals while providing the best customer service.",
+      description: "Get paid in the field faster with Logical Pay, an all-in-one financial solution for your HVAC business. No more dealing with cash and checks, our card readers give you and your customers an easy and accessible solution. With flexible payment plans now you can close bigger deals while providing the best customer service.",
       ctaType: "link",
       ctaText: "Learn more →",
       ctaUrl: "#",
-      image: "/images/workiz-pa.webp",
-      imageAlt: "Workiz Pay"
+      image: "/images/money.png",
+      imageAlt: "Logical Pay"
     },
     {
       id: "automations",

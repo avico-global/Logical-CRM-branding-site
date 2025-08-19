@@ -27,7 +27,7 @@ export const plumbingData = {
     ]
   },
   preferredVendors: {
-    title: "WORKIZ IS THE PREFERRED VENDOR OF:",
+    title: "TRUSTED BY INDUSTRY LEADERS",
     logos: [
       {
         src: "/images/american-logo.svg",
@@ -55,8 +55,8 @@ export const plumbingData = {
       description: "Give your customers options in professionally designed price book.",
       ctaText: "Learn more",
       ctaUrl: "#",
-      desktopImage: "https://www.workiz.com/wp-content/uploads/2023/09/hl-sales-proposals.webp",
-      mobileImage: "https://www.workiz.com/wp-content/uploads/2023/09/hl-online-booking-mob.webp",
+      desktopImage: "/images/illustration.webp",
+      mobileImage: "/images/illustration.webp",
       background: "radial-gradient(111.61% 111.61% at 97.69% 0%, #FFF3B7 0%, #FFD400 100%)",
       textColor: "#23282B",
       titleColor: "#23282B"
@@ -67,9 +67,9 @@ export const plumbingData = {
       title: ["Win 25%", "more jobs"],
       description: "Close larger deals by providing sales proposals to fit your customers budget requirements.",
       ctaText: "Learn more",
-      ctaUrl: "https://www.workiz.com/features/sales-proposals/",
-      desktopImage: "https://www.workiz.com/wp-content/uploads/2023/07/hl-sales-proposals.webp",
-      mobileImage: "https://www.workiz.com/wp-content/uploads/2023/07/hl-sales-proposals-mob.webp",
+      ctaUrl: "#",
+      desktopImage: "/images/illustration.webp",
+      mobileImage: "/images/illustration.webp",
       background: "linear-gradient(169.48deg, #096187 5.7%, #23282B 98.96%)",
       textColor: "#fff",
       titleColor: "#ffd400"
@@ -96,7 +96,7 @@ export const plumbingData = {
       subtitle: "PLUMBING SCHEDULING SOFTWARE",
       subtitleColor: "#f25c4d",
       title: "Schedule and dispatch efficiently",
-      description: "Boost your business productivity and visibility with our advanced scheduling software from Workiz. Offer your customers 24/7 online booking to access your services at their convenience.",
+      description: "Boost your business productivity and visibility with our advanced scheduling software from Logical CRM. Offer your customers 24/7 online booking to access your services at their convenience.",
       ctaType: "link",
       ctaText: "Learn More →",
       ctaUrl: "#",
@@ -104,18 +104,18 @@ export const plumbingData = {
       imageAlt: "Scheduling Calendar"
     },
     {
-      id: "workiz-pay",
+      id: "logical-pay",
       layout: "text-left",
       background: "#f6f8fa",
-      subtitle: "WORKIZ PAY",
+      subtitle: "LOGICAL PAY",
       subtitleColor: "#f25c4d",
       title: "All-in-one financial solution",
-      description: "Get paid in the field faster with Workiz Pay, an all-in-one financial solution for your plumbing business. No more dealing with cash and checks.",
+      description: "Get paid in the field faster with Logical Pay, an all-in-one financial solution for your plumbing business. No more dealing with cash and checks.",
       ctaType: "link",
       ctaText: "Learn more →",
       ctaUrl: "#",
-      image: "/images/workiz-pa.webp",
-      imageAlt: "Workiz Pay"
+      image: "/images/money.png",
+      imageAlt: "Logical Pay"
     },
     {
       id: "automations",

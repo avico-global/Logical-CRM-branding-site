@@ -464,7 +464,7 @@ const RESOURCES_DATA = [
     name: "Podcast",
     href: "/podcast",
     icon: "fas fa-podcast",
-    desc: "Listen and learn with the Workiz Unplugged podcast",
+    desc: "Listen and learn with the Logical CRM Business podcast",
     badge: "New",
     colorScheme: {
       bg: "bg-indigo-100",

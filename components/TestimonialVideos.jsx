@@ -38,19 +38,19 @@ const testimonials = [
   },
 ];
 
-const workizVideoIds = [
+const logicalVideoIds = [
   "OUoUvVLSjXo",
   "PPQ5lmZ-gkg",
   "03wUKqcuUDE",
   "bC4ayKxfCQA",
   "PWLpPUwKhnw",
 ];
-const workizVideoTitles = [
-  "Workiz Customer Testimonial",
-  "Creating Workiz Automation rules",
-  "Creating and managing items & services in Workiz",
-  "Workiz for HVAC Pros: Real Results",
-  "Workiz AI Review: Is It Worth It?",
+const logicalVideoTitles = [
+  "Logical CRM Customer Testimonial",
+  "Creating Logical CRM Automation rules",
+  "Creating and managing items & services in Logical CRM",
+  "Logical CRM for HVAC Pros: Real Results",
+  "Logical CRM AI Review: Is It Worth It?",
 ];
 
 const customerNames = [
@@ -70,8 +70,8 @@ while (testimonials.length < 15) {
   const i = testimonials.length;
   testimonials.push({
     id: i + 1,
-    youtubeId: workizVideoIds[i % workizVideoIds.length],
-    quote: workizVideoTitles[i % workizVideoTitles.length],
+    youtubeId: logicalVideoIds[i % logicalVideoIds.length],
+    quote: logicalVideoTitles[i % logicalVideoTitles.length],
     name: i >= 5 ? customerNames[i - 5] : `Customer ${i + 1}`,
     title: `Business Owner ${i + 1}`,
     logo: `/images/logo-pro${i + 1}.webp`,

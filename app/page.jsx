@@ -3,9 +3,7 @@ import KeyFeatures from "@/components/KeyFeatures";
 import ProductTour from "@/components/ProductTour";
 import ChooseUs from "@/components/ChooseUs";
 import Testimonials from "@/components/testimonials";
-import Integrations from "@/components/Integrations";
 import PricingSnapshot from "@/components/PricingSnapshot";
-import SecurityStrip from "@/components/SecurityStrip";
 import FaqSection from "@/components/FaqSection";
 import FinalCta from "@/components/FinalCta";
 import FooterSection from "@/components/FooterSection";
@@ -35,11 +33,8 @@ export default function Home() {
       </div>
       <KeyFeatures />
       <ProductTour />
-      {/* Killer Feature deep dive using ChooseUs block */}
       <ChooseUs />
       <Testimonials />
-      {/* <Integrations /> */}
-      {/* <SecurityStrip /> */}
       <PricingSnapshot />
       <FaqSection />
       <FinalCta />
