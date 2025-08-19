@@ -422,7 +422,7 @@ export default function IndustriesPage() {
           <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8 leading-relaxed">
             Trusted by 5,000+ businesses across 20+ industries. Discover how
             Logical CRM transforms field service operations in your industry.
-          </p> 
+          </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
@@ -510,7 +510,7 @@ export default function IndustriesPage() {
                 "Property Maintenance",
                 "Restoration",
                 "Roofing",
-                "Pressure Washing"
+                "Pressure Washing",
               ].map((service) => (
                 <a
                   key={service}

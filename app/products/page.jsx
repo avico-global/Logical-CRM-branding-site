@@ -1,950 +1,344 @@
-"use client";
-
-import React, { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import TestimonialVideos from "@/components/TestimonialVideos";
-import Business from "@/components/Business";
-import FaqSection from "@/components/FaqSection";
+import React from "react";
 import FooterSection from "@/components/FooterSection";
+import {
+  productsData,
+  productCaseStudies,
+  productsMetadata,
+} from "@/data/productsData";
 
-function ProductsPageContent() {
-  const searchParams = useSearchParams();
-  const product = searchParams.get("product");
+export const metadata = {
+  title: productsMetadata.title,
+  description: productsMetadata.description,
+  keywords: productsMetadata.keywords,
+  openGraph: {
+    title: productsMetadata.title,
+    description: productsMetadata.description,
+    type: "website",
+  },
+};
 
-  // Client CRM Page
-  if (product === "client-crm") {
-    return (
-      <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section className="bg-white py-20 mt-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="mb-6">
-              <span
-                className="text-blue-500 font-semibold text-lg tracking-wider"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                CLIENT CRM
-              </span>
-            </div>
-            <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Work faster and get paid sooner with organized client records.
-            </h1>
-            <p
-              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              From job history, to payments, service plans, and notes, remember
-              every client detail without searching for lost records
-            </p>
-            <button
-              className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold text-lg px-10 py-4 rounded-lg transition-colors duration-200"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Get started — it's free
-            </button>
-          </div>
-        </section>
-
-        {/* Track Your Best Clients Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="mb-6">
-                  <span
-                    className="text-blue-500 font-semibold text-lg tracking-wider"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    TRACK YOUR BEST CLIENTS
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Know the value of each Client
-                </h2>
-                <p
-                  className="text-lg text-gray-600 mb-8 leading-relaxed"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Before speaking with a client, remind yourself of the work
-                  you've done in the past, if they have outstanding invoices,
-                  and what the opportunity at hand is. Easily pin important
-                  notes for team-wide access and visibility.
-                </p>
-                <div className="mb-8">
-                  <a
-                    href="#"
-                    className="#23282b font-semibold text-lg hover:text-blue-700 transition-colors duration-200 inline-flex items-center gap-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Book a demo
-                    <i className="fas fa-arrow-right text-sm"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden shadow-2xl">
-                  <video
-                    className="w-full h-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source src="/videos/crm-feature.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Collaborate Across Your Team Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden">
-                  <img
-                    src="/images/client-crm.webp"
-                    alt="Workiz CRM Interface"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="mb-6">
-                  <span
-                    className="text-blue-500 font-semibold text-lg tracking-wider"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    COLLABORATE ACROSS YOUR TEAM
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Get info from your desk, or the road
-                </h2>
-                <p
-                  className="text-lg text-gray-600 mb-8 leading-relaxed"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Collaboration lets your team give better, faster service. With
-                  everything in one place, everyone can do their job better.
-                  Whether that's finding the job's address or instantly sending
-                  field pics to the office, client CRM streamlines your
-                  operation.
-                </p>
-                <div className="mb-8">
-                  <a
-                    href="#"
-                    className="text-gray-900 font-semibold text-lg hover:text-blue-700 transition-colors duration-200 inline-flex items-center gap-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Book a demo
-                    <i className="fas fa-arrow-right text-sm"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Keep Clients Engaged Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="mb-6">
-                  <span
-                    className="text-blue-500 font-semibold text-lg tracking-wider"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    KEEP CLIENTS ENGAGED
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Give customers reasons to come back
-                </h2>
-                <p
-                  className="text-lg text-gray-600 mb-8 leading-relaxed"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Good client records automatically keep customers engaged.
-                  We'll send payment reminders for overdue invoices, appointment
-                  reminders, and warnings to extend warranties before they
-                  expire. These get you more work and faster payment.
-                </p>
-                <div className="mb-8">
-                  <a
-                    href="#"
-                    className="text-gray-900 font-semibold text-lg hover:text-blue-700 transition-colors duration-200 inline-flex items-center gap-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Book a demo
-                    <i className="fas fa-arrow-right text-sm"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden">
-                  <img
-                    src="/images/clients-engaged.webp"
-                    alt="Client Engagement Interface"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Do Things Quickly Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden shadow-2xl">
-                  <video
-                    className="w-full h-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source
-                      src="/videos/Client-CRM-illustration.mp4"
-                      type="video/mp4"
-                    />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-              <div>
-                <div className="mb-6">
-                  <span
-                    className="text-orange-500 font-semibold text-lg tracking-wider"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    DO THINGS QUICKLY
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Get info quickly so you can get to work
-                </h2>
-                <p
-                  className="text-lg text-gray-600 mb-8 leading-relaxed"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Create jobs, proposals, service plans, invoices, and more,
-                  right from the client's profile. Workiz's efficient workflow
-                  lets you move fast so you can finish the job and move on.
-                </p>
-                <div className="mb-8">
-                  <a
-                    href="#"
-                    className="text-gray-900 font-semibold text-lg hover:text-blue-700 transition-colors duration-200 inline-flex items-center gap-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Book a demo
-                    <i className="fas fa-arrow-right text-sm"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <TestimonialVideos />
-        <Business />
-        <FaqSection />
-        <FooterSection />
-      </div>
-    );
-  }
-
-  // AI Answering Page
-  if (product === "ai-answering") {
-    return (
-      <div className="min-h-screen bg-white">
-        {/* Jessica Hero Section */}
-        <section className="bg-white py-20 mt-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="mb-6 flex justify-center items-center gap-4">
-              <div className="inline-flex items-center gap-2">
-                <i className="fas fa-magic text-blue-500 text-xl"></i>
-                <span
-                  className="text-blue-500 font-bold text-lg tracking-wider"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  GENIUS ANSWERING
-                </span>
-              </div>
-              <div className="inline-flex items-center gap-2 bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-medium">
-                <span>Now also in Spanish</span>
-                <i className="fas fa-volume-up text-sm"></i>
-              </div>
-            </div>
-
-            <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Jessica turns your missed calls into{" "}
-              <span className="text-gray-900">30% more cash.</span>
-            </h1>
-
-            <p
-              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Your AI receptionist that answers calls, emails and texts before
-              competitors do
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <button
-                className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold text-lg px-10 py-4 rounded-lg transition-colors duration-200"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Try Jessica now
-              </button>
-              <button
-                className="border-2 border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 font-semibold text-lg px-10 py-4 rounded-lg transition-colors duration-200"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Book a demo
-              </button>
-            </div>
-
-            {/* Jessica Video */}
-            <div className="w-full">
-              <div className="rounded-3xl overflow-hidden shadow-2xl w-full">
-                <video
-                  className="w-full h-auto"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  width="1920"
-                  height="1080"
-                >
-                  <source
-                    src="https://www.workiz.com/wp-content/uploads/2025/05/enhanced-v2-90p-phonefx-for-Jessica-Page.mp4"
-                    type="video/mp4"
-                  />
-                  <source
-                    src="https://www.workiz.com/wp-content/uploads/2025/05/enhanced-v2-90p-phonefx-for-Jessica-Page.webm"
-                    type="video/webm"
-                  />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Answer Every Call & Automate Inbox Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left Side - Answer Every Call */}
-              <div
-                className="rounded-2xl overflow-hidden h-full relative"
-                style={{
-                  background:
-                    "radial-gradient(111.61% 111.61% at 97.69% 0%, #FFF3B7 0%, #FFD400 100%)",
-                }}
-              >
-                <div className="relative w-full h-full">
-                  {/* Background Image Layer - Desktop */}
-                  <div className="absolute inset-0 hidden md:flex">
-                    <div className="w-2/5"></div>
-                    <div className="w-3/5 flex flex-col justify-center items-end">
-                      <img
-                        src="https://www.workiz.com/wp-content/uploads/2025/07/jessica-live-calls-v1.webp"
-                        alt="Jessica Live Calls"
-                        className="max-w-full h-auto object-contain"
-                        width="640"
-                        height="898"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text Content Layer */}
-                  <div className="relative z-10 p-8 lg:p-12 h-full">
-                    <div className="flex flex-col md:flex-row h-full">
-                      <div className="w-full md:w-1/2 flex flex-col justify-between">
-                        <div>
-                          <div className="mb-6">
-                            <span
-                              className="text-gray-800 font-medium text-xs tracking-wider uppercase"
-                              style={{ fontFamily: "'Inter', sans-serif" }}
-                            >
-                              LIVE PHONE CALLS
-                            </span>
-                          </div>
-                          <h2
-                            className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6 leading-tight"
-                            style={{
-                              fontFamily: "'Plus Jakarta Sans', sans-serif",
-                            }}
-                          >
-                            Answer
-                            <br />
-                            every call
-                          </h2>
-                          <p className="text-base text-gray-800 mb-8 leading-relaxed">
-                            Missing a lead's first
-                            <br />
-                            call makes you 78%
-                            <br />
-                            more likely to lose
-                            <br />
-                            the job. Until now.
-                          </p>
-                        </div>
-                        <div className="hidden md:block">
-                          <button className="bg-transparent border-2 border-gray-800 text-gray-800 font-semibold text-lg px-8 py-3 rounded-lg hover:bg-gray-800 hover:text-white transition">
-                            Learn more
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Mobile Image */}
-                      <div className="w-full md:hidden mt-6">
-                        <img
-                          src="https://www.workiz.com/wp-content/uploads/2025/07/jessica-live-calls-v1-mobile.webp"
-                          alt="Jessica Live Calls Mobile"
-                          className="w-full h-auto object-contain"
-                          width="686"
-                          height="384"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Side - Automate Inbox */}
-              <div
-                className="rounded-2xl overflow-hidden h-full relative"
-                style={{
-                  background:
-                    "linear-gradient(180deg, #F6F8FA 0%, #E4E9EC 100%)",
-                }}
-              >
-                <div className="relative w-full h-full">
-                  {/* Background Image Layer - Desktop */}
-                  <div className="absolute inset-0 hidden md:flex">
-                    <div className="w-2/5"></div>
-                    <div className="w-3/5 flex flex-col justify-center items-end">
-                      <img
-                        src="https://www.workiz.com/wp-content/uploads/2025/07/jessica-automate-inbox.webp"
-                        alt="Jessica Automate Inbox"
-                        className="max-w-full h-auto object-contain"
-                        width="640"
-                        height="898"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text Content Layer */}
-                  <div className="relative z-10 p-8 lg:p-12 h-full">
-                    <div className="flex flex-col md:flex-row h-full">
-                      <div className="w-full md:w-1/2 flex flex-col justify-between">
-                        <div>
-                          <div className="mb-6">
-                            <span
-                              className="text-gray-600 font-medium text-xs tracking-wider uppercase"
-                              style={{ fontFamily: "'Inter', sans-serif" }}
-                            >
-                              EMAILS & TEXTS
-                            </span>
-                          </div>
-                          <h2
-                            className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6 leading-tight"
-                            style={{
-                              fontFamily: "'Plus Jakarta Sans', sans-serif",
-                            }}
-                          >
-                            Automate your inbox
-                          </h2>
-                          <p className="text-base text-gray-700 mb-8 leading-relaxed">
-                            AI answering for text &<br />
-                            email helps you win
-                            <br />
-                            more jobs without
-                            <br />
-                            babysitting your inbox.
-                          </p>
-                        </div>
-                        <div className="hidden md:block">
-                          <button className="bg-transparent border-2 border-gray-700 text-gray-700 font-semibold text-lg px-8 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition">
-                            Learn more
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Mobile Image */}
-                      <div className="w-full md:hidden mt-6">
-                        <img
-                          src="https://www.workiz.com/wp-content/uploads/2025/07/jessica-automate-inbox-mobile.webp"
-                          alt="Jessica Automate Inbox Mobile"
-                          className="w-full h-auto object-contain"
-                          width="686"
-                          height="384"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Reasons You'll Love Jessica Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Section Title */}
-            <div className="text-center mb-16">
-              <h2
-                className="text-4xl md:text-5xl font-bold text-gray-900 mb-8"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Oh... The reasons you'll love Jessica
-              </h2>
-            </div>
-
-            {/* Three Benefits Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-              {/* Benefit 1 - She pays for herself */}
-              <div className="text-center">
-                <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center">
-                    <img
-                      src="/images/money.png"
-                      alt="Money icon"
-                      className="w-10 h-10 object-contain"
-                      style={{
-                        filter:
-                          "brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(214deg) brightness(97%) contrast(97%)",
-                      }}
-                    />
-                  </div>
-                </div>
-                <h3
-                  className="text-xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  She pays for herself
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  40% of missed calls are new business opportunities. Jessica
-                  saves those jobs, turning a high ROI.
-                </p>
-              </div>
-
-              {/* Benefit 2 - She doesn't need you */}
-              <div className="text-center">
-                <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center">
-                    <img
-                      src="/images/return.png"
-                      alt="Return icon"
-                      className="w-10 h-10 object-contain"
-                      style={{
-                        filter:
-                          "brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(214deg) brightness(97%) contrast(97%)",
-                      }}
-                    />
-                  </div>
-                </div>
-                <h3
-                  className="text-xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  She doesn't need you
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Jessica is already embedded into your client history and
-                  policies. She's ready to work without bothering you.
-                </p>
-              </div>
-
-              {/* Benefit 3 - She's always on */}
-              <div className="text-center">
-                <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center">
-                    <svg
-                      className="w-8 h-8 text-blue-600"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" />
-                      <circle cx="17" cy="7" r="2" />
-                      <path d="M17 5C16.4 5 16 5.4 16 6S16.4 7 17 7 18 6.6 18 6 17.6 5 17 5Z" />
-                    </svg>
-                  </div>
-                </div>
-                <h3
-                  className="text-xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  She's always on
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Whether it's after hours, or your agents are busy, Jessica
-                  answers whatever you miss and books the jobs, 24/7.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <TestimonialVideos />
-
-        {/* Genius Answering - Like Hiring Yourself Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left side - Image */}
-              <div className="relative">
-                <img
-                  src="/images/Genius-Anwering.webp"
-                  alt="Genius Answering Interface"
-                  className="w-full h-auto rounded-lg"
-                />
-              </div>
-
-              {/* Right side - Content */}
-              <div>
-                <div className="mb-6">
-                  <span
-                    className="text-blue-500 font-medium text-sm tracking-wider uppercase"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    UNDERSTANDS YOUR BUSINESS
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  It's like hiring yourself as a dispatcher
-                </h2>
-                <p
-                  className="text-lg text-gray-600 mb-8 leading-relaxed"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Since Jessica is built into Workiz, she already knows your
-                  availability, client history, services, and service areas.
-                  This lets her book jobs faster than a human, without errors.
-                  It takes Jessica only 2 minutes to book a job, on average.
-                </p>
-                <div>
-                  <a
-                    href="#"
-                    className="text-gray-900 font-semibold text-lg hover:text-blue-600 transition-colors duration-200 inline-flex items-center gap-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Get started for free
-                    <i className="fas fa-arrow-right text-sm"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Control Everything - Customize Jessica Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left side - Video */}
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden shadow-2xl">
-                  <video
-                    className="w-full h-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source src="/videos/jessica.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-
-              {/* Right side - Content */}
-              <div>
-                <div className="mb-6">
-                  <span
-                    className="text-blue-500 font-medium text-sm tracking-wider uppercase"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    CONTROL EVERYTHING
-                  </span>
-                </div>
-                <h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Customize Jessica to your business needs
-                </h2>
-                <p
-                  className="text-lg text-gray-600 mb-8 leading-relaxed"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Dozens of easy to use customizations let you make Jessica your
-                  own. Change her name, voice, the information she collects, the
-                  policies she follows, and a lot more.
-                </p>
-                <div>
-                  <a
-                    href="#"
-                    className="text-gray-900 font-semibold text-lg hover:text-blue-600 transition-colors duration-200 inline-flex items-center gap-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Book a demo
-                    <i className="fas fa-arrow-right text-sm"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  // Default Products Overview Page
+export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1
-              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Complete Field Service
-              <span className="text-blue-600"> Software Suite</span>
-            </h1>
-            <p
-              className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Everything you need to run your field service business
-              efficiently. From scheduling and dispatching to payments and
-              AI-powered insights.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition">
-                Start Free Trial
-              </button>
-              <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-blue-50 transition">
-                Book a Demo
-              </button>
-            </div>
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-200/20 to-cyan-200/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-200/20 to-pink-200/20 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
+            <span className="text-blue-700 text-sm font-semibold tracking-wide">
+              ALL PRODUCTS
+            </span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 mb-6 leading-tight">
+            Complete Field Service
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
+              Management Suite
+            </span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8 leading-relaxed">
+            Everything your field service business needs in one powerful
+            platform. From scheduling to payments, we've got you covered.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+              Start Free Trial
+            </button>
+            <button className="px-8 py-4 bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-800 font-bold rounded-2xl hover:bg-white hover:border-gray-300 transition-all duration-200 shadow-lg">
+              View Demo
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Product Categories Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Products Grid */}
+      <section className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+              Our Product Suite
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Powerful tools designed to streamline every aspect of your field
+              service business
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {productsData.map((product) => (
+              <div
+                key={product.id}
+                className="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300"
+              >
+                {/* Product Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div
+                    className={`w-16 h-16 ${product.bgColor} rounded-2xl flex items-center justify-center ${product.textColor} group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {product.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                      {product.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      {product.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Product Image */}
+                <div className="relative h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+
+                {/* Key Benefits */}
+                <div className="space-y-3 mb-6">
+                  <h4 className="font-semibold text-gray-900">Key Benefits:</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {product.keyBenefits.map((benefit, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                        <span className="text-sm text-gray-600">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stats */}
+                <div className="flex justify-between items-center text-center border-t border-gray-100 pt-4">
+                  <div>
+                    <div className="text-lg font-bold text-blue-600">
+                      {product.stats.customers}
+                    </div>
+                    <div className="text-xs text-gray-500">Customers</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-green-600">
+                      {product.stats.efficiency}
+                    </div>
+                    <div className="text-xs text-gray-500">Efficiency</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-purple-600">
+                      {product.stats.revenue}
+                    </div>
+                    <div className="text-xs text-gray-500">Revenue</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+              Success Stories by Product
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real results from businesses using our products
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {productCaseStudies.map((study, index) => (
+              <div
+                key={index}
+                className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="relative h-48 mb-6 rounded-2xl overflow-hidden">
+                  <img
+                    src={study.image}
+                    alt={study.company}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <div className="font-bold text-lg">{study.company}</div>
+                    <div className="text-sm opacity-90">{study.product}</div>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
+                    {study.result}
+                  </div>
+                  <p className="text-gray-700 italic mb-4">"{study.quote}"</p>
+                  <div className="text-sm text-gray-600">
+                    <div className="font-semibold">{study.name}</div>
+                    <div>{study.title}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Comparison */}
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+              Why Choose Our Products?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Built specifically for field service businesses with features that
+              matter
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Essentials */}
-            <div className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                <i className="fas fa-users text-blue-600 text-xl"></i>
+            {[
+              {
+                icon: "⚡",
+                title: "Lightning Fast",
+                description: "Built for speed and efficiency",
+              },
+              {
+                icon: "🔒",
+                title: "Secure & Reliable",
+                description: "Bank-level security and 99.9% uptime",
+              },
+              {
+                icon: "📱",
+                title: "Mobile First",
+                description: "Works perfectly on any device",
+              },
+              {
+                icon: "🤝",
+                title: "24/7 Support",
+                description: "Expert help whenever you need it",
+              },
+            ].map((feature, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600">{feature.description}</p>
               </div>
-              <h3
-                className="text-xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Essentials
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Core tools to manage your field service operations effectively.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Client CRM
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Scheduling
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Dispatching
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Invoicing
-                </div>
-              </div>
-            </div>
-
-            {/* Efficiency Tools */}
-            <div className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                <i className="fas fa-bolt text-green-600 text-xl"></i>
-              </div>
-              <h3
-                className="text-xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Efficiency Tools
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Advanced features to streamline workflows and boost
-                productivity.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Automations
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Lead integrations
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Service plans
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Equipment tracking
-                </div>
-              </div>
-            </div>
-
-            {/* Financial Services */}
-            <div className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
-                <i className="fas fa-credit-card text-yellow-600 text-xl"></i>
-              </div>
-              <h3
-                className="text-xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Financial Services
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Complete payment solutions and financial management tools.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Payment processing
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Expense management
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Consumer financing
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  QuickBooks integration
-                </div>
-              </div>
-            </div>
-
-            {/* Communication & AI */}
-            <div className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                <i className="fas fa-robot text-purple-600 text-xl"></i>
-              </div>
-              <h3
-                className="text-xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Communication & AI
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Smart communication tools powered by artificial intelligence.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-green-500 w-4 mr-3"></i>
-                  Built-in phone & messages
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-purple-500 w-4 mr-3"></i>
-                  AI answering
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-purple-500 w-4 mr-3"></i>
-                  AI leads capture
-                </div>
-                <div className="flex items-center text-sm text-gray-700">
-                  <i className="fas fa-check text-purple-500 w-4 mr-3"></i>
-                  AI call insights
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2
-            className="text-3xl font-bold text-gray-900 mb-6"
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            Ready to transform your field service business?
+      <section className="py-20 px-4 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-black mb-6">
+            Ready to Transform Your
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+              Field Service Business?
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Join over 120,000 field service professionals who trust Workiz to
-            grow their business.
-          </p>
-          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition">
-            Start Your Free Trial
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-}
 
-export default function ProductsPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-white flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading...</p>
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+            Get access to all our products with a single subscription. Start
+            your free trial today – no credit card required.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <button className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 font-bold rounded-2xl hover:from-yellow-300 hover:to-orange-300 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+              Start Free Trial
+            </button>
+            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold rounded-2xl hover:bg-white/20 hover:border-white/40 transition-all duration-200">
+              Schedule Demo
+            </button>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
+            <div className="flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="text-emerald-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              14-day free trial
+            </div>
+            <div className="flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="text-emerald-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              No credit card required
+            </div>
+            <div className="flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="text-emerald-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              All products included
+            </div>
+            <div className="flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="text-emerald-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              24/7 support
+            </div>
           </div>
         </div>
-      }
-    >
-      <ProductsPageContent />
-    </Suspense>
+      </section>
+
+      {/* Main Footer */}
+      <FooterSection />
+    </div>
   );
 }
