@@ -201,19 +201,15 @@ export default function Hero() {
                 <div className="p-5 bg-gradient-to-br from-gray-50 to-white">
                   {/* Compact Header */}
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg">
-                        <span className="text-white font-black text-sm">L</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-900 font-black text-lg">
-                          Logical CRM
-                        </span>
-                        <div className="text-gray-500 text-xs">
-                          Field Service Dashboard
-                        </div>
-                      </div>
-                    </div>
+                    <img
+                      src="/crm.png"
+                      alt="Logical CRM"
+                      className="h-full w-auto object-contain transition-all duration-200 group-hover:scale-105"
+                      style={{ maxHeight: "30px", maxWidth: "180px" }}
+                      onError={(e) => {
+                        console.log("Logo failed to load:", e.target.src);
+                      }}
+                    />
                     <div className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
                       <span className="text-xs text-gray-500 font-medium">
