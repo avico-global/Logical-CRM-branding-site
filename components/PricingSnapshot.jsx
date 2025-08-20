@@ -7,76 +7,149 @@ export default function PricingSnapshot() {
 
   const tiers = [
     {
-      name: "Starter",
-      monthlyPrice: 29,
-      desc: "For solo pros and new teams getting off spreadsheets",
+      name: "Lite",
+      monthlyPrice: 0,
+      annualPrice: 0,
+      desc: "The lite kit.",
+      subtitle: "Up to 2 members",
+      annualSubtitle: "Up to 2 members",
       features: [
-        "Scheduling & dispatch",
-        "Estimates, invoices & payments",
-        "Customer CRM & job history",
-        "Mobile app (iOS & Android)",
-        "Basic automations",
-        "Email support",
+        "Scheduling",
+        "20 Invoices, jobs & estimates",
+        "Mobile app",
+        "Reserve with Google",
       ],
-      cta: "Start Free Trial",
+      cta: "Free forever",
       popular: false,
       color: "bg-white",
+      badge: null,
     },
     {
-      name: "Growth",
-      monthlyPrice: 79,
-      desc: "Best for growing teams that want automation & insights",
+      name: "Kickstart",
+      monthlyPrice: 225,
+      annualPrice: 187,
+      desc: "The perfect starter kit",
+      subtitle: "Monthly billing, incl. first 3 users.",
+      annualSubtitle: "Annual billing, incl. first 3 users.",
       features: [
-        "Everything in Starter",
-        "Advanced scheduling & routing",
-        "Online booking & customer portal",
-        "Pricebook & item catalog",
-        "Inventory & purchase orders",
-        "Texting & phone logs",
-        "QuickBooks Online integration",
-        "Reports & dashboards",
-        "Priority support",
+        "Scheduling",
+        "2 Automations",
+        "Invoices, jobs & estimates",
+        "Online payments",
+        "Online booking with checkout",
+        "Built-in reports",
+        "Local number",
+        "Client management",
       ],
-      cta: "Start Free Trial",
-      popular: true,
-      color: "bg-gradient-to-br from-blue-50 to-indigo-50",
+      cta: "Start for free",
+      popular: false,
+      color: "bg-white",
+      badge: null,
+    },
+    {
+      name: "Standard",
+      monthlyPrice: 275,
+      annualPrice: 229,
+      desc: "The essential tools to grow and boost efficiency.",
+      subtitle: "Monthly billing, incl. first 5 users.",
+      annualSubtitle: "Annual billing, incl. first 5 users.",
+      features: [
+        "Everything in Kickstart, plus:",
+        "Quickbooks Online",
+        "Total of 5 Automations",
+        "Custom fields",
+        "Location tracking",
+        "Service areas",
+        "Subcontractors management",
+        "Leads tracking",
+      ],
+      cta: "Start for free",
+      popular: false,
+      color: "bg-white",
+      badge: null,
     },
     {
       name: "Pro",
-      monthlyPrice: 149,
-      desc: "For multi-team operations that need scale & control",
+      monthlyPrice: 325,
+      annualPrice: 270,
+      desc: "The perfect plan with AI tools and enhanced automations.",
+      subtitle: "Monthly billing, incl. first 5 users.",
+      annualSubtitle: "Annual billing, incl. first 5 users.",
       features: [
-        "Everything in Growth",
-        "AI-powered scheduling & recommendations",
-        "Custom roles & permissions",
-        "Multi-location & franchise support",
-        "Open API & webhooks",
-        "Advanced integrations (Zapier, Slack, more)",
-        "Custom workflows & approvals",
-        "Dedicated success manager",
+        "Everything in Standard, plus:",
+        "Performance pay",
+        "A total of 10 Automations",
+        "Genius leads",
+        "Genius scheduling New",
+        "Custom reports",
       ],
-      cta: "Contact Sales",
+      cta: "Start for free",
+      popular: true,
+      color: "bg-gradient-to-br from-yellow-50 to-orange-50",
+      badge: "BEST VALUE",
+    },
+    {
+      name: "Ultimate",
+      monthlyPrice: null,
+      annualPrice: null,
+      desc: "Tailored for big companies and growing teams.",
+      subtitle: "The complete plan",
+      annualSubtitle: "The complete plan",
+      features: [
+        "Everything in Pro, plus:",
+        "Service plans",
+        "A total of 30 Automations",
+        "Sales proposals",
+        "Inventory management",
+        "Flat rate New",
+        "Multi-day jobs",
+        "Equipment tracking",
+        "Purchase orders New",
+        "Zapier integration",
+      ],
+      cta: "Contact us",
       popular: false,
       color: "bg-white",
+      badge: null,
     },
   ];
 
   // Calculate prices based on billing period
-  const getPrice = (monthlyPrice) => {
-    if (isAnnual) {
-      const annualPrice = Math.round(monthlyPrice * 12 * 0.8); // 20% discount
+  const getPrice = (tier) => {
+    if (tier.monthlyPrice === null) {
       return {
-        price: Math.round(annualPrice / 12),
-        originalPrice: monthlyPrice,
-        period: '/user/mo',
-        billedAs: `Billed annually ($${annualPrice})`
+        price: "Let's talk",
+        originalPrice: null,
+        period: "",
+        billedAs: isAnnual ? tier.annualSubtitle : tier.subtitle,
       };
     }
-    return {
-      price: monthlyPrice,
-      period: '/user/mo',
-      billedAs: 'Billed monthly'
-    };
+
+    if (tier.monthlyPrice === 0) {
+      return {
+        price: "Free",
+        originalPrice: null,
+        period: "",
+        billedAs: isAnnual ? tier.annualSubtitle : tier.subtitle,
+      };
+    }
+
+    // For paid plans, show monthly or annual pricing
+    if (isAnnual) {
+      return {
+        price: tier.annualPrice,
+        originalPrice: tier.monthlyPrice,
+        period: "/month",
+        billedAs: tier.annualSubtitle,
+      };
+    } else {
+      return {
+        price: tier.monthlyPrice,
+        originalPrice: null,
+        period: "/month",
+        billedAs: tier.subtitle,
+      };
+    }
   };
 
   return (
@@ -89,7 +162,7 @@ export default function PricingSnapshot() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full">
             <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
             <span className="text-blue-700 text-sm font-semibold tracking-wide">
@@ -106,34 +179,34 @@ export default function PricingSnapshot() {
 
           {/* Billing toggle */}
           <div className="inline-flex items-center bg-white/60 backdrop-blur-sm border border-gray-200 rounded-2xl p-1 shadow-sm">
-            <button 
+            <button
               onClick={() => setIsAnnual(false)}
               className={`px-6 py-2 text-sm font-semibold rounded-xl transition-all ${
-                !isAnnual 
-                  ? 'text-white bg-blue-500 shadow-md' 
-                  : 'text-gray-600 hover:text-gray-900'
+                !isAnnual
+                  ? "text-white bg-blue-500 shadow-md"
+                  : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              Monthly
+              Pay monthly
             </button>
-            <button 
+            <button
               onClick={() => setIsAnnual(true)}
               className={`px-6 py-2 text-sm font-semibold rounded-xl transition-all ${
-                isAnnual 
-                  ? 'text-white bg-blue-500 shadow-md' 
-                  : 'text-gray-600 hover:text-gray-900'
+                isAnnual
+                  ? "text-white bg-blue-500 shadow-md"
+                  : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              Annual{" "}
-              <span className="text-green-600 text-xs font-bold ml-1">
-                Save 20%
+              Pay annually{" "}
+              <span className="text-white bg-blue-600 text-xs font-bold ml-1 px-2 py-0.5 rounded-full">
+                Save 17%
               </span>
             </button>
           </div>
         </div>
 
         {/* Pricing cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl w-full">
           {tiers.map((tier, index) => (
             <div
               key={tier.name}
@@ -143,81 +216,99 @@ export default function PricingSnapshot() {
                   : "border-gray-200 shadow-lg"
               } group hover:shadow-xl transition-all duration-300`}
             >
-              {/* Popular badge */}
-              {tier.popular && (
+              {/* Badge */}
+              {tier.badge && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
-                    Most Popular
+                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg">
+                    {tier.badge}
                   </div>
                 </div>
               )}
 
-              <div className="p-8">
+              <div className="p-6">
                 {/* Plan header */}
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {tier.name}
                   </h3>
                   <div className="mb-3">
                     <div className="flex items-baseline justify-center gap-1">
-                      {isAnnual && getPrice(tier.monthlyPrice).originalPrice && (
+                      {getPrice(tier).originalPrice && (
                         <span className="text-lg text-gray-400 line-through mr-2">
-                          ${getPrice(tier.monthlyPrice).originalPrice}
+                          ${getPrice(tier).originalPrice}
                         </span>
                       )}
-                      <span className="text-5xl font-black text-gray-900">
-                        ${getPrice(tier.monthlyPrice).price}
+                      <span className="text-4xl font-black text-gray-900">
+                        {typeof getPrice(tier).price === "number"
+                          ? `$${getPrice(tier).price}`
+                          : getPrice(tier).price}
                       </span>
                       <span className="text-gray-500 font-medium">
-                        {getPrice(tier.monthlyPrice).period}
+                        {getPrice(tier).period}
                       </span>
                     </div>
                     <p className="text-sm text-gray-500 mt-1">
-                      {getPrice(tier.monthlyPrice).billedAs}
+                      {getPrice(tier).billedAs}
                     </p>
                   </div>
                   <p className="text-gray-600 leading-relaxed">{tier.desc}</p>
                 </div>
 
                 {/* Features list */}
-                <ul className="space-y-4 mb-8">
-                  {tier.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-0.5">
-                        <svg
-                          className="w-3 h-3 text-green-600"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-gray-700 leading-relaxed">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
+                <ul className="space-y-3 mb-6">
+                  {tier.features.map((feature, i) => {
+                    const isNewFeature = feature.includes(" New");
+                    const featureText = feature.replace(" New", "");
+
+                    return (
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-4 h-4 bg-green-100 rounded-full flex items-center justify-center mt-1">
+                          <svg
+                            className="w-2.5 h-2.5 text-green-600"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex items-center gap-2 flex-1">
+                          <span className="text-gray-700 text-sm leading-relaxed">
+                            {featureText}
+                          </span>
+                          {isNewFeature && (
+                            <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+                              New
+                            </span>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 {/* CTA button */}
                 <button
-                  className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  className={`w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 ${
                     tier.popular
-                      ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 shadow-lg hover:shadow-xl"
-                      : "bg-gray-900 text-white hover:bg-gray-800"
+                      ? "bg-yellow-400 text-black hover:bg-yellow-500 shadow-lg hover:shadow-xl"
+                      : tier.name === "Lite"
+                      ? "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                      : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                   } group-hover:scale-105 transform`}
                 >
                   {tier.cta}
                 </button>
 
                 {/* Additional info */}
-                <p className="text-center text-sm text-gray-500 mt-4">
-                  14-day free trial • No setup fees • Cancel anytime
-                </p>
+                {tier.name !== "Lite" && tier.name !== "Ultimate" && (
+                  <p className="text-center text-sm text-gray-500 mt-4">
+                    14-day free trial • No setup fees • Cancel anytime
+                  </p>
+                )}
               </div>
             </div>
           ))}

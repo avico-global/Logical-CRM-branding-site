@@ -4,7 +4,7 @@ import Link from "next/link";
 
 // Constants
 const NAVIGATION_ITEMS = ["Pricing"];
-
+  
 const INDUSTRIES_DATA = [
   {
     id: "hvac",
@@ -1003,7 +1003,11 @@ const Navbar = () => {
 
             {/* Other Navigation Items */}
             {NAVIGATION_ITEMS.map((item, index) => (
-              <div key={index} className={navItemClasses}>
+              <Link
+                key={index}
+                href={item === "Pricing" ? "/pricing" : `/${item.toLowerCase()}`}
+                className={navItemClasses}
+              >
                 <span className="group-hover:text-cyan-300 transition-colors">
                   {item}
                 </span>
@@ -1024,7 +1028,7 @@ const Navbar = () => {
                     />
                   </svg>
                 )}
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -1088,15 +1092,30 @@ const Navbar = () => {
               "Resources",
               "Company",
               ...NAVIGATION_ITEMS,
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                {item}
-              </div>
-            ))}
+            ].map((item, index) => {
+              if (item === "Pricing") {
+                return (
+                  <Link
+                    key={index}
+                    href="/pricing"
+                    className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                );
+              }
+              return (
+                <div
+                  key={index}
+                  className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  {item}
+                </div>
+              );
+            })}
             <div className="border-t border-white/20 pt-6 mt-4 flex flex-col gap-3">
               <button
                 className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10"
