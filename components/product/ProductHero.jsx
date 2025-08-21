@@ -8,11 +8,16 @@ export default function ProductHero({ data }) {
   const { hero } = data;
 
   return (
-    <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+    <section
+      className="relative pt-32 pb-20 px-4 overflow-hidden bg-cover bg-center h-screen"
+      style={{
+        backgroundImage: `url(https://www.zohowebstatic.com/sites/zweb/images/people/zpl-banner-bg.jpg)`,
+      }}
+    >
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20"></div>
-      <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-200/20 to-cyan-200/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-200/20 to-pink-200/20 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-yellow-50/30 to-indigo-50/20"></div>
+      <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-yellow-200/30 to-cyan-200/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-yellow-200/30 to-cyan-200/20 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -29,11 +34,13 @@ export default function ProductHero({ data }) {
             {/* Heading */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-700 capitalize">
                   {hero.title.highlight}
                 </span>
                 <br />
-                <span className="text-gray-900">{hero.title.main}</span>
+                <span className="text-gray-900 capitalize">
+                  {hero.title.main}
+                </span>
               </h1>
 
               <p className="text-xl text-gray-600 leading-relaxed max-w-xl">
@@ -142,23 +149,6 @@ export default function ProductHero({ data }) {
             {/* Decorative elements */}
             <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full opacity-60 animate-bounce"></div>
             <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-60 animate-bounce delay-1000"></div>
-          </div>
-        </div>
-
-        {/* Trust Partners Section */}
-        <div className="mt-20 text-center">
-          <p className="text-gray-600 text-sm font-semibold tracking-wider mb-8">
-            TRUSTED BY INDUSTRY LEADERS
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            {[1, 2, 3, 4, 5, 6].map((num) => (
-              <img
-                key={num}
-                src={`/images/logo-${num}.svg`}
-                alt={`Partner ${num}`}
-                className="h-8 w-auto opacity-60 hover:opacity-100 transition-opacity"
-              />
-            ))}
           </div>
         </div>
       </div>

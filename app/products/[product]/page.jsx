@@ -1,6 +1,10 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { getProductData, getProductMetadata, getAllProductIds } from "@/data/productDetailsData";
+import {
+  getProductData,
+  getProductMetadata,
+  getAllProductIds,
+} from "@/data/productDetailsData";
 import ProductHero from "@/components/product/ProductHero";
 import KeyFeatures from "@/components/KeyFeatures";
 import ProductTour from "@/components/ProductTour";
@@ -58,6 +62,26 @@ export default function ProductPage({ params }) {
       {/* Product-specific Hero */}
       <ProductHero data={productData} />
 
+      {/* Trust Indicators */}
+      <div className="max-w-7xl w-full mx-auto mt-20 pb-20">
+        <div className="text-center mb-12">
+          <p className="text-gray-400 text-lg font-semibold tracking-wider">
+            TRUSTED BY 5,000+ ORGANIZATIONS
+          </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center items-center gap-8">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].slice(0, 8).map((num) => (
+            <img
+              key={num}
+              src={`/images/logo-${num}.svg`}
+              alt={`Company ${num}`}
+              className="h-8 w-auto invert hover:opacity-100 transition-opacity"
+            />
+          ))}
+        </div>
+      </div>
+
       {/* Product Features Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -66,7 +90,8 @@ export default function ProductPage({ params }) {
               Key Features of {metadata.breadcrumb}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Powerful capabilities designed to streamline your workflow and boost productivity
+              Powerful capabilities designed to streamline your workflow and
+              boost productivity
             </p>
           </div>
 
@@ -94,7 +119,10 @@ export default function ProductPage({ params }) {
                   <h4 className="font-semibold text-gray-900">Benefits:</h4>
                   <div className="space-y-2">
                     {feature.benefits.map((benefit, benefitIndex) => (
-                      <div key={benefitIndex} className="flex items-center gap-2">
+                      <div
+                        key={benefitIndex}
+                        className="flex items-center gap-2"
+                      >
                         <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                         <span className="text-sm text-gray-600">{benefit}</span>
                       </div>
@@ -113,7 +141,7 @@ export default function ProductPage({ params }) {
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8">
             {metadata.breadcrumb} by the Numbers
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-8 bg-white rounded-3xl shadow-lg border border-gray-100">
               <div className="text-4xl font-black text-blue-600 mb-2">
@@ -125,7 +153,9 @@ export default function ProductPage({ params }) {
               <div className="text-4xl font-black text-green-600 mb-2">
                 {productData.stats.efficiency}
               </div>
-              <div className="text-gray-600 font-medium">Efficiency Increase</div>
+              <div className="text-gray-600 font-medium">
+                Efficiency Increase
+              </div>
             </div>
             <div className="p-8 bg-white rounded-3xl shadow-lg border border-gray-100">
               <div className="text-4xl font-black text-purple-600 mb-2">
