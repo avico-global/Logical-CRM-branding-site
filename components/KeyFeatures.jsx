@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const features = [
   {
@@ -133,8 +133,6 @@ const features = [
 export default function KeyFeatures() {
   const [activeIndex, setActiveIndex] = useState(0); // Start with first feature
   const [progress, setProgress] = useState(0); // For blue line animation
-  const descriptionRefs = useRef([]);
-  const intervalRef = useRef();
   const PROGRESS_DURATION = 6000; // ms for each feature (slower)
   const [shouldAnimate, setShouldAnimate] = useState(false);
 
