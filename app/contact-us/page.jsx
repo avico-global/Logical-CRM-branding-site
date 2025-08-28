@@ -1,14 +1,18 @@
 import React from "react";
 import FooterSection from "@/components/FooterSection";
 import ContactForm from "@/components/ContactForm";
+import FinalCta from "@/components/FinalCta";
 
 export const metadata = {
   title: "Contact Us - Logical CRM | Get in Touch with Our Team",
-  description: "Talk to us! We are real people who would love to help in any way we can. Get in touch with our expert team for support, sales, or partnerships.",
-  keywords: "contact logical crm, customer support, sales team, get help, field service support",
+  description:
+    "Talk to us! We are real people who would love to help in any way we can. Get in touch with our expert team for support, sales, or partnerships.",
+  keywords:
+    "contact logical crm, customer support, sales team, get help, field service support",
   openGraph: {
     title: "Contact Us - Logical CRM | Get in Touch with Our Team",
-    description: "Talk to us! We are real people who would love to help in any way we can. Get in touch with our expert team for support, sales, or partnerships.",
+    description:
+      "Talk to us! We are real people who would love to help in any way we can. Get in touch with our expert team for support, sales, or partnerships.",
     type: "website",
   },
 };
@@ -21,7 +25,7 @@ const contactMethods = [
     action: "Start Chat",
     available: "24/7 Available",
     color: "from-blue-600 to-cyan-600",
-    details: "Average response time: 30 seconds"
+    details: "Average response time: 30 seconds",
   },
   {
     icon: "📞",
@@ -30,7 +34,7 @@ const contactMethods = [
     action: "Call Now: 1-800-LOGICAL",
     available: "Mon-Fri 8AM-6PM EST",
     color: "from-green-600 to-emerald-600",
-    details: "For urgent technical issues"
+    details: "For urgent technical issues",
   },
   {
     icon: "📧",
@@ -39,7 +43,7 @@ const contactMethods = [
     action: "support@logicalcrm.com",
     available: "Response within 2 hours",
     color: "from-purple-600 to-pink-600",
-    details: "For detailed technical questions"
+    details: "For detailed technical questions",
   },
   {
     icon: "🎥",
@@ -48,8 +52,8 @@ const contactMethods = [
     action: "Book Demo",
     available: "Available all week",
     color: "from-orange-600 to-red-600",
-    details: "15-30 minute personalized demo"
-  }
+    details: "15-30 minute personalized demo",
+  },
 ];
 
 const offices = [
@@ -60,7 +64,7 @@ const offices = [
     phone: "+1 (415) 555-0123",
     email: "sf@logicalcrm.com",
     hours: "Mon-Fri 9AM-6PM PST",
-    image: "/images/electric-field.webp"
+    image: "/images/electric-field.webp",
   },
   {
     city: "Austin",
@@ -69,7 +73,7 @@ const offices = [
     phone: "+1 (512) 555-0456",
     email: "austin@logicalcrm.com",
     hours: "Mon-Fri 9AM-6PM CST",
-    image: "/images/plumbing-bussiness.webp"
+    image: "/images/plumbing-bussiness.webp",
   },
   {
     city: "Remote Support",
@@ -78,12 +82,11 @@ const offices = [
     phone: "+1 (800) 555-HELP",
     email: "support@logicalcrm.com",
     hours: "24/7 Support",
-    image: "/images/communications.webp"
-  }
+    image: "/images/communications.webp",
+  },
 ];
 
 export default function ContactUsPage() {
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/20">
       {/* Hero Section */}
@@ -111,7 +114,9 @@ export default function ContactUsPage() {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8 leading-relaxed">
-            We are real people who would love to help in any way we can. Whether you need support, want to see a demo, or have questions about our services, we're here for you.
+            We are real people who would love to help in any way we can. Whether
+            you need support, want to see a demo, or have questions about our
+            services, we're here for you.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -124,7 +129,6 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
-
       {/* Contact Methods */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
@@ -144,11 +148,19 @@ export default function ContactUsPage() {
                 className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 text-center group"
               >
                 <div className="text-4xl mb-4">{method.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{method.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {method.title}
+                </h3>
                 <p className="text-gray-600 mb-4">{method.description}</p>
-                <div className="text-sm text-green-600 font-semibold mb-2">{method.available}</div>
-                <div className="text-xs text-gray-500 mb-6">{method.details}</div>
-                <button className={`w-full px-6 py-3 bg-gradient-to-r ${method.color} text-white font-semibold rounded-xl hover:opacity-90 group-hover:scale-105 transition-all duration-200`}>
+                <div className="text-sm text-green-600 font-semibold mb-2">
+                  {method.available}
+                </div>
+                <div className="text-xs text-gray-500 mb-6">
+                  {method.details}
+                </div>
+                <button
+                  className={`w-full px-6 py-3 bg-gradient-to-r ${method.color} text-white font-semibold rounded-xl hover:opacity-90 group-hover:scale-105 transition-all duration-200`}
+                >
                   {method.action}
                 </button>
               </div>
@@ -156,7 +168,6 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
-
       {/* Contact Form */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
@@ -172,7 +183,6 @@ export default function ContactUsPage() {
           <ContactForm />
         </div>
       </section>
-
       {/* Office Locations */}
       <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
@@ -199,7 +209,9 @@ export default function ContactUsPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="absolute bottom-4 left-4">
-                    <h3 className="text-xl font-bold text-white">{office.city}</h3>
+                    <h3 className="text-xl font-bold text-white">
+                      {office.city}
+                    </h3>
                   </div>
                 </div>
 
@@ -208,21 +220,29 @@ export default function ContactUsPage() {
                     <div className="flex items-start gap-3">
                       <span className="text-green-600">📍</span>
                       <div>
-                        <div className="font-semibold text-gray-900">{office.address}</div>
+                        <div className="font-semibold text-gray-900">
+                          {office.address}
+                        </div>
                         <div className="text-gray-600">{office.zipcode}</div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-3">
                       <span className="text-green-600">📞</span>
-                      <a href={`tel:${office.phone}`} className="text-gray-900 hover:text-green-600 transition-colors">
+                      <a
+                        href={`tel:${office.phone}`}
+                        className="text-gray-900 hover:text-green-600 transition-colors"
+                      >
                         {office.phone}
                       </a>
                     </div>
 
                     <div className="flex items-center gap-3">
                       <span className="text-green-600">📧</span>
-                      <a href={`mailto:${office.email}`} className="text-gray-900 hover:text-green-600 transition-colors">
+                      <a
+                        href={`mailto:${office.email}`}
+                        className="text-gray-900 hover:text-green-600 transition-colors"
+                      >
                         {office.email}
                       </a>
                     </div>
@@ -242,7 +262,6 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
-
       {/* FAQ Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
@@ -259,88 +278,44 @@ export default function ContactUsPage() {
             {[
               {
                 question: "What's the best way to get immediate help?",
-                answer: "For immediate assistance, use our live chat feature available 24/7. Our support team typically responds within 30 seconds."
+                answer:
+                  "For immediate assistance, use our live chat feature available 24/7. Our support team typically responds within 30 seconds.",
               },
               {
                 question: "How quickly do you respond to emails?",
-                answer: "We respond to all emails within 2 hours during business hours (Mon-Fri 8AM-6PM EST) and within 4 hours on weekends."
+                answer:
+                  "We respond to all emails within 2 hours during business hours (Mon-Fri 8AM-6PM EST) and within 4 hours on weekends.",
               },
               {
                 question: "Can I schedule a call with your team?",
-                answer: "Absolutely! You can schedule a call through our calendar booking system or request a callback through live chat or email."
+                answer:
+                  "Absolutely! You can schedule a call through our calendar booking system or request a callback through live chat or email.",
               },
               {
                 question: "Do you offer phone support?",
-                answer: "Yes, we offer phone support during business hours (Mon-Fri 8AM-6PM EST) at 1-800-LOGICAL. For urgent technical issues, we also have an emergency line."
+                answer:
+                  "Yes, we offer phone support during business hours (Mon-Fri 8AM-6PM EST) at 1-800-LOGICAL. For urgent technical issues, we also have an emergency line.",
               },
               {
                 question: "Is there a cost for support?",
-                answer: "All support is included with your subscription at no additional cost. We believe in helping our customers succeed without hidden fees."
-              }
+                answer:
+                  "All support is included with your subscription at no additional cost. We believe in helping our customers succeed without hidden fees.",
+              },
             ].map((faq, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{faq.question}</h3>
+              <div
+                key={index}
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-lg border border-gray-100"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {faq.question}
+                </h3>
                 <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-black mb-6">
-            Ready to Get
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-              Started Today?
-            </span>
-          </h2>
-
-          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-            Don't wait! Our team is standing by to help you transform your field service business. Get in touch now.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <button className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 font-bold rounded-2xl hover:from-yellow-300 hover:to-orange-300 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-              Start Free Trial
-            </button>
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold rounded-2xl hover:bg-white/20 hover:border-white/40 transition-all duration-200">
-              Talk to Sales
-            </button>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Real people, real help
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              No sales pressure
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              Expert guidance
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              24/7 availability
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Footer */}
+      <FinalCta heading="Ready to Get Started Today?" /> {/* Main Footer */}
       <FooterSection />
     </div>
   );
