@@ -9,8 +9,6 @@ import IndustryHero from "@/components/industry/IndustryHero";
 import KeyFeatures from "@/components/KeyFeatures";
 import ProductTour from "@/components/ProductTour";
 import ChooseUs from "@/components/ChooseUs";
-import Testimonials from "@/components/testimonials";
-import PricingSnapshot from "@/components/PricingSnapshot";
 import FaqSection from "@/components/FaqSection";
 import FinalCta from "@/components/FinalCta";
 import FooterSection from "@/components/FooterSection";
@@ -62,32 +60,10 @@ export default function IndustryPage({ params }) {
       {/* Industry-specific Hero */}
       <IndustryHero data={industryData} />
 
-      {/* Trust Indicators - Same as home page */}
-      <div className="max-w-7xl w-full mx-auto mt-20 pb-20">
-        <div className="text-center mb-12">
-          <p className="text-gray-400 text-lg font-semibold tracking-wider">
-            TRUSTED BY 5,000+ {metadata.breadcrumb.toUpperCase()} PROFESSIONALS
-          </p>
-        </div>
-
-        <div className="flex flex-wrap justify-center items-center gap-8">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].slice(0, 8).map((num) => (
-            <img
-              key={num}
-              src={`/images/logo-${num}.svg`}
-              alt={`Company ${num}`}
-              className="h-8 w-auto invert hover:opacity-100 transition-opacity"
-            />
-          ))}
-        </div>
-      </div>
-
       {/* Rest of sections - Same as home page */}
       <KeyFeatures />
       <ProductTour />
       <ChooseUs />
-      <Testimonials />
-      <PricingSnapshot />
       <FaqSection />
       <FinalCta />
       <FooterSection />

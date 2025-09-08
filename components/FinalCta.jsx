@@ -12,9 +12,9 @@ export default function FinalCta({ heading }) {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="mx-auto max-w-4xl text-center">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-white/10 border border-white/20 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-yellow-400 mr-2 animate-pulse" />
-            <span className="text-white/90 text-sm font-semibold tracking-wide">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-white/10 border border-[#FFB700] rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#FFB700] mr-2 animate-pulse" />
+            <span className="text-[#FFB700] text-sm font-semibold tracking-wide">
               Let's Talk
             </span>
           </div>
@@ -33,7 +33,7 @@ export default function FinalCta({ heading }) {
 
           {/* CTA buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="group relative px-8 py-4 rounded-2xl font-bold text-gray-900 bg-gradient-to-r from-yellow-300 to-amber-400 shadow-lg shadow-yellow-400/20 hover:shadow-yellow-400/40 transition-transform hover:scale-[1.03]">
+            <button className="group relative px-8 py-4 rounded-2xl font-bold text-gray-900 bg-[#FFB700]  hover:  transition-transform ">
               Start Free Trial
               <span className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></span>
             </button>

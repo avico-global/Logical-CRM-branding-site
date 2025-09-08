@@ -2,36 +2,36 @@ import React from "react";
 
 const features = [
   {
-    icon: "📱",
+    icon: "fas fa-layer-group",
     title: "All-in-One Platform",
     description:
       "Manage scheduling, dispatching, invoicing, payments, and customer communications from a single, intuitive dashboard.",
-    color: "bg-blue-50",
-    iconColor: "text-blue-500",
+    color: "bg-gray-200",
+    iconColor: "text-white",
   },
   {
-    icon: "⚡",
+    icon: "fas fa-bolt",
     title: "Instant Efficiency Boost",
     description:
       "Automate repetitive tasks and streamline workflows. Most customers see 40% productivity gains within the first month.",
-    color: "bg-purple-50",
-    iconColor: "text-purple-500",
+    color: "bg-gray-200",
+    iconColor: "text-white",
   },
   {
-    icon: "🎯",
+    icon: "fas fa-crosshairs",
     title: "Smart Job Management",
     description:
       "AI-powered scheduling and routing optimization ensures your technicians take the most efficient routes and maximize daily jobs.",
-    color: "bg-orange-50",
-    iconColor: "text-orange-500",
+    color: "bg-gray-200",
+    iconColor: "text-white",
   },
   {
-    icon: "💰",
+    icon: "fas fa-credit-card",
     title: "Faster Payments",
     description:
       "Get paid instantly with integrated payment processing, digital invoicing, and automatic payment reminders.",
-    color: "bg-green-50",
-    iconColor: "text-green-500",
+    color: "bg-gray-200",
+    iconColor: "text-white",
   },
 ];
 
@@ -41,13 +41,13 @@ export default function ChooseUs() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
-            <span className="text-blue-700 text-sm font-semibold tracking-wide">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-white border border-[#FFB700] rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#FFB700] mr-2 animate-pulse" />
+            <span className="text-[#FFB700] text-sm font-semibold tracking-wide">
               WHY US
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 text-center mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#293146] text-center mb-4 leading-tight">
             Why Choose Logical CRM?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -63,18 +63,20 @@ export default function ChooseUs() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="group flex items-start gap-4 p-6 bg-white rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-blue-200 transition-all duration-300"
+                className="group flex items-start gap-4 p-6 bg-white rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-[#FFB700]  transition-all duration-300"
               >
                 {/* Icon Container */}
                 <div
-                  className={`flex-shrink-0 w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300`}
+                  className={`flex-shrink-0 w-16 h-16 ${feature.color} group-hover:bg-[#FFB700] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-all duration-300`}
                 >
-                  {feature.icon}
+                  <i
+                    className={`${feature.icon} ${feature.iconColor} group-hover:text-white transition-colors duration-300`}
+                  ></i>
                 </div>
 
                 {/* Content */}
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-[#FFB700] transition-colors">
                     {feature.title}
                   </h3>
                   <p className="text-gray-500 leading-tight text-sm">
@@ -130,7 +132,7 @@ export default function ChooseUs() {
               </div>
 
               {/* Additional CRM-specific badge */}
-              <div className="absolute top-1/2 -right-4 bg-blue-500 text-white rounded-2xl px-4 py-3 shadow-lg transform -rotate-3">
+              <div className="absolute top-1/2 -right-4 bg-[#FFB700] text-white rounded-2xl px-4 py-3 shadow-lg transform -rotate-3">
                 <div className="text-sm font-bold">⚡ 5-Min Setup</div>
               </div>
             </div>

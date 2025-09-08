@@ -6,13 +6,13 @@ export default function ProductTour() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
-            <span className="text-blue-700 text-sm font-semibold tracking-wide">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-white border border-[#FFB700] rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#FFB700] mr-2 animate-pulse" />
+            <span className="text-[#FFB700] text-sm font-semibold tracking-wide">
               PRODUCT TOUR
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 text-center mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#293146] text-center mb-4 leading-tight">
             See Logical CRM in action
           </h2>
           <p className="text-[#23282b] opacity-80 max-w-2xl mx-auto mt-3">

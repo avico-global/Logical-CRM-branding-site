@@ -169,24 +169,24 @@ export default function KeyFeatures() {
         <div className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-r from-purple-100/20 to-pink-100/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
 
         <div className="relative z-10 flex flex-col items-center justify-center">
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
-            <span className="text-blue-700 text-sm font-semibold tracking-wide">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-white border border-[#FFB700]  rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#FFB700]  mr-2 animate-pulse" />
+            <span className="text-[#FFB700]  text-sm font-semibold tracking-wide">
               KEY FEATURES
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 text-center mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#293146] text-center mb-4 leading-tight">
             Key Features That Drive Results
           </h2>
           <p className="text-lg md:text-xl text-gray-600 font-light text-center max-w-3xl leading-relaxed mb-12">
             Powerful features designed to streamline your field service
             operations,
-            <span className="text-blue-600 font-medium">
+            <span className="text-[#293146] font-medium">
               {" "}
               boost productivity
             </span>
             , and
-            <span className="text-purple-600 font-medium">
+            <span className="text-[#293146] font-medium">
               grow your business efficiently
             </span>
             .
@@ -199,7 +199,7 @@ export default function KeyFeatures() {
                   <button
                     className={`flex items-start w-full p-4 rounded-xl border transition-all duration-300 focus:outline-none ${
                       activeIndex === idx
-                        ? "bg-white border-blue-200 shadow-lg shadow-blue-100/50 scale-[1.01]"
+                        ? "bg-white border-[#FFB700] shadow-lg shadow-blue-100/50 scale-[1.01]"
                         : "bg-white/50 border-gray-100 hover:bg-white/80 hover:border-blue-100 hover:shadow-md"
                     }`}
                     onClick={() => handleFeatureClick(idx)}
@@ -207,7 +207,7 @@ export default function KeyFeatures() {
                     <div
                       className={`mr-3 mt-0.5 p-2 rounded-lg transition-all duration-300 ${
                         activeIndex === idx
-                          ? "bg-gradient-to-r from-blue-500 to-cyan-500 shadow-md"
+                          ? "bg-[#FFB700]  shadow-md"
                           : "bg-gray-100 group-hover:bg-blue-100"
                       }`}
                     >
@@ -239,7 +239,7 @@ export default function KeyFeatures() {
                     <div className="ml-4 mt-2 mb-1">
                       <div className="h-0.5 bg-gray-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
+                          className="h-full bg-[#FFB700]  rounded-full"
                           style={{
                             width: `${progress}%`,
                             transition: shouldAnimate

@@ -39,7 +39,7 @@ export default function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Side - Content */}
             <div className="space-y-6 animate-fadeInUp">
-              <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 font-bold">
+              <p className="text-transparent bg-clip-text bg-[#FFB700] from-[#FFB700] via-cyan-600 to-blue-600 font-bold">
                 Powered by Logical CRM
               </p>
               {/* Enhanced Main Heading */}
@@ -50,7 +50,7 @@ export default function Hero() {
                       Transform Your
                     </span>
                     <br />
-                    <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-400">
+                    <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-cyan-600 to-blue-600">
                       Field Service
                       {/* Curvy SVG Underline */}
                       <svg
@@ -105,7 +105,7 @@ export default function Hero() {
                       <div className="absolute -bottom-3 left-0 w-full h-4 bg-gradient-to-r from-yellow-400/20 via-orange-400/30 to-yellow-500/20 rounded-full blur-lg"></div>
                     </span>
                     <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-800 via-teal-600 to-blue-800">
                       Operations
                     </span>
                   </h1>
@@ -113,19 +113,19 @@ export default function Hero() {
               </div>
 
               {/* Enhanced Description */}
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl font-light">
+              <p className="text-lg md:text-xl text-white leading-relaxed max-w-2xl font-light">
                 Streamline your field operations with
-                <span className="text-cyan-300 font-medium">
+                <span className="text-blue-500 font-medium">
                   {" "}
                   intelligent scheduling
                 </span>
                 ,
-                <span className="text-blue-300 font-medium">
+                <span className="text-blue-500 font-medium">
                   {" "}
                   real-time tracking
                 </span>
                 , and
-                <span className="text-purple-300 font-medium">
+                <span className="text-white font-medium">
                   {" "}
                   comprehensive insights
                 </span>
@@ -134,45 +134,17 @@ export default function Hero() {
 
               {/* Enhanced CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <button className="group relative px-8 py-3 cursor-pointer bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold text-lg rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/30 overflow-hidden">
+                <button className="group relative px-8 py-3 cursor-pointer bg-[#FFB700] hover:bg-[#FFB700]  text-gray-900 font-bold text-lg rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-400/30 overflow-hidden">
                   <span className="relative z-10">Start Free Trial</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute top-0 left-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 </button>
-                <button className="group relative px-8 py-3 cursor-pointer bg-transparent border-2 border-white/30 text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:border-cyan-400 hover:shadow-xl hover:shadow-cyan-400/20 backdrop-blur-sm overflow-hidden">
-                  <span className="relative z-10 group-hover:text-cyan-300 transition-colors duration-300">
+                <button className="group relative px-8 py-3 cursor-pointer bg-transparent border-2 border-white/30 text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:border-gray-500  hover:shadow-gray-500  overflow-hidden">
+                  <span className="relative z-10 group-hover:text-gray-200 transition-colors duration-300">
                     Watch Demo
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
-              </div>
-
-              {/* Enhanced Stats */}
-              <div className="grid grid-cols-3 gap-10 pt-12 w-fit">
-                <div className="group cursor-pointer">
-                  <div className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:scale-110 transition-transform duration-300">
-                    120K+
-                  </div>
-                  <div className="text-gray-400 text-sm font-medium group-hover:text-cyan-300 transition-colors duration-300">
-                    Active Users
-                  </div>
-                </div>
-                <div className="group cursor-pointer">
-                  <div className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 group-hover:scale-110 transition-transform duration-300">
-                    99.9%
-                  </div>
-                  <div className="text-gray-400 text-sm font-medium group-hover:text-purple-300 transition-colors duration-300">
-                    Uptime
-                  </div>
-                </div>
-                <div className="group cursor-pointer">
-                  <div className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 group-hover:scale-110 transition-transform duration-300">
-                    24/7
-                  </div>
-                  <div className="text-gray-400 text-sm font-medium group-hover:text-emerald-300 transition-colors duration-300">
-                    Support
-                  </div>
-                </div>
               </div>
             </div>
 

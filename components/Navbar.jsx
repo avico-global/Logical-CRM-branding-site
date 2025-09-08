@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import AuthModal from "@/components/AuthModal";
 
 // Constants
-const NAVIGATION_ITEMS = ["Pricing"];
-  
+const NAVIGATION_ITEMS = [];
+
 const INDUSTRIES_DATA = [
   {
     id: "hvac",
@@ -394,46 +395,6 @@ const AllProductsButton = ({ onClick, isClient }) => (
 // Resources data and components (compact)
 const RESOURCES_DATA = [
   {
-    id: "blog",
-    name: "Blog",
-    href: "/blog",
-    icon: "fas fa-newspaper",
-    desc: "Get the inspiration and news for your success",
-    colorScheme: {
-      bg: "bg-blue-100",
-      textColor: "text-blue-600",
-      hoverBg: "group-hover:bg-blue-200",
-      textHover: "group-hover:text-blue-700",
-    },
-  },
-  {
-    id: "webinars",
-    name: "Webinars",
-    href: "/webinars",
-    icon: "fas fa-play-circle",
-    desc: "Get advice directly from industry experts",
-    colorScheme: {
-      bg: "bg-red-100",
-      textColor: "text-red-600",
-      hoverBg: "group-hover:bg-red-200",
-      textHover: "group-hover:text-red-700",
-    },
-  },
-  {
-    id: "free-tools",
-    name: "Free tools",
-    href: "/free-tools",
-    icon: "fas fa-tools",
-    desc: "Discover useful tools to make your business a success",
-    badge: "New",
-    colorScheme: {
-      bg: "bg-green-100",
-      textColor: "text-green-600",
-      hoverBg: "group-hover:bg-green-200",
-      textHover: "group-hover:text-green-700",
-    },
-  },
-  {
     id: "faqs",
     name: "FAQ's",
     href: "/faqs",
@@ -444,33 +405,6 @@ const RESOURCES_DATA = [
       textColor: "text-yellow-600",
       hoverBg: "group-hover:bg-yellow-200",
       textHover: "group-hover:text-yellow-700",
-    },
-  },
-  {
-    id: "help-center",
-    name: "Help center",
-    href: "/help-center",
-    icon: "fas fa-life-ring",
-    desc: "Get your questions answered with our 24/7 knowledge hub",
-    colorScheme: {
-      bg: "bg-purple-100",
-      textColor: "text-purple-600",
-      hoverBg: "group-hover:bg-purple-200",
-      textHover: "group-hover:text-purple-700",
-    },
-  },
-  {
-    id: "podcast",
-    name: "Podcast",
-    href: "/podcast",
-    icon: "fas fa-podcast",
-    desc: "Listen and learn with the Logical CRM Business podcast",
-    badge: "New",
-    colorScheme: {
-      bg: "bg-indigo-100",
-      textColor: "text-indigo-600",
-      hoverBg: "group-hover:bg-indigo-200",
-      textHover: "group-hover:text-indigo-700",
     },
   },
 ];
@@ -571,45 +505,6 @@ const COMPANY_DATA = [
       textHover: "group-hover:text-purple-700",
     },
   },
-  {
-    id: "reviews",
-    name: "Reviews",
-    href: "/reviews",
-    icon: "fas fa-star",
-    desc: "See why our customers trust us to grow their business every day",
-    colorScheme: {
-      bg: "bg-yellow-100",
-      textColor: "text-yellow-600",
-      hoverBg: "group-hover:bg-yellow-200",
-      textHover: "group-hover:text-yellow-700",
-    },
-  },
-  {
-    id: "career",
-    name: "Career",
-    href: "/career",
-    icon: "fas fa-globe",
-    desc: "Looking for your next challenge? Come join our talented, smart, and fun team!",
-    colorScheme: {
-      bg: "bg-indigo-100",
-      textColor: "text-indigo-600",
-      hoverBg: "group-hover:bg-indigo-200",
-      textHover: "group-hover:text-indigo-700",
-    },
-  },
-  {
-    id: "investors",
-    name: "Investors",
-    href: "/investors",
-    icon: "fas fa-chart-line",
-    desc: "Learn about some of the best VC's who believe in us and support our mission",
-    colorScheme: {
-      bg: "bg-orange-100",
-      textColor: "text-orange-600",
-      hoverBg: "group-hover:bg-orange-200",
-      textHover: "group-hover:text-orange-700",
-    },
-  },
 ];
 
 const CompanyItem = ({ item, onClick, isClient }) => {
@@ -694,10 +589,20 @@ const Navbar = () => {
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("login");
 
   // Effect to set client-side flag
   useEffect(() => {
     setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setAuthOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   // Refs
@@ -764,6 +669,16 @@ const Navbar = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const openLogin = () => {
+    setAuthMode("login");
+    setAuthOpen(true);
+  };
+  const openSignup = () => {
+    setAuthMode("signup");
+    setAuthOpen(true);
+  };
+  const closeAuth = () => setAuthOpen(false);
+
   // Styles
   const navbarStyles = {
     background: isOverHero
@@ -787,237 +702,52 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 w-full px-6 py-3 flex items-center justify-between z-50 transition-all duration-300 ease-in-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
-      style={navbarStyles}
-    >
-      {/* Logo and Navigation Links */}
-      <div className="flex items-center">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="relative flex items-center justify-center cursor-pointer group"
-          style={{ height: "45px", width: "180px" }}
-        >
-          <img
-            src="/new-crm.png"
-            alt="Logical CRM"
-            className="h-full w-auto object-contain transition-all duration-200 group-hover:scale-105"
-            style={{ maxHeight: "50px", maxWidth: "180px" }}
-            onError={(e) => {
-              console.log("Logo failed to load:", e.target.src);
-            }}
-          />
-        </Link>
-
-        {/* Navigation Links - Desktop */}
-        <div className="hidden lg:flex items-center gap-8 ml-8">
-          <div
-            className="flex items-center gap-2 text-white text-[16px] font-medium tracking-wide"
-            style={fontStyle}
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 w-full px-6 py-3 flex items-center justify-between z-50 transition-all duration-300 ease-in-out ${
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+        style={navbarStyles}
+      >
+        {/* Logo and Navigation Links */}
+        <div className="flex items-center">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="relative flex items-center justify-center cursor-pointer group"
+            style={{ height: "45px", width: "180px" }}
           >
-            {/* Industries Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <div className={navItemClasses} onClick={toggleIndustries}>
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  Industries
-                </span>
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                    industriesOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  <path
-                    d="M7 10l5 5 5-5"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+            <img
+              src="/new-crm.png"
+              alt="Logical CRM"
+              className="h-full w-auto object-contain transition-all duration-200 group-hover:scale-105"
+              style={{ maxHeight: "50px", maxWidth: "180px" }}
+              onError={(e) => {
+                console.log("Logo failed to load:", e.target.src);
+              }}
+            />
+          </Link>
 
-              {industriesOpen && (
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                  <div className="relative z-10">
-                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                      {INDUSTRIES_DATA.map((industry) => (
-                        <IndustryItem
-                          key={industry.id}
-                          industry={industry}
-                          onClick={handleDropdownLinkClick}
-                        />
-                      ))}
-                      <AllIndustriesButton onClick={handleDropdownLinkClick} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Products Dropdown */}
-            <div className="relative" ref={productsDropdownRef}>
-              <div className={navItemClasses} onClick={toggleProducts}>
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  Products
-                </span>
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                    productsOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  <path
-                    d="M7 10l5 5 5-5"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              {productsOpen && (
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                  <div className="relative z-10">
-                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                      {PRODUCTS_DATA.map((product) => (
-                        <ProductItem
-                          key={product.id}
-                          item={product}
-                          onClick={handleDropdownLinkClick}
-                          isClient={isClient}
-                        />
-                      ))}
-                      <AllProductsButton
-                        onClick={handleDropdownLinkClick}
-                        isClient={isClient}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Resources Dropdown */}
-            <div className="relative" ref={resourcesDropdownRef}>
-              <div className={navItemClasses} onClick={toggleResources}>
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  Resources
-                </span>
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                    resourcesOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  <path
-                    d="M7 10l5 5 5-5"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-
-              {resourcesOpen && (
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                  <div className="relative z-10">
-                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                      {RESOURCES_DATA.map((resource) => (
-                        <ResourceItem
-                          key={resource.id}
-                          item={resource}
-                          onClick={handleDropdownLinkClick}
-                          isClient={isClient}
-                        />
-                      ))}
-                      <AllResourcesButton
-                        onClick={handleDropdownLinkClick}
-                        isClient={isClient}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Company Dropdown */}
-            <div className="relative" ref={companyDropdownRef}>
-              <div className={navItemClasses} onClick={toggleCompany}>
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  Company
-                </span>
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                    companyOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  <path
-                    d="M7 10l5 5 5-5"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-
-              {companyOpen && (
-                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                  <div className="relative z-10">
-                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                      {COMPANY_DATA.map((company) => (
-                        <CompanyItem
-                          key={company.id}
-                          item={company}
-                          onClick={handleDropdownLinkClick}
-                          isClient={isClient}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Other Navigation Items */}
-            {NAVIGATION_ITEMS.map((item, index) => (
-              <Link
-                key={index}
-                href={item === "Pricing" ? "/pricing" : `/${item.toLowerCase()}`}
-                className={navItemClasses}
-              >
-                <span className="group-hover:text-cyan-300 transition-colors">
-                  {item}
-                </span>
-                {item !== "Pricing" && (
+          {/* Navigation Links - Desktop */}
+          <div className="hidden lg:flex items-center gap-8 ml-8">
+            <div
+              className="flex items-center gap-2 text-white text-[16px] font-medium tracking-wide"
+              style={fontStyle}
+            >
+              {/* Industries Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <div className={navItemClasses} onClick={toggleIndustries}>
+                  <span className="group-hover:text-cyan-300 transition-colors">
+                    Industries
+                  </span>
                   <svg
                     width="16"
                     height="16"
                     fill="none"
                     viewBox="0 0 24 24"
-                    className="transition-all duration-200 group-hover:text-cyan-300"
+                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                      industriesOpen ? "rotate-180" : ""
+                    }`}
                   >
                     <path
                       d="M7 10l5 5 5-5"
@@ -1027,121 +757,296 @@ const Navbar = () => {
                       strokeLinejoin="round"
                     />
                   </svg>
-                )}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu Button */}
-      <button
-        className="lg:hidden text-white/90 hover:text-white p-2.5 rounded-lg hover:bg-white/10 transition-all duration-200 group"
-        onClick={toggleMobileMenu}
-      >
-        <svg
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-          className="group-hover:scale-110 transition-transform duration-200"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2.5"
-            d={
-              mobileMenuOpen
-                ? "M6 18L18 6M6 6l12 12"
-                : "M3 12h18M3 6h18M3 18h18"
-            }
-          />
-        </svg>
-      </button>
-
-      {/* Buttons - Desktop */}
-      <div className="hidden lg:flex items-center gap-3">
-        <button
-          className="relative px-6 py-2.5 text-[15px] font-semibold text-white/90 hover:text-white transition-all duration-200 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 group overflow-hidden"
-          style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-          }}
-        >
-          <span className="relative z-10">Log in</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-        </button>
-        <button
-          className="relative px-6 py-2.5 text-[15px] font-bold text-gray-900 bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 rounded-xl shadow-lg hover:shadow-xl group overflow-hidden"
-          style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-          }}
-        >
-          <span className="relative z-10">Start Free Trial</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-xl border-t border-white/10 p-6 z-40 mobile-menu shadow-2xl">
-          <div className="flex flex-col gap-2">
-            {[
-              "Industries",
-              "Products",
-              "Resources",
-              "Company",
-              ...NAVIGATION_ITEMS,
-            ].map((item, index) => {
-              if (item === "Pricing") {
-                return (
-                  <Link
-                    key={index}
-                    href="/pricing"
-                    className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item}
-                  </Link>
-                );
-              }
-              return (
-                <div
-                  key={index}
-                  className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  {item}
                 </div>
-              );
-            })}
-            <div className="border-t border-white/20 pt-6 mt-4 flex flex-col gap-3">
-              <button
-                className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10"
-                style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "16px",
-                }}
-              >
-                Log in
-              </button>
-              <button
-                className="rounded-xl font-bold bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 w-full py-3 text-gray-900 shadow-lg hover:shadow-xl"
-                style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "16px",
-                }}
-              >
-                Start Free Trial
-              </button>
+
+                {industriesOpen && (
+                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                    <div className="relative z-10">
+                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                        {INDUSTRIES_DATA.map((industry) => (
+                          <IndustryItem
+                            key={industry.id}
+                            industry={industry}
+                            onClick={handleDropdownLinkClick}
+                          />
+                        ))}
+                        <AllIndustriesButton
+                          onClick={handleDropdownLinkClick}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Products Dropdown */}
+              <div className="relative" ref={productsDropdownRef}>
+                <div className={navItemClasses} onClick={toggleProducts}>
+                  <span className="group-hover:text-cyan-300 transition-colors">
+                    Products
+                  </span>
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                      productsOpen ? "rotate-180" : ""
+                    }`}
+                  >
+                    <path
+                      d="M7 10l5 5 5-5"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                {productsOpen && (
+                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                    <div className="relative z-10">
+                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                        {PRODUCTS_DATA.map((product) => (
+                          <ProductItem
+                            key={product.id}
+                            item={product}
+                            onClick={handleDropdownLinkClick}
+                            isClient={isClient}
+                          />
+                        ))}
+                        <AllProductsButton
+                          onClick={handleDropdownLinkClick}
+                          isClient={isClient}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Resources Dropdown */}
+              <div className="relative" ref={resourcesDropdownRef}>
+                <div className={navItemClasses} onClick={toggleResources}>
+                  <span className="group-hover:text-cyan-300 transition-colors">
+                    Resources
+                  </span>
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                      resourcesOpen ? "rotate-180" : ""
+                    }`}
+                  >
+                    <path
+                      d="M7 10l5 5 5-5"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                {resourcesOpen && (
+                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                    <div className="relative z-10">
+                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                        {RESOURCES_DATA.map((resource) => (
+                          <ResourceItem
+                            key={resource.id}
+                            item={resource}
+                            onClick={handleDropdownLinkClick}
+                            isClient={isClient}
+                          />
+                        ))}
+                        <AllResourcesButton
+                          onClick={handleDropdownLinkClick}
+                          isClient={isClient}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Company Dropdown */}
+              <div className="relative" ref={companyDropdownRef}>
+                <div className={navItemClasses} onClick={toggleCompany}>
+                  <span className="group-hover:text-cyan-300 transition-colors">
+                    Company
+                  </span>
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                      companyOpen ? "rotate-180" : ""
+                    }`}
+                  >
+                    <path
+                      d="M7 10l5 5 5-5"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                {companyOpen && (
+                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                    <div className="relative z-10">
+                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                        {COMPANY_DATA.map((company) => (
+                          <CompanyItem
+                            key={company.id}
+                            item={company}
+                            onClick={handleDropdownLinkClick}
+                            isClient={isClient}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden text-white/90 hover:text-white p-2.5 rounded-lg hover:bg-white/10 transition-all duration-200 group"
+          onClick={toggleMobileMenu}
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="group-hover:scale-110 transition-transform duration-200"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.5"
+              d={
+                mobileMenuOpen
+                  ? "M6 18L18 6M6 6l12 12"
+                  : "M3 12h18M3 6h18M3 18h18"
+              }
+            />
+          </svg>
+        </button>
+
+        {/* Buttons - Desktop */}
+        <div className="hidden lg:flex items-center gap-3">
+          <button
+            className="relative px-6 py-2.5 text-[15px] font-semibold text-white/90 hover:text-white transition-all duration-200 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 group overflow-hidden"
+            style={{
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+            }}
+            onClick={openLogin}
+          >
+            <span className="relative z-10">Log in</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+          </button>
+          <button
+            className="relative px-6 py-2.5 text-[15px] font-bold text-gray-900 bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 rounded-xl shadow-lg hover:shadow-xl group overflow-hidden"
+            style={{
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+            }}
+            onClick={openSignup}
+          >
+            <span className="relative z-10">Start Free Trial</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-xl border-t border-white/10 p-6 z-40 mobile-menu shadow-2xl">
+            <div className="flex flex-col gap-2">
+              {[
+                "Industries",
+                "Products",
+                "Resources",
+                "Company",
+                ...NAVIGATION_ITEMS,
+              ].map((item, index) => {
+                if (item === "Pricing") {
+                  return (
+                    <Link
+                      key={index}
+                      href="/pricing"
+                      className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item}
+                    </Link>
+                  );
+                }
+                return (
+                  <div
+                    key={index}
+                    className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+              <div className="border-t border-white/20 pt-6 mt-4 flex flex-col gap-3">
+                <button
+                  className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                  }}
+                  onClick={() => {
+                    openLogin();
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Log in
+                </button>
+                <button
+                  className="rounded-xl font-bold bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 w-full py-3 text-gray-900 shadow-lg hover:shadow-xl"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                  }}
+                  onClick={() => {
+                    openSignup();
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Start Free Trial
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+      <AuthModal
+        isOpen={authOpen}
+        mode={authMode}
+        onClose={closeAuth}
+        onSwitchMode={setAuthMode}
+      />
+    </>
   );
 };
 

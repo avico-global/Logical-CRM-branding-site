@@ -33,19 +33,19 @@ export const productDetailsData = {
       {
         title: "Customer Profiles",
         description: "Complete customer history, preferences, and contact information in one place",
-        icon: "👤",
+        icon: "fas fa-user",
         benefits: ["Service history tracking", "Contact management", "Customer preferences", "Communication logs"]
       },
       {
-        title: "Lead Management", 
+        title: "Lead Management",
         description: "Track leads from first contact to completed job with automated follow-ups",
-        icon: "🎯",
+        icon: "fas fa-bullseye",
         benefits: ["Lead scoring", "Pipeline tracking", "Automated follow-ups", "Conversion analytics"]
       },
       {
         title: "Communication Hub",
         description: "All customer communications centralized with automatic logging",
-        icon: "💬",
+        icon: "fas fa-comments",
         benefits: ["Email integration", "SMS messaging", "Call logging", "Communication history"]
       }
     ],
@@ -85,19 +85,19 @@ export const productDetailsData = {
       {
         title: "Drag & Drop Scheduling",
         description: "Visual calendar interface makes scheduling jobs quick and intuitive",
-        icon: "📅",
+        icon: "fas fa-calendar-alt",
         benefits: ["Visual scheduling", "Drag & drop interface", "Multi-view calendar", "Conflict detection"]
       },
       {
         title: "Auto-Dispatching",
         description: "Automatically assign jobs to the best technician based on location and skills",
-        icon: "🚚",
+        icon: "fas fa-truck",
         benefits: ["Smart assignments", "Location-based routing", "Skill matching", "Workload balancing"]
       },
       {
         title: "Route Optimization",
         description: "Optimize technician routes to minimize drive time and maximize productivity",
-        icon: "🗺️",
+        icon: "fas fa-map",
         benefits: ["GPS routing", "Traffic optimization", "Fuel savings", "Time efficiency"]
       }
     ],
@@ -137,19 +137,19 @@ export const productDetailsData = {
       {
         title: "Real-Time Tracking",
         description: "Monitor technician locations and job progress in real-time",
-        icon: "📍",
+        icon: "fas fa-location-dot",
         benefits: ["GPS tracking", "Live updates", "ETA notifications", "Location history"]
       },
       {
         title: "Instant Communication",
         description: "Direct communication between office and field teams",
-        icon: "📱",
+        icon: "fas fa-mobile-alt",
         benefits: ["Push notifications", "Two-way messaging", "Job updates", "Emergency alerts"]
       },
       {
         title: "Smart Routing",
         description: "Optimize routes and assign jobs based on proximity and availability",
-        icon: "🧭",
+        icon: "fas fa-compass",
         benefits: ["Dynamic routing", "Traffic updates", "Proximity matching", "Resource optimization"]
       }
     ],
@@ -189,19 +189,19 @@ export const productDetailsData = {
       {
         title: "Digital Invoicing",
         description: "Create and send professional invoices instantly from any device",
-        icon: "📄",
+        icon: "fas fa-file-invoice",
         benefits: ["Custom templates", "Automated sending", "Digital signatures", "Payment tracking"]
       },
       {
         title: "Payment Processing",
         description: "Accept payments on-site with integrated card readers and mobile payments",
-        icon: "💳",
+        icon: "fas fa-credit-card",
         benefits: ["Card readers", "Mobile payments", "Online payments", "Recurring billing"]
       },
       {
         title: "Financial Reporting",
         description: "Track revenue, expenses, and cash flow with comprehensive reporting",
-        icon: "📊",
+        icon: "fas fa-chart-column",
         benefits: ["Revenue tracking", "Expense management", "Cash flow analysis", "Tax reporting"]
       }
     ],
@@ -241,19 +241,19 @@ export const productDetailsData = {
       {
         title: "Professional Templates",
         description: "Beautiful, customizable templates that showcase your brand",
-        icon: "🎨",
+        icon: "fas fa-palette",
         benefits: ["Custom branding", "Professional design", "Template library", "Brand consistency"]
       },
       {
         title: "Photo Integration",
         description: "Add photos directly to estimates to show exactly what needs to be done",
-        icon: "📸",
+        icon: "fas fa-camera",
         benefits: ["Photo markup", "Before/after shots", "Visual documentation", "Client clarity"]
       },
       {
         title: "Digital Signatures",
         description: "Get approvals instantly with digital signatures and online acceptance",
-        icon: "✍️",
+        icon: "fas fa-pen-nib",
         benefits: ["Digital signing", "Online approval", "Instant notifications", "Legal compliance"]
       }
     ],
@@ -293,19 +293,19 @@ export const productDetailsData = {
       {
         title: "Offline Capability",
         description: "Work anywhere, even without internet connection, with automatic sync",
-        icon: "📶",
+        icon: "fas fa-signal",
         benefits: ["Offline access", "Auto-sync", "Data backup", "Reliable connectivity"]
       },
       {
         title: "Photo Capture",
         description: "Document work with high-quality photos and instant upload",
-        icon: "📷",
+        icon: "fas fa-camera",
         benefits: ["High-res photos", "Instant upload", "Photo organization", "Visual documentation"]
       },
       {
         title: "Digital Forms",
         description: "Complete forms and collect signatures digitally on any device",
-        icon: "📋",
+        icon: "fas fa-clipboard",
         benefits: ["Digital forms", "Electronic signatures", "Custom fields", "Data collection"]
       }
     ],
@@ -345,19 +345,19 @@ export const productDetailsData = {
       {
         title: "Stock Tracking",
         description: "Real-time inventory levels across all locations and vehicles",
-        icon: "📦",
+        icon: "fas fa-box",
         benefits: ["Real-time tracking", "Multi-location", "Vehicle inventory", "Stock levels"]
       },
       {
         title: "Auto-Reorder Alerts",
         description: "Automatic notifications when stock levels reach minimum thresholds",
-        icon: "🔔",
+        icon: "fas fa-bell",
         benefits: ["Low stock alerts", "Reorder points", "Vendor notifications", "Purchase orders"]
       },
       {
         title: "Cost Management",
         description: "Track costs, margins, and profitability by part and job",
-        icon: "💰",
+        icon: "fas fa-money-bill",
         benefits: ["Cost tracking", "Margin analysis", "Profitability reports", "Vendor pricing"]
       }
     ],
@@ -397,19 +397,19 @@ export const productDetailsData = {
       {
         title: "Revenue Analytics",
         description: "Track revenue trends, seasonal patterns, and growth opportunities",
-        icon: "📈",
+        icon: "fas fa-chart-line",
         benefits: ["Revenue tracking", "Trend analysis", "Growth insights", "Seasonal reports"]
       },
       {
         title: "Performance Metrics",
         description: "Monitor team performance, efficiency, and customer satisfaction",
-        icon: "⚡",
+        icon: "fas fa-bolt",
         benefits: ["KPI tracking", "Team metrics", "Efficiency reports", "Customer ratings"]
       },
       {
         title: "Custom Dashboards",
         description: "Create personalized dashboards with the metrics that matter most",
-        icon: "📊",
+        icon: "fas fa-chart-bar",
         benefits: ["Custom widgets", "Real-time data", "Personalized views", "Executive summaries"]
       }
     ],

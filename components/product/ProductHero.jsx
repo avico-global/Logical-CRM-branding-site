@@ -24,9 +24,9 @@ export default function ProductHero({ data }) {
           {/* Left Column - Content */}
           <div className="space-y-8">
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
-              <span className="text-blue-700 text-sm font-semibold tracking-wide">
+            <div className="inline-flex items-center px-4 py-1.5 bg-white border border-[#FFB700] rounded-full">
+              <span className="w-2 h-2 rounded-full bg-[#FFB700] mr-2 animate-pulse" />
+              <span className="text-[#FFB700] text-sm font-semibold tracking-wide">
                 {hero.subtitle}
               </span>
             </div>
@@ -34,7 +34,7 @@ export default function ProductHero({ data }) {
             {/* Heading */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-700 capitalize">
+                <span className="text-[#FFB700] capitalize">
                   {hero.title.highlight}
                 </span>
                 <br />
@@ -50,51 +50,13 @@ export default function ProductHero({ data }) {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="px-8 py-4 bg-[#FFB700] text-white font-bold rounded-2xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                 {hero.ctaButton}
               </button>
               <button className="px-8 py-4 bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-800 font-bold rounded-2xl hover:bg-white hover:border-gray-300 transition-all duration-200 shadow-lg">
                 View Demo
               </button>
             </div>
-
-            {/* Testimonial */}
-            {hero.testimonial && (
-              <div className="flex items-center gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/30">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold">
-                  {hero.testimonial.name.charAt(0)}
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">
-                    {hero.testimonial.name}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {hero.testimonial.title}
-                  </div>
-                </div>
-                <button className="ml-auto px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors">
-                  {hero.testimonial.videoText}
-                </button>
-              </div>
-            )}
-
-            {/* Ratings */}
-            {hero.ratings && (
-              <div className="flex items-center gap-6">
-                {hero.ratings.map((rating, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <img
-                      src={rating.logo}
-                      alt={rating.alt}
-                      className="h-8 w-auto"
-                    />
-                    <span className="text-yellow-400 text-lg">
-                      {rating.stars}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Right Column - Hero Image */}
@@ -141,7 +103,7 @@ export default function ProductHero({ data }) {
               </div>
 
               {/* Additional floating element */}
-              <div className="absolute top-1/2 -right-4 bg-blue-500 text-white rounded-2xl px-4 py-3 shadow-lg transform -rotate-3">
+              <div className="absolute top-1/2 -right-4 bg-[#FFB700] text-white rounded-2xl px-4 py-3 shadow-lg transform -rotate-3">
                 <div className="text-sm font-bold">⚡ 5-Min Setup</div>
               </div>
             </div>

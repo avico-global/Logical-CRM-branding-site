@@ -80,14 +80,14 @@ export default function FaqSection() {
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         {/* Left: Heading and Subtext */}
         <div className="pl-2 md:pl-4">
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse" />
-            <span className="text-blue-700 text-sm font-semibold tracking-wide">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-white border border-[#FFB700] rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#FFB700] mr-2 animate-pulse" />
+            <span className="text-[#FFB700] text-sm font-semibold tracking-wide">
               FAQ
             </span>
           </div>
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 leading-tight mb-3"
+            className="text-3xl md:text-4xl lg:text-5xl font-black text-[#293146] leading-tight mb-3"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
             Frequently asked questions
@@ -98,30 +98,6 @@ export default function FaqSection() {
           >
             Can’t find what you’re looking for? Our team is happy to help.
           </p>
-
-          {/* Help card */}
-          <div className="hidden md:block bg-white rounded-2xl border border-gray-200 shadow-sm p-5 max-w-md">
-            <div className="text-sm font-semibold text-gray-900 mb-1">
-              Still need help?
-            </div>
-            <div className="text-gray-600 mb-4">
-              Reach our support team 24/7.
-            </div>
-            <div className="flex gap-2">
-              <a
-                href="mailto:support@logicalcrm.com"
-                className="px-4 py-2 rounded-xl bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800"
-              >
-                Email support
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 rounded-xl border border-gray-300 text-sm font-semibold text-gray-800 hover:bg-gray-50"
-              >
-                Live chat
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* Right: Accordion */}
@@ -134,7 +110,7 @@ export default function FaqSection() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search questions..."
-                  className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 pr-10 text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 pr-10 text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#FFB700]   "
                 />
                 <svg
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -172,7 +148,7 @@ export default function FaqSection() {
                   }}
                   className={`px-3 py-1.5 rounded-full text-sm font-semibold border transition-colors ${
                     activeCategory === cat
-                      ? "bg-blue-600 text-white border-blue-600"
+                      ? "bg-white text-[#FFB700] border-[#FFB700]"
                       : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
                   }`}
                 >
@@ -246,30 +222,6 @@ export default function FaqSection() {
                 </div>
               );
             })}
-          </div>
-
-          {/* Mobile help card */}
-          <div className="md:hidden mt-4 bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
-            <div className="text-sm font-semibold text-gray-900 mb-1">
-              Still need help?
-            </div>
-            <div className="text-gray-600 mb-4">
-              Reach our support team 24/7.
-            </div>
-            <div className="flex gap-2">
-              <a
-                href="mailto:support@logicalcrm.com"
-                className="px-4 py-2 rounded-xl bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800"
-              >
-                Email support
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 rounded-xl border border-gray-300 text-sm font-semibold text-gray-800 hover:bg-gray-50"
-              >
-                Live chat
-              </a>
-            </div>
           </div>
         </div>
       </div>
