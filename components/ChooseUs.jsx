@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 const features = [
   {
@@ -36,6 +38,17 @@ const features = [
 ];
 
 export default function ChooseUs() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-cycle through features every 4 seconds for smoother experience
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % features.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="w-full py-20 px-4 bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-6xl mx-auto">
@@ -59,32 +72,85 @@ export default function ChooseUs() {
         {/* Main Content - Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Features List */}
-          <div className="space-y-6">
-            {features.map((feature, index) => (
+          <div className="space-y-6 relative">
+            {/* Progress Line */}
+            <div className="absolute left-0 top-0 w-1 h-full bg-gray-200 rounded-full overflow-hidden">
               <div
-                key={index}
-                className="group flex items-start gap-4 p-6 bg-white rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-[#FFB700]  transition-all duration-300"
-              >
-                {/* Icon Container */}
-                <div
-                  className={`flex-shrink-0 w-16 h-16 ${feature.color} group-hover:bg-[#FFB700] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-all duration-300`}
-                >
-                  <i
-                    className={`${feature.icon} ${feature.iconColor} group-hover:text-white transition-colors duration-300`}
-                  ></i>
-                </div>
+                className="w-full bg-gradient-to-b from-[#FFB700] to-[#FF8C00] transition-all duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+                style={{
+                  height: `${((activeIndex + 1) / features.length) * 100}%`,
+                  transform: "translateY(0)",
+                  borderRadius:
+                    activeIndex === features.length - 1 ? "4px" : "4px 4px 0 0",
+                }}
+              />
+            </div>
 
-                {/* Content */}
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-[#FFB700] transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-500 leading-tight text-sm">
-                    {feature.description}
-                  </p>
+            {features.map((feature, index) => {
+              const isActive = index === activeIndex;
+              const isPast = index < activeIndex;
+
+              return (
+                <div
+                  key={index}
+                  className={`group flex items-start gap-4 p-6 bg-white rounded-3xl shadow-sm border transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                    isActive
+                      ? "shadow-lg border-[#FFB700] scale-[1.02]"
+                      : isPast
+                      ? "border-[#FFB700]/30 shadow-md"
+                      : "border-gray-100 hover:shadow-lg hover:border-[#FFB700]"
+                  }`}
+                >
+                  {/* Icon Container */}
+                  <div
+                    className={`flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center text-2xl transition-all duration-[700ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                      isActive
+                        ? "bg-[#FFB700] scale-110"
+                        : isPast
+                        ? "bg-[#FFB700]/20"
+                        : `${feature.color} group-hover:bg-[#FFB700] group-hover:scale-110`
+                    }`}
+                  >
+                    <i
+                      className={`${
+                        feature.icon
+                      } transition-colors duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                        isActive || isPast
+                          ? "text-white"
+                          : `${feature.iconColor} group-hover:text-white`
+                      }`}
+                    ></i>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3
+                      className={`text-xl font-bold mb-1 transition-colors duration-[650ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                        isActive
+                          ? "text-[#FFB700]"
+                          : isPast
+                          ? "text-[#FFB700]/80"
+                          : "text-gray-900 group-hover:text-[#FFB700]"
+                      }`}
+                    >
+                      {feature.title}
+                    </h3>
+                    <p
+                      className={`leading-tight text-sm transition-colors duration-[650ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                        isActive ? "text-gray-700" : "text-gray-500"
+                      }`}
+                    >
+                      {feature.description}
+                    </p>
+                  </div>
+
+                  {/* Active indicator dot */}
+                  {isActive && (
+                    <div className="flex-shrink-0 w-3 h-3 bg-[#FFB700] rounded-full animate-pulse transition-all duration-[500ms] ease-[cubic-bezier(0.4,0,0.2,1)]" />
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Right Side - Professional Image */}

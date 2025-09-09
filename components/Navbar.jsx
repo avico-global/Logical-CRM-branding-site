@@ -392,78 +392,6 @@ const AllProductsButton = ({ onClick, isClient }) => (
   </Link>
 );
 
-// Resources data and components (compact)
-const RESOURCES_DATA = [
-  {
-    id: "faqs",
-    name: "FAQ's",
-    href: "/faqs",
-    icon: "fas fa-question-circle",
-    desc: "Get all the answers to your frequently asked questions",
-    colorScheme: {
-      bg: "bg-yellow-100",
-      textColor: "text-yellow-600",
-      hoverBg: "group-hover:bg-yellow-200",
-      textHover: "group-hover:text-yellow-700",
-    },
-  },
-];
-
-const ResourceItem = ({ item, onClick, isClient }) => {
-  const { name, href, icon, desc, badge, colorScheme } = item;
-  const { bg, textColor, hoverBg, textHover } = colorScheme;
-
-  return (
-    <Link
-      href={href}
-      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-50/80 transition-all duration-200 group relative"
-      onClick={onClick}
-    >
-      <div
-        className={`w-8 h-8 ${bg} rounded-lg flex items-center justify-center ${hoverBg} transition-colors flex-shrink-0`}
-      >
-        {isClient && <i className={`${icon} ${textColor} text-sm`}></i>}
-      </div>
-      <div className="flex-1">
-        <div
-          className={`font-semibold text-gray-900 ${textHover} transition-colors flex items-center gap-2`}
-        >
-          {name}
-          {badge && (
-            <span className="px-2 py-1 text-xs font-bold text-white bg-green-500 rounded-full">
-              {badge}
-            </span>
-          )}
-        </div>
-        <div className="text-xs text-gray-600 mt-1 leading-relaxed">{desc}</div>
-      </div>
-    </Link>
-  );
-};
-
-const AllResourcesButton = ({ onClick, isClient }) => (
-  <Link
-    href="/resources"
-    className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-100 transition-all duration-200 group border border-gray-200 hover:border-gray-300 relative"
-    onClick={onClick}
-  >
-    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors flex-shrink-0">
-      {isClient && <i className="fas fa-archive text-gray-600 text-sm"></i>}
-    </div>
-    <div className="flex-1">
-      <div className="font-semibold text-gray-700 group-hover:text-gray-900 transition-colors flex items-center gap-2">
-        All Resources
-        <span className="px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded-full">
-          New
-        </span>
-      </div>
-      <div className="text-xs text-gray-600 mt-1 leading-relaxed">
-        Discover more resources for your field service business
-      </div>
-    </div>
-  </Link>
-);
-
 // Company data and components (compact)
 const COMPANY_DATA = [
   {
@@ -586,7 +514,6 @@ const Navbar = () => {
   // State
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -608,23 +535,16 @@ const Navbar = () => {
   // Refs
   const dropdownRef = useRef(null);
   const productsDropdownRef = useRef(null);
-  const resourcesDropdownRef = useRef(null);
   const companyDropdownRef = useRef(null);
 
   // Custom hooks
   const { isVisible, isOverHero } = useScrollBehavior();
 
   useClickOutside(
-    [
-      dropdownRef,
-      productsDropdownRef,
-      resourcesDropdownRef,
-      companyDropdownRef,
-    ],
+    [dropdownRef, productsDropdownRef, companyDropdownRef],
     () => {
       setIndustriesOpen(false);
       setProductsOpen(false);
-      setResourcesOpen(false);
       setCompanyOpen(false);
     }
   );
@@ -633,28 +553,18 @@ const Navbar = () => {
   const handleDropdownLinkClick = () => {
     setIndustriesOpen(false);
     setProductsOpen(false);
-    setResourcesOpen(false);
     setCompanyOpen(false);
   };
 
   const toggleIndustries = () => {
     setIndustriesOpen(!industriesOpen);
     setProductsOpen(false);
-    setResourcesOpen(false);
     setCompanyOpen(false);
   };
 
   const toggleProducts = () => {
     setProductsOpen(!productsOpen);
     setIndustriesOpen(false);
-    setResourcesOpen(false);
-    setCompanyOpen(false);
-  };
-
-  const toggleResources = () => {
-    setResourcesOpen(!resourcesOpen);
-    setIndustriesOpen(false);
-    setProductsOpen(false);
     setCompanyOpen(false);
   };
 
@@ -662,7 +572,6 @@ const Navbar = () => {
     setCompanyOpen(!companyOpen);
     setIndustriesOpen(false);
     setProductsOpen(false);
-    setResourcesOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -827,54 +736,6 @@ const Navbar = () => {
                 )}
               </div>
 
-              {/* Resources Dropdown */}
-              <div className="relative" ref={resourcesDropdownRef}>
-                <div className={navItemClasses} onClick={toggleResources}>
-                  <span className="group-hover:text-cyan-300 transition-colors">
-                    Resources
-                  </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                      resourcesOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    <path
-                      d="M7 10l5 5 5-5"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-
-                {resourcesOpen && (
-                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                    <div className="relative z-10">
-                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                        {RESOURCES_DATA.map((resource) => (
-                          <ResourceItem
-                            key={resource.id}
-                            item={resource}
-                            onClick={handleDropdownLinkClick}
-                            isClient={isClient}
-                          />
-                        ))}
-                        <AllResourcesButton
-                          onClick={handleDropdownLinkClick}
-                          isClient={isClient}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
               {/* Company Dropdown */}
               <div className="relative" ref={companyDropdownRef}>
                 <div className={navItemClasses} onClick={toggleCompany}>
@@ -976,36 +837,34 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-xl border-t border-white/10 p-6 z-40 mobile-menu shadow-2xl">
             <div className="flex flex-col gap-2">
-              {[
-                "Industries",
-                "Products",
-                "Resources",
-                "Company",
-                ...NAVIGATION_ITEMS,
-              ].map((item, index) => {
-                if (item === "Pricing") {
+              {["Industries", "Products", "Company", ...NAVIGATION_ITEMS].map(
+                (item, index) => {
+                  if (item === "Pricing") {
+                    return (
+                      <Link
+                        key={index}
+                        href="/pricing"
+                        className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        }}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item}
+                      </Link>
+                    );
+                  }
                   return (
-                    <Link
+                    <div
                       key={index}
-                      href="/pricing"
                       className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
                       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                      onClick={() => setMobileMenuOpen(false)}
                     >
                       {item}
-                    </Link>
+                    </div>
                   );
                 }
-                return (
-                  <div
-                    key={index}
-                    className="text-white/90 hover:text-white font-medium text-[16px] p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    {item}
-                  </div>
-                );
-              })}
+              )}
               <div className="border-t border-white/20 pt-6 mt-4 flex flex-col gap-3">
                 <button
                   className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10"

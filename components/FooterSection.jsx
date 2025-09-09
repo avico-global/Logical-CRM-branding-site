@@ -115,7 +115,7 @@ export default function FooterSection() {
                     {col.links.slice(0, 8).map((link) => (
                       <li key={link}>
                         <a
-                          href="#"
+                          href={link === "FAQ" ? "/faqs" : "#"}
                           className="text-gray-300 hover:text-white transition-colors text-sm leading-relaxed"
                         >
                           {link}
