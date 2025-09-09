@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import FooterSection from "@/components/FooterSection";
 import {
   productsData,
@@ -82,9 +83,10 @@ export default function ProductsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {productsData.map((product) => (
-              <div
+              <Link
                 key={product.id}
-                className="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:shadow-[#FFB700]/10 hover:scale-[1.02] hover:border-[#FFB700]/30 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                href={`/products/${product.id}`}
+                className="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:shadow-[#FFB700]/10 hover:scale-[1.02] hover:border-[#FFB700]/30 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] block"
               >
                 {/* Product Header */}
                 <div className="flex items-center gap-4 mb-6">
@@ -129,7 +131,7 @@ export default function ProductsPage() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
