@@ -39,6 +39,12 @@ const features = [
 
 export default function ChooseUs() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
+
+  const images = [
+    "/animationCrm/whychoose.png",
+    "/animationCrm/whychoose1.png",
+  ];
 
   // Auto-cycle through features every 4 seconds for smoother experience
   useEffect(() => {
@@ -47,6 +53,15 @@ export default function ChooseUs() {
     }, 4000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  // Auto-cycle through images every 3 seconds
+  useEffect(() => {
+    const imageInterval = setInterval(() => {
+      setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(imageInterval);
   }, []);
 
   return (
@@ -153,30 +168,82 @@ export default function ChooseUs() {
             })}
           </div>
 
-          {/* Right Side - Professional Image */}
+          {/* Right Side - Enhanced Image Gallery */}
           <div className="relative">
-            {/* Background decoration */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-3xl opacity-50 blur-2xl"></div>
+            {/* Enhanced background decoration */}
+            <div className="absolute -inset-6 bg-gradient-to-br from-[#FFB700]/20 via-orange-500/15 to-red-500/10 rounded-3xl blur-3xl animate-pulse"></div>
+            <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/15 via-purple-500/10 to-pink-500/5 rounded-3xl blur-2xl"></div>
 
-            {/* Main image container */}
-            <div className="relative bg-white rounded-3xl p-5 shadow-xl">
-              <div className="h-[510px] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl overflow-hidden">
-                {/* CRM Dashboard/Software interface image */}
-                <img
-                  src="/images/client-crm.webp"
-                  alt="Logical CRM dashboard interface showing scheduling and job management"
-                  className="w-full h-full object-cover"
-                />
+            {/* Main image container with enhanced styling */}
+            <div className="relative bg-gradient-to-br from-white via-gray-50/50 to-white rounded-3xl p-6 shadow-2xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
+              {/* Decorative border */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FFB700]/20 via-transparent to-[#FFB700]/20 rounded-3xl p-[1px]">
+                <div className="w-full h-full bg-white rounded-3xl"></div>
               </div>
 
-              {/* Floating stats/badges - CRM specific */}
-              <div className="absolute top-4 right-4 bg-white rounded-2xl px-4 py-2 shadow-lg">
-                <div className="text-sm font-semibold text-green-600">
-                  📈 +40% Productivity
+              {/* Image container with overlay effect */}
+              <div className="relative h-[510px] rounded-2xl overflow-hidden">
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#FFB700]/10 to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23FFB700%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+                </div>
+
+                {/* Images with smooth transitions */}
+                {images.map((src, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 transition-all duration-1000 ease-out ${
+                      currentImage === index
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-95"
+                    }`}
+                  >
+                    <img
+                      src={src}
+                      alt={`Why Choose Us ${index + 1}`}
+                      className="w-full h-full object-contain drop-shadow-lg"
+                      loading={currentImage === index ? "eager" : "lazy"}
+                      style={{
+                        filter:
+                          currentImage === index
+                            ? "brightness(1.05) contrast(1.02) saturate(1.1)"
+                            : "brightness(0.9) contrast(0.9) saturate(0.8)",
+                      }}
+                    />
+                    {/* Image glow effect */}
+                    {currentImage === index && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[#FFB700]/5 rounded-2xl"></div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Image indicator dots */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {images.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        currentImage === index
+                          ? "bg-[#FFB700] scale-125"
+                          : "bg-white/50 hover:bg-white/80"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
 
-              <div className="absolute bottom-8 left-4 bg-white rounded-2xl px-4 py-3 shadow-lg">
+              {/* Enhanced floating stats/badges */}
+              <div className="absolute top-6 right-6 bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-md rounded-xl px-4 py-3 shadow-xl border border-white/20">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <div className="text-sm font-bold text-blue-600">
+                    📈 +40% Productivity
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute bottom-8 left-6 bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-md rounded-xl px-4 py-3 shadow-xl border border-white/20">
                 <div className="text-xs text-gray-500 mb-1">
                   Customer Satisfaction
                 </div>
@@ -197,9 +264,23 @@ export default function ChooseUs() {
                 </div>
               </div>
 
-              {/* Additional CRM-specific badge */}
-              <div className="absolute top-1/2 -right-4 bg-[#FFB700] text-white rounded-2xl px-4 py-3 shadow-lg transform -rotate-3">
-                <div className="text-sm font-bold">⚡ 5-Min Setup</div>
+              {/* Enhanced CRM-specific badge */}
+              <div className="absolute top-1/2 right-4 bg-[#FFB700] text-white rounded-2xl px-4 py-3 shadow-xl transform -rotate-3 hover:rotate-0 transition-transform duration-300 z-10">
+                <div className="text-sm font-bold flex items-center gap-1">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  ⚡ 5-Min Setup
+                </div>
+              </div>
+
+              {/* Enhanced floating decorative elements */}
+              <div className="absolute -top-4 -right-4 w-6 h-6 bg-gradient-to-br from-[#FFB700] to-orange-500 rounded-full opacity-80 animate-bounce shadow-xl">
+                <div className="absolute inset-1 bg-white/30 rounded-full"></div>
+              </div>
+              <div className="absolute -bottom-4 -left-4 w-5 h-5 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-80 animate-bounce delay-1000 shadow-xl">
+                <div className="absolute inset-1 bg-white/30 rounded-full"></div>
+              </div>
+              <div className="absolute top-1/2 -right-3 w-4 h-4 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full opacity-70 animate-bounce delay-500 shadow-lg">
+                <div className="absolute inset-1 bg-white/30 rounded-full"></div>
               </div>
             </div>
           </div>

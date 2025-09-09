@@ -50,7 +50,7 @@ export default function Hero() {
                       Transform Your
                     </span>
                     <br />
-                    <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-cyan-600 to-blue-600">
+                    <span className="relative inline-block text-[#FFB700]  ">
                       Field Service
                       {/* Curvy SVG Underline */}
                       <svg
@@ -66,9 +66,9 @@ export default function Hero() {
                             x2="100%"
                             y2="0%"
                           >
-                            <stop offset="0%" stopColor="#fbbf24" />
-                            <stop offset="50%" stopColor="#f97316" />
-                            <stop offset="100%" stopColor="#eab308" />
+                            <stop offset="0%" stopColor="#ffffff" />
+                            <stop offset="50%" stopColor="#ffffff" />
+                            <stop offset="100%" stopColor="#ffffff" />
                           </linearGradient>
                           <filter id="glow">
                             <feGaussianBlur
@@ -94,7 +94,7 @@ export default function Hero() {
                         {/* Secondary accent curve */}
                         <path
                           d="M5,9 Q30,4 55,7 T95,5"
-                          stroke="#fbbf24"
+                          stroke="#ffffff"
                           strokeWidth="1.5"
                           fill="none"
                           strokeLinecap="round"

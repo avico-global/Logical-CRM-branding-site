@@ -137,6 +137,121 @@ export default function KeyFeatures() {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Interactive image stage state
+  const scenes = {
+    crm1: "/animationCrm/crm1.png",
+    crm2: "/animationCrm/crm2.png",
+    crm3: "/animationCrm/crm3.png",
+    crm4: "/animationCrm/crm4.png",
+  };
+  const [currentScene, setCurrentScene] = useState("crm1");
+  const [isZooming, setIsZooming] = useState(false);
+  const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
+  const [crm1TicketClicks, setCrm1TicketClicks] = useState(0);
+
+  // Auto-cycling state
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [autoPlayStep, setAutoPlayStep] = useState(0);
+  const [showCursor, setShowCursor] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 50, y: 50 });
+
+  // Handlers for interactive flow
+  const handleCrm1TicketClick = (e) => {
+    // Calculate click position relative to container for zoom origin
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin({ x, y });
+    setIsZooming(true);
+
+    // After a brief zoom, navigate based on click order
+    setTimeout(() => {
+      setIsZooming(false);
+      if (crm1TicketClicks === 0) {
+        setCurrentScene("crm2");
+      } else {
+        setCurrentScene("crm4");
+      }
+      setCrm1TicketClicks((c) => (c + 1) % 2);
+    }, 450);
+  };
+
+  const handleCrm2MerchantClick = () => {
+    setIsZooming(false);
+    setCurrentScene("crm3");
+    // Auto return to crm1 after showing merchant
+    setTimeout(() => {
+      setCurrentScene("crm1");
+    }, 1500);
+  };
+
+  // Auto-play sequence configuration
+  const autoPlaySequence = [
+    {
+      scene: "crm1",
+      cursor: { x: 72, y: 38 },
+      duration: 3000,
+      action: "ticket",
+    },
+    {
+      scene: "crm2",
+      cursor: { x: 60, y: 30 },
+      duration: 3000,
+      action: "merchant",
+    },
+    { scene: "crm3", cursor: { x: 50, y: 50 }, duration: 2000, action: "wait" },
+    {
+      scene: "crm1",
+      cursor: { x: 72, y: 38 },
+      duration: 3000,
+      action: "ticket2",
+    },
+    { scene: "crm4", cursor: { x: 50, y: 50 }, duration: 3000, action: "wait" },
+  ];
+
+  // Auto-play effect
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const currentStep = autoPlaySequence[autoPlayStep];
+    if (!currentStep) {
+      // Reset to beginning
+      setAutoPlayStep(0);
+      setCurrentScene("crm1");
+      return;
+    }
+
+    // Set scene and cursor position
+    setCurrentScene(currentStep.scene);
+    setCursorPosition(currentStep.cursor);
+
+    // Show cursor after a brief delay
+    const cursorTimeout = setTimeout(() => {
+      setShowCursor(true);
+    }, 500);
+
+    // Hide cursor and move to next step
+    const nextStepTimeout = setTimeout(() => {
+      setShowCursor(false);
+      setAutoPlayStep((prev) => (prev + 1) % autoPlaySequence.length);
+    }, currentStep.duration);
+
+    return () => {
+      clearTimeout(cursorTimeout);
+      clearTimeout(nextStepTimeout);
+    };
+  }, [autoPlayStep, isAutoPlaying]);
+
+  // Pause auto-play on hover
+  const handleImageStageMouseEnter = () => {
+    setIsAutoPlaying(false);
+    setShowCursor(false);
+  };
+
+  const handleImageStageMouseLeave = () => {
+    setIsAutoPlaying(true);
+  };
+
   useEffect(() => {
     if (isHovered) return; // Pause auto-cycling when user is hovering
 
@@ -287,44 +402,208 @@ export default function KeyFeatures() {
                 );
               })}
             </div>
-            {/* Enhanced Video on the right */}
+            {/* Interactive Image Stage on the right */}
             <div className="flex-[1.3] relative">
-              {/* Enhanced video backdrop effects */}
-              <div className="absolute -inset-3 bg-gradient-to-r from-[#FFB700]/20 to-orange-500/20 rounded-3xl blur-2xl animate-pulse"></div>
-              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-2xl blur-xl"></div>
+              {/* Enhanced backdrop effects */}
+              <div className="absolute -inset-4 bg-gradient-to-br from-[#FFB700]/30 via-orange-500/20 to-red-500/15 rounded-3xl blur-3xl animate-pulse"></div>
+              <div className="absolute -inset-3 bg-gradient-to-tr from-blue-500/20 via-purple-500/15 to-pink-500/10 rounded-3xl blur-2xl"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 rounded-2xl blur-xl"></div>
 
-              <div className="relative bg-white rounded-3xl p-4 shadow-2xl border border-gray-100 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:shadow-3xl hover:scale-[1.02]">
-                <video
-                  src="/videos/Automations-transcode-smartabs-home-2.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-[500px] object-cover rounded-2xl shadow-lg transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+              <div
+                className="relative bg-gradient-to-br from-white via-gray-50/50 to-white rounded-3xl p-6 shadow-2xl border border-gray-200/50 overflow-hidden backdrop-blur-sm"
+                onMouseEnter={handleImageStageMouseEnter}
+                onMouseLeave={handleImageStageMouseLeave}
+              >
+                {/* Decorative border */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FFB700]/20 via-transparent to-[#FFB700]/20 rounded-3xl p-[1px]">
+                  <div className="w-full h-full bg-white rounded-3xl"></div>
+                </div>
+
+                {/* Scene container with enhanced styling */}
+                <div
+                  className="relative w-full h-[400px] rounded-2xl overflow-hidden"
+                  style={{
+                    transform: isZooming ? "scale(1.05)" : "scale(1)",
+                    transformOrigin: `${zoomOrigin.x}% ${zoomOrigin.y}%`,
+                    transition: "transform 450ms cubic-bezier(0.4,0,0.2,1)",
+                  }}
                 >
-                  Your browser does not support the video tag.
-                </video>
+                  {/* Background pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FFB700]/10 to-transparent"></div>
+                    <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23FFB700%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+                  </div>
 
-                {/* Enhanced video overlay elements */}
-                <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg transition-all duration-[500ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105">
+                  {/* Images layered with enhanced effects */}
+                  {Object.entries(scenes).map(([key, src]) => (
+                    <div
+                      key={key}
+                      className={`absolute inset-0 transition-all duration-700 ease-out ${
+                        currentScene === key
+                          ? "opacity-100 scale-100"
+                          : "opacity-0 scale-95"
+                      }`}
+                    >
+                      <img
+                        src={src}
+                        alt={key}
+                        className="w-full h-full object-contain drop-shadow-lg"
+                        loading={currentScene === key ? "eager" : "lazy"}
+                        style={{
+                          filter:
+                            currentScene === key
+                              ? "brightness(1.05) contrast(1.02) saturate(1.1)"
+                              : "brightness(0.9) contrast(0.9) saturate(0.8)",
+                        }}
+                      />
+                      {/* Image glow effect */}
+                      {currentScene === key && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[#FFB700]/5 rounded-2xl"></div>
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Enhanced Auto-play cursor */}
+                  {showCursor && (
+                    <div
+                      className="absolute z-20 w-10 h-10 pointer-events-none"
+                      style={{
+                        left: `${cursorPosition.x}%`,
+                        top: `${cursorPosition.y}%`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <div className="relative">
+                        {/* Outer glow ring */}
+                        <div className="absolute inset-0 w-10 h-10 bg-[#FFB700]/20 rounded-full animate-ping"></div>
+                        {/* Middle ring */}
+                        <div className="absolute inset-1 w-8 h-8 bg-white border-2 border-[#FFB700] rounded-full animate-pulse shadow-lg"></div>
+                        {/* Inner dot */}
+                        <div className="absolute inset-2 w-6 h-6 bg-[#FFB700] rounded-full animate-bounce shadow-md"></div>
+                        {/* Center highlight */}
+                        <div className="absolute top-3 left-3 w-2 h-2 bg-white rounded-full opacity-80"></div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Enhanced Interactive Hotspots (only show when not auto-playing) */}
+                  {!isAutoPlaying && currentScene === "crm1" && (
+                    <button
+                      aria-label="Open Ticket"
+                      title="Open Ticket"
+                      onClick={handleCrm1TicketClick}
+                      className="absolute z-10 group"
+                      style={{ top: "38%", left: "72%" }}
+                    >
+                      <div className="relative">
+                        {/* Outer glow */}
+                        <div className="absolute inset-0 w-8 h-8 bg-[#FFB700]/30 rounded-full animate-ping"></div>
+                        {/* Main button */}
+                        <div className="relative w-6 h-6 bg-gradient-to-br from-[#FFB700] to-orange-500 rounded-full shadow-lg group-hover:scale-110 transition-all duration-300 ease-out">
+                          <div className="absolute inset-0 bg-white/20 rounded-full"></div>
+                          <div className="absolute top-1 left-1 w-4 h-4 bg-white/30 rounded-full"></div>
+                        </div>
+                        {/* Tooltip */}
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                          Click Ticket
+                        </div>
+                      </div>
+                    </button>
+                  )}
+
+                  {!isAutoPlaying && currentScene === "crm2" && (
+                    <button
+                      aria-label="Open Merchant"
+                      title="Open Merchant"
+                      onClick={handleCrm2MerchantClick}
+                      className="absolute z-10 group"
+                      style={{ top: "30%", left: "60%" }}
+                    >
+                      <div className="relative">
+                        {/* Outer glow */}
+                        <div className="absolute inset-0 w-8 h-8 bg-[#FFB700]/30 rounded-full animate-ping"></div>
+                        {/* Main button */}
+                        <div className="relative w-6 h-6 bg-gradient-to-br from-[#FFB700] to-orange-500 rounded-full shadow-lg group-hover:scale-110 transition-all duration-300 ease-out">
+                          <div className="absolute inset-0 bg-white/20 rounded-full"></div>
+                          <div className="absolute top-1 left-1 w-4 h-4 bg-white/30 rounded-full"></div>
+                        </div>
+                        {/* Tooltip */}
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                          Open Merchant
+                        </div>
+                      </div>
+                    </button>
+                  )}
+                </div>
+
+                {/* Enhanced Labels */}
+                <div className="absolute top-6 left-6 bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-md rounded-xl px-4 py-3 shadow-xl border border-white/20">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-bold text-gray-800">
-                      Live Demo
-                    </span>
+                    <div className="w-2 h-2 bg-[#FFB700] rounded-full animate-pulse"></div>
+                    <div className="text-sm font-bold text-gray-800">
+                      {currentScene.toUpperCase()}
+                    </div>
+                  </div>
+                  {isAutoPlaying && (
+                    <div className="text-xs text-gray-600 mt-1 flex items-center gap-1">
+                      <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse"></div>
+                      Auto Demo
+                    </div>
+                  )}
+                </div>
+
+                {/* Enhanced Auto-play indicator */}
+                {isAutoPlaying && (
+                  <div className="absolute top-6 right-6 bg-gradient-to-r from-white/95 to-white/90 backdrop-blur-md rounded-xl px-4 py-3 shadow-xl border border-white/20">
+                    <div className="flex items-center gap-2">
+                      <div className="relative">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <div className="absolute inset-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+                      </div>
+                      <span className="text-xs font-bold text-gray-800">
+                        Auto
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Progress indicator */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-white/90 backdrop-blur-md rounded-xl px-4 py-2 shadow-lg border border-white/20">
+                    <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+                      <span>Demo Progress</span>
+                      <span>
+                        {Math.round(
+                          ((autoPlayStep + 1) / autoPlaySequence.length) * 100
+                        )}
+                        %
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-[#FFB700] to-orange-500 rounded-full transition-all duration-500 ease-out"
+                        style={{
+                          width: `${
+                            ((autoPlayStep + 1) / autoPlaySequence.length) * 100
+                          }%`,
+                        }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg transition-all duration-[500ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:scale-105">
-                  <span className="text-sm font-bold text-gray-800">
-                    Interactive Features
-                  </span>
+                {/* Enhanced floating decorative elements */}
+                <div className="absolute -top-4 -right-4 w-6 h-6 bg-gradient-to-br from-[#FFB700] to-orange-500 rounded-full opacity-80 animate-bounce shadow-xl">
+                  <div className="absolute inset-1 bg-white/30 rounded-full"></div>
                 </div>
-
-                {/* Enhanced floating elements */}
-                <div className="absolute -top-3 -right-3 w-5 h-5 bg-gradient-to-r from-[#FFB700] to-orange-500 rounded-full opacity-70 animate-bounce shadow-lg"></div>
-                <div className="absolute -bottom-3 -left-3 w-4 h-4 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-70 animate-bounce delay-1000 shadow-lg"></div>
-                <div className="absolute top-1/2 -right-2 w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full opacity-60 animate-bounce delay-500"></div>
+                <div className="absolute -bottom-4 -left-4 w-5 h-5 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-80 animate-bounce delay-1000 shadow-xl">
+                  <div className="absolute inset-1 bg-white/30 rounded-full"></div>
+                </div>
+                <div className="absolute top-1/2 -right-3 w-4 h-4 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full opacity-70 animate-bounce delay-500 shadow-lg">
+                  <div className="absolute inset-1 bg-white/30 rounded-full"></div>
+                </div>
+                <div className="absolute top-1/4 -left-2 w-3 h-3 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full opacity-60 animate-bounce delay-700 shadow-md"></div>
+                <div className="absolute bottom-1/4 -right-1 w-2 h-2 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-50 animate-bounce delay-300"></div>
               </div>
             </div>
           </div>
