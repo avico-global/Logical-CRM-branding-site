@@ -8,12 +8,7 @@ export default function ProductHero({ data }) {
   const { hero } = data;
 
   return (
-    <section
-      className="relative pt-32 pb-20 px-4 overflow-hidden bg-cover bg-center h-screen"
-      style={{
-        backgroundImage: `url(https://www.zohowebstatic.com/sites/zweb/images/people/zpl-banner-bg.jpg)`,
-      }}
-    >
+    <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-cover bg-center h-screen bg-gradient-to-l from-slate-50 to-white">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-yellow-50/30 to-indigo-50/20"></div>
       <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-yellow-200/30 to-cyan-200/20 rounded-full blur-3xl" />

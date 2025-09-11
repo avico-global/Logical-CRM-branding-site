@@ -3,53 +3,41 @@ import React from "react";
 const footerLinks = [
   {
     heading: "Product",
-    links: [
-      "Scheduling",
-      "Invoicing",
-      "Communication suite",
-      "Online payment",
-      "Inventory management",
-      "Lead management",
-      "Business reporting",
-      "Route planning",
-      "All Features",
-    ],
+    links: ["All Products"],
   },
   {
     heading: "Industries",
     links: [
-      "Air Duct Cleaning",
-      "Alarm And Security",
-      "Chimney Sweep",
-      "Construction",
-      "Handyman",
-      "Landscaping",
-      "Lawn Care",
-      "Moving",
-      "Towing",
-      "Snow Removal",
-      "Restoration",
-      "Roofing",
+      "HVAC",
+      "Plumbing",
+      "Electrician",
+      "Garage Door",
+      "Locksmith",
+      "Junk Removal",
       "All Industries",
     ],
   },
   {
     heading: "Resources",
     links: [
-      "Pricing",
-      "Logical CRM comparison",
-      "Support",
+      "Blog",
+      "Podcast",
+      "Webinars",
+      "Free Tools",
+      "Help Center",
+      "Reviews",
       "FAQ",
-      "Free tools",
-      "Terms and Conditions",
-      "Accessibility policy",
-      "Privacy Policy",
-      "All Resources",
     ],
   },
   {
     heading: "Company",
-    links: ["About Us", "Become a Partner", "Investors"],
+    links: [
+      "About Us",
+      "Become a Partner",
+      "Contact Us",
+      "Investors",
+      "Career",
+    ],
     contact: {
       phone: "855-790-7363",
       address: ["9444 Balboa Ave", "San Diego, CA 92123"],
@@ -163,16 +151,45 @@ export default function FooterSection({ heading }) {
                     {col.heading}
                   </h3>
                   <ul className="space-y-3">
-                    {col.links.slice(0, 8).map((link) => (
-                      <li key={link}>
-                        <a
-                          href={link === "FAQ" ? "/faqs" : "#"}
-                          className="text-gray-300 hover:text-white transition-colors text-sm leading-relaxed"
-                        >
-                          {link}
-                        </a>
-                      </li>
-                    ))}
+                    {col.links.slice(0, 8).map((link) => {
+                      // Map link names to actual routes
+                      const getLinkHref = (linkName) => {
+                        const linkMap = {
+                          "All Products": "/products",
+                          HVAC: "/industries/hvac",
+                          Plumbing: "/industries/plumbing",
+                          Electrician: "/industries/electricians",
+                          "Garage Door": "/industries/garage-door-repair",
+                          Locksmith: "/industries/locksmith",
+                          "Junk Removal": "/industries/junk-removal",
+                          "All Industries": "/industries",
+                          Blog: "/blog",
+                          Podcast: "/podcast",
+                          Webinars: "/webinars",
+                          "Free Tools": "/free-tools",
+                          "Help Center": "/help-center",
+                          Reviews: "/reviews",
+                          FAQ: "/faqs",
+                          "About Us": "/about-us",
+                          "Become a Partner": "/become-partner",
+                          "Contact Us": "/contact-us",
+                          Investors: "/investors",
+                          Career: "/career",
+                        };
+                        return linkMap[linkName] || "#";
+                      };
+
+                      return (
+                        <li key={link}>
+                          <a
+                            href={getLinkHref(link)}
+                            className="text-gray-300 hover:text-white transition-colors text-sm leading-relaxed"
+                          >
+                            {link}
+                          </a>
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   {col.contact && (
