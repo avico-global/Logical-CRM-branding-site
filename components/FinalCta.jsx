@@ -2,11 +2,11 @@ import React from "react";
 
 export default function FinalCta({ heading }) {
   return (
-    <section className="relative w-full py-24 px-4 overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900">
+    <section className="relative w-full py-24 px-4 overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-gray-900">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-blue-600/5 blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-cyan-600/5 blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">

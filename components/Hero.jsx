@@ -11,14 +11,14 @@ export default function Hero() {
       className="min-h-screen w-full relative overflow-hidden bg-cover"
     >
       {/* Enhanced gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-blue-950/90 to-indigo-900/90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-gray-950/90 to-indigo-900/90"></div>
 
       {/* Animated gradient overlay */}
       <div className="absolute inset-0 bg-black/5"></div>
 
       {/* Floating orbs */}
       <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-r from-blue-400/10 to-cyan-500/10 rounded-full blur-3xl animate-float-delayed"></div>
+      <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-r from-gray-400/10 to-cyan-500/10 rounded-full blur-3xl animate-float-delayed"></div>
       <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-gradient-to-r from-purple-400/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
 
       {/* Enhanced grid overlay */}
@@ -39,7 +39,7 @@ export default function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Side - Content */}
             <div className="space-y-6 animate-fadeInUp">
-              <p className="text-transparent bg-clip-text bg-[#FFB700] from-[#FFB700] via-cyan-600 to-blue-600 font-bold">
+              <p className="text-transparent bg-clip-text bg-[#FFB700] from-[#FFB700] via-cyan-600 to-gray-600 font-bold">
                 Powered by Logical CRM
               </p>
               {/* Enhanced Main Heading */}
@@ -105,9 +105,7 @@ export default function Hero() {
                       <div className="absolute -bottom-3 left-0 w-full h-4 bg-gradient-to-r from-yellow-400/20 via-orange-400/30 to-yellow-500/20 rounded-full blur-lg"></div>
                     </span>
                     <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-800 via-teal-600 to-blue-800">
-                      Operations
-                    </span>
+                    <span className="text-white">Operations</span>
                   </h1>
                 </div>
               </div>
@@ -115,12 +113,12 @@ export default function Hero() {
               {/* Enhanced Description */}
               <p className="text-lg md:text-xl text-white leading-relaxed max-w-2xl font-light">
                 Streamline your field operations with
-                <span className="text-blue-500 font-medium">
+                <span className="text-white font-medium">
                   {" "}
                   intelligent scheduling
                 </span>
                 ,
-                <span className="text-blue-500 font-medium">
+                <span className="text-white font-medium">
                   {" "}
                   real-time tracking
                 </span>
@@ -143,7 +141,7 @@ export default function Hero() {
                   <span className="relative z-10 group-hover:text-gray-200 transition-colors duration-300">
                     Watch Demo
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               </div>
             </div>
@@ -151,7 +149,7 @@ export default function Hero() {
             {/* Right Side - Enhanced Dashboard Preview */}
             <div className="relative animate-fadeInRight">
               {/* Floating backdrop elements */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl blur-2xl opacity-60"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-gray-500/20 to-cyan-500/20 rounded-3xl blur-2xl opacity-60"></div>
 
               <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200 transform hover:scale-105 transition-all duration-500 hover:shadow-3xl">
                 {/* Enhanced Browser Header */}
@@ -203,7 +201,7 @@ export default function Hero() {
                         <span>↗</span> +12%
                       </div>
                       <div className="w-full bg-gray-100 rounded-full h-0.5 mt-2">
-                        <div className="bg-gradient-to-r from-blue-500 to-cyan-500 h-0.5 rounded-full w-3/4"></div>
+                        <div className="bg-gradient-to-r from-gray-500 to-cyan-500 h-0.5 rounded-full w-3/4"></div>
                       </div>
                     </div>
                     <div className="bg-white rounded-xl p-3 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group">
@@ -251,7 +249,7 @@ export default function Hero() {
                         (height, i) => (
                           <div
                             key={i}
-                            className="bg-gradient-to-t from-blue-600 to-cyan-500 rounded-t flex-1 transition-all duration-300 hover:from-blue-500 hover:to-cyan-400 cursor-pointer"
+                            className="bg-gradient-to-t from-gray-600 to-cyan-500 rounded-t flex-1 transition-all duration-300 hover:from-gray-500 hover:to-cyan-400 cursor-pointer"
                             style={{ height: `${height}%` }}
                           />
                         )
@@ -265,7 +263,7 @@ export default function Hero() {
                       <div className="text-gray-900 font-bold text-sm">
                         Recent Jobs
                       </div>
-                      <div className="text-xs text-blue-600 font-semibold cursor-pointer hover:text-blue-700">
+                      <div className="text-xs text-gray-600 font-semibold cursor-pointer hover:text-gray-700">
                         View All
                       </div>
                     </div>
@@ -274,7 +272,7 @@ export default function Hero() {
                         {
                           name: "HVAC Repair",
                           status: "In Progress",
-                          color: "blue",
+                          color: "gray",
                           time: "2h ago",
                         },
                         {

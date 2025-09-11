@@ -22,21 +22,21 @@ const INDUSTRIES_DATA = [
       >
         <path
           d="M12 2L2 7l10 5 10-5-10-5z"
-          stroke="#1e40af"
+          stroke="#FFB700"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M2 17l10 5 10-5"
-          stroke="#1e40af"
+          stroke="#FFB700"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M2 12l10 5 10-5"
-          stroke="#1e40af"
+          stroke="#FFB700"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -44,9 +44,9 @@ const INDUSTRIES_DATA = [
       </svg>
     ),
     colorScheme: {
-      bg: "bg-blue-100",
-      hoverBg: "group-hover:bg-blue-200",
-      textHover: "group-hover:text-blue-700",
+      bg: "bg-yellow-50",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -64,14 +64,14 @@ const INDUSTRIES_DATA = [
       >
         <path
           d="M9 11H7l5-8 5 8h-2"
-          stroke="#16a34a"
+          stroke="#FFB700"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M8 21l5-8 5 8"
-          stroke="#16a34a"
+          stroke="#FFB700"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -79,9 +79,9 @@ const INDUSTRIES_DATA = [
       </svg>
     ),
     colorScheme: {
-      bg: "bg-green-100",
-      hoverBg: "group-hover:bg-green-200",
-      textHover: "group-hover:text-green-700",
+      bg: "bg-yellow-50",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -97,13 +97,13 @@ const INDUSTRIES_DATA = [
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 2L3 14h7v8l10-12h-7z" fill="#eab308" />
+        <path d="M13 2L3 14h7v8l10-12h-7z" fill="#FFB700" />
       </svg>
     ),
     colorScheme: {
-      bg: "bg-yellow-100",
-      hoverBg: "group-hover:bg-yellow-200",
-      textHover: "group-hover:text-yellow-700",
+      bg: "bg-yellow-50",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -125,20 +125,20 @@ const INDUSTRIES_DATA = [
           width="18"
           height="10"
           rx="2"
-          stroke="#7c3aed"
+          stroke="#FFB700"
           strokeWidth="2"
         />
         <path
           d="M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"
-          stroke="#7c3aed"
+          stroke="#FFB700"
           strokeWidth="2"
         />
       </svg>
     ),
     colorScheme: {
-      bg: "bg-purple-100",
-      hoverBg: "group-hover:bg-purple-200",
-      textHover: "group-hover:text-purple-700",
+      bg: "bg-yellow-50",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -161,17 +161,17 @@ const INDUSTRIES_DATA = [
           height="11"
           rx="2"
           ry="2"
-          stroke="#ea580c"
+          stroke="#FFB700"
           strokeWidth="2"
         />
-        <circle cx="12" cy="16" r="1" fill="#ea580c" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#ea580c" strokeWidth="2" />
+        <circle cx="12" cy="16" r="1" fill="#FFB700" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#FFB700" strokeWidth="2" />
       </svg>
     ),
     colorScheme: {
-      bg: "bg-orange-100",
-      hoverBg: "group-hover:bg-orange-200",
-      textHover: "group-hover:text-orange-700",
+      bg: "bg-yellow-50",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -187,18 +187,18 @@ const INDUSTRIES_DATA = [
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 6h18l-2 13H5L3 6z" stroke="#dc2626" strokeWidth="2" />
+        <path d="M3 6h18l-2 13H5L3 6z" stroke="#FFB700" strokeWidth="2" />
         <path
           d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-          stroke="#dc2626"
+          stroke="#FFB700"
           strokeWidth="2"
         />
       </svg>
     ),
     colorScheme: {
-      bg: "bg-red-100",
-      hoverBg: "group-hover:bg-red-200",
-      textHover: "group-hover:text-red-700",
+      bg: "bg-yellow-50",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
 ];
@@ -211,7 +211,7 @@ const IndustryItem = ({ industry, onClick }) => {
   return (
     <Link
       href={href}
-      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-blue-50/80 transition-all duration-200 group"
+      className="flex items-start gap-3 no-underline p-3 rounded-lg hover:bg-gray-50/80 transition-all duration-200 group"
       onClick={onClick}
     >
       <div
@@ -272,10 +272,10 @@ const PRODUCTS_DATA = [
     icon: "fas fa-users",
     desc: "Contacts & history",
     colorScheme: {
-      bg: "bg-blue-100",
-      textColor: "text-blue-600",
-      hoverBg: "group-hover:bg-blue-200",
-      textHover: "group-hover:text-blue-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -285,10 +285,10 @@ const PRODUCTS_DATA = [
     icon: "fas fa-calendar",
     desc: "Jobs & calendar",
     colorScheme: {
-      bg: "bg-green-100",
-      textColor: "text-green-600",
-      hoverBg: "group-hover:bg-green-200",
-      textHover: "group-hover:text-green-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -298,10 +298,10 @@ const PRODUCTS_DATA = [
     icon: "fas fa-headset",
     desc: "Assign & route",
     colorScheme: {
-      bg: "bg-purple-100",
-      textColor: "text-purple-600",
-      hoverBg: "group-hover:bg-purple-200",
-      textHover: "group-hover:text-purple-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -311,10 +311,10 @@ const PRODUCTS_DATA = [
     icon: "fas fa-file-invoice",
     desc: "Bills & payments",
     colorScheme: {
-      bg: "bg-yellow-100",
-      textColor: "text-yellow-600",
-      hoverBg: "group-hover:bg-yellow-200",
-      textHover: "group-hover:text-yellow-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -324,10 +324,10 @@ const PRODUCTS_DATA = [
     icon: "fas fa-clipboard",
     desc: "Quotes & proposals",
     colorScheme: {
-      bg: "bg-orange-100",
-      textColor: "text-orange-600",
-      hoverBg: "group-hover:bg-orange-200",
-      textHover: "group-hover:text-orange-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -337,10 +337,10 @@ const PRODUCTS_DATA = [
     icon: "fas fa-mobile-alt",
     desc: "Crew on-the-go",
     colorScheme: {
-      bg: "bg-indigo-100",
-      textColor: "text-indigo-600",
-      hoverBg: "group-hover:bg-indigo-200",
-      textHover: "group-hover:text-indigo-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
 ];
@@ -401,10 +401,10 @@ const COMPANY_DATA = [
     icon: "fas fa-building",
     desc: "Find out all about what we do and why we love the field service industry",
     colorScheme: {
-      bg: "bg-blue-100",
-      textColor: "text-blue-600",
-      hoverBg: "group-hover:bg-blue-200",
-      textHover: "group-hover:text-blue-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -414,10 +414,10 @@ const COMPANY_DATA = [
     icon: "fas fa-comments",
     desc: "Talk to us! We are real people who would love to help in any way we can",
     colorScheme: {
-      bg: "bg-green-100",
-      textColor: "text-green-600",
-      hoverBg: "group-hover:bg-green-200",
-      textHover: "group-hover:text-green-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
   {
@@ -427,10 +427,10 @@ const COMPANY_DATA = [
     icon: "fas fa-handshake",
     desc: "Do you have a field service network? Join our affiliate program and get paid",
     colorScheme: {
-      bg: "bg-purple-100",
-      textColor: "text-purple-600",
-      hoverBg: "group-hover:bg-purple-200",
-      textHover: "group-hover:text-purple-700",
+      bg: "bg-yellow-50",
+      textColor: "text-[#FFB700]",
+      hoverBg: "group-hover:bg-yellow-100",
+      textHover: "group-hover:text-gray-700",
     },
   },
 ];

@@ -3,7 +3,6 @@ import KeyFeatures from "@/components/KeyFeatures";
 import ProductTour from "@/components/ProductTour";
 import ChooseUs from "@/components/ChooseUs";
 import FaqSection from "@/components/FaqSection";
-import FinalCta from "@/components/FinalCta";
 import FooterSection from "@/components/FooterSection";
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
       <ProductTour />
       <ChooseUs />
       <FaqSection />
-      <FinalCta />
       <FooterSection />
     </>
   );
