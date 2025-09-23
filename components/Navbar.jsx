@@ -814,16 +814,16 @@ const Navbar = () => {
 
         {/* Buttons - Desktop */}
         <div className="hidden lg:flex items-center gap-3">
-          <button
-            className="relative px-6 py-2.5 text-[15px] font-semibold text-white/90 hover:text-white transition-all duration-200 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 group overflow-hidden"
+          <Link
+            href="/demo"
+            className="relative px-6 py-2.5 text-[15px] font-semibold text-white/90 hover:text-white transition-all duration-200 rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 group overflow-hidden no-underline"
             style={{
               fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}
-            onClick={openLogin}
           >
-            <span className="relative z-10">Log in</span>
+            <span className="relative z-10">Demo</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-          </button>
+          </Link>
           <button
             className="relative px-6 py-2.5 text-[15px] font-bold text-gray-900 bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 rounded-xl shadow-lg hover:shadow-xl group overflow-hidden"
             style={{
@@ -831,7 +831,7 @@ const Navbar = () => {
             }}
             onClick={openSignup}
           >
-            <span className="relative z-10">Start Free Trial</span>
+            <span className="relative z-10">Go to App</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
           </button>
         </div>
@@ -869,20 +869,18 @@ const Navbar = () => {
                 }
               )}
               <div className="border-t border-white/20 pt-6 mt-4 flex flex-col gap-3">
-                <button
-                  className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10"
+                <Link
+                  href="/demo"
+                  className="rounded-xl font-semibold transition-all duration-200 border border-white/20 hover:border-white/40 w-full py-3 text-white/90 hover:text-white hover:bg-white/10 text-center no-underline"
                   style={{
                     fontFamily: "'Plus Jakarta Sans', sans-serif",
                     fontWeight: 600,
                     fontSize: "16px",
                   }}
-                  onClick={() => {
-                    openLogin();
-                    setMobileMenuOpen(false);
-                  }}
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  Log in
-                </button>
+                  Demo
+                </Link>
                 <button
                   className="rounded-xl font-bold bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 w-full py-3 text-gray-900 shadow-lg hover:shadow-xl"
                   style={{
@@ -895,7 +893,7 @@ const Navbar = () => {
                     setMobileMenuOpen(false);
                   }}
                 >
-                  Start Free Trial
+                  Go to App
                 </button>
               </div>
             </div>
