@@ -6,7 +6,7 @@ export default function AuthModal({ isOpen, mode, onClose, onSwitchMode }) {
 
   return (
     <div
-      className="fixed inset-0 z-[10000] flex items-center justify-center"
+      className="fixed inset-0 z-[10000] flex items-start justify-center pt-24 md:pt-28"
       aria-modal="true"
       role="dialog"
     >

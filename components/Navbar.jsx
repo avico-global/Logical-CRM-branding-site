@@ -824,16 +824,16 @@ const Navbar = () => {
             <span className="relative z-10">Demo</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
           </Link>
-          <button
-            className="relative px-6 py-2.5 text-[15px] font-bold text-gray-900 bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 rounded-xl shadow-lg hover:shadow-xl group overflow-hidden"
+          <Link
+            href="/get-started"
+            className="relative px-6 py-2.5 text-[15px] font-bold text-gray-900 bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 rounded-xl shadow-lg hover:shadow-xl group overflow-hidden no-underline"
             style={{
               fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}
-            onClick={openSignup}
           >
             <span className="relative z-10">Go to App</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu */}
@@ -881,20 +881,18 @@ const Navbar = () => {
                 >
                   Demo
                 </Link>
-                <button
-                  className="rounded-xl font-bold bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 w-full py-3 text-gray-900 shadow-lg hover:shadow-xl"
+                <Link
+                  href="/get-started"
+                  className="rounded-xl font-bold bg-[#FFB700] hover:bg-[#FFB700] hover:from-yellow-300 hover:to-amber-300 transition-all duration-200 w-full py-3 text-gray-900 shadow-lg hover:shadow-xl text-center no-underline"
                   style={{
                     fontFamily: "'Plus Jakarta Sans', sans-serif",
                     fontWeight: 700,
                     fontSize: "16px",
                   }}
-                  onClick={() => {
-                    openSignup();
-                    setMobileMenuOpen(false);
-                  }}
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Go to App
-                </button>
+                </Link>
               </div>
             </div>
           </div>
