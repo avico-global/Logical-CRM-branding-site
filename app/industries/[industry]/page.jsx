@@ -57,15 +57,11 @@ export default function IndustryPage({ params }) {
 
   return (
     <>
-      {/* Industry-specific Hero */}
       <IndustryHero data={industryData} />
-
-      {/* Rest of sections - Same as home page */}
       <KeyFeatures />
       <ProductTour />
       <ChooseUs />
       <FaqSection />
-      <FinalCta />
       <FooterSection />
     </>
   );

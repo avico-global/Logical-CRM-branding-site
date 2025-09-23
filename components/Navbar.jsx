@@ -22,21 +22,21 @@ const INDUSTRIES_DATA = [
       >
         <path
           d="M12 2L2 7l10 5 10-5-10-5z"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M2 17l10 5 10-5"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M2 12l10 5 10-5"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -64,14 +64,14 @@ const INDUSTRIES_DATA = [
       >
         <path
           d="M9 11H7l5-8 5 8h-2"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M8 21l5-8 5 8"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -97,7 +97,7 @@ const INDUSTRIES_DATA = [
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 2L3 14h7v8l10-12h-7z" fill="#FFB700" />
+        <path d="M13 2L3 14h7v8l10-12h-7z" fill="#000000" />
       </svg>
     ),
     colorScheme: {
@@ -125,12 +125,12 @@ const INDUSTRIES_DATA = [
           width="18"
           height="10"
           rx="2"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
         />
         <path
           d="M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
         />
       </svg>
@@ -161,11 +161,11 @@ const INDUSTRIES_DATA = [
           height="11"
           rx="2"
           ry="2"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
         />
-        <circle cx="12" cy="16" r="1" fill="#FFB700" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#FFB700" strokeWidth="2" />
+        <circle cx="12" cy="16" r="1" fill="#000000" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#000000" strokeWidth="2" />
       </svg>
     ),
     colorScheme: {
@@ -187,10 +187,10 @@ const INDUSTRIES_DATA = [
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 6h18l-2 13H5L3 6z" stroke="#FFB700" strokeWidth="2" />
+        <path d="M3 6h18l-2 13H5L3 6z" stroke="#000000" strokeWidth="2" />
         <path
           d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-          stroke="#FFB700"
+          stroke="#000000"
           strokeWidth="2"
         />
       </svg>
@@ -273,7 +273,7 @@ const PRODUCTS_DATA = [
     desc: "Contacts & history",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -286,7 +286,7 @@ const PRODUCTS_DATA = [
     desc: "Jobs & calendar",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -299,7 +299,7 @@ const PRODUCTS_DATA = [
     desc: "Assign & route",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -312,7 +312,7 @@ const PRODUCTS_DATA = [
     desc: "Bills & payments",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -325,7 +325,7 @@ const PRODUCTS_DATA = [
     desc: "Quotes & proposals",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -338,7 +338,7 @@ const PRODUCTS_DATA = [
     desc: "Crew on-the-go",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -402,7 +402,7 @@ const COMPANY_DATA = [
     desc: "Find out all about what we do and why we love the field service industry",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -415,7 +415,7 @@ const COMPANY_DATA = [
     desc: "Talk to us! We are real people who would love to help in any way we can",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -428,7 +428,7 @@ const COMPANY_DATA = [
     desc: "Do you have a field service network? Join our affiliate program and get paid",
     colorScheme: {
       bg: "bg-yellow-50",
-      textColor: "text-[#FFB700]",
+      textColor: "text-black",
       hoverBg: "group-hover:bg-yellow-100",
       textHover: "group-hover:text-gray-700",
     },
@@ -636,149 +636,152 @@ const Navbar = () => {
               }}
             />
           </Link>
-
-          {/* Navigation Links - Desktop */}
-          <div className="hidden lg:flex items-center gap-8 ml-8">
-            <div
-              className="flex items-center gap-2 text-white text-[16px] font-medium tracking-wide"
-              style={fontStyle}
-            >
-              {/* Industries Dropdown */}
-              <div className="relative" ref={dropdownRef}>
-                <div className={navItemClasses} onClick={toggleIndustries}>
-                  <span className="group-hover:text-cyan-300 transition-colors">
-                    Industries
-                  </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                      industriesOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    <path
-                      d="M7 10l5 5 5-5"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-
-                {industriesOpen && (
-                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                    <div className="relative z-10">
-                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                        {INDUSTRIES_DATA.map((industry) => (
-                          <IndustryItem
-                            key={industry.id}
-                            industry={industry}
-                            onClick={handleDropdownLinkClick}
-                          />
-                        ))}
-                        <AllIndustriesButton
-                          onClick={handleDropdownLinkClick}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
+        </div>
+        {/* Navigation Links - Desktop */}
+        <div className="hidden lg:flex items-center gap-8 ml-8">
+          <Link
+            href="/"
+            className="text-white text-[16px] font-medium tracking-wide"
+          >
+            Home
+          </Link>
+          <div
+            className="flex items-center gap-2 text-white text-[16px] font-medium tracking-wide"
+            style={fontStyle}
+          >
+            {/* Industries Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <div className={navItemClasses} onClick={toggleIndustries}>
+                <span className="group-hover:text-cyan-300 transition-colors">
+                  Industries
+                </span>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                    industriesOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  <path
+                    d="M7 10l5 5 5-5"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
 
-              {/* Products Dropdown */}
-              <div className="relative" ref={productsDropdownRef}>
-                <div className={navItemClasses} onClick={toggleProducts}>
-                  <span className="group-hover:text-cyan-300 transition-colors">
-                    Products
-                  </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                      productsOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    <path
-                      d="M7 10l5 5 5-5"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+              {industriesOpen && (
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                  <div className="relative z-10">
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {INDUSTRIES_DATA.map((industry) => (
+                        <IndustryItem
+                          key={industry.id}
+                          industry={industry}
+                          onClick={handleDropdownLinkClick}
+                        />
+                      ))}
+                      <AllIndustriesButton onClick={handleDropdownLinkClick} />
+                    </div>
+                  </div>
                 </div>
-                {productsOpen && (
-                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                    <div className="relative z-10">
-                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                        {PRODUCTS_DATA.map((product) => (
-                          <ProductItem
-                            key={product.id}
-                            item={product}
-                            onClick={handleDropdownLinkClick}
-                            isClient={isClient}
-                          />
-                        ))}
-                        <AllProductsButton
+              )}
+            </div>
+
+            {/* Products Dropdown */}
+            <div className="relative" ref={productsDropdownRef}>
+              <div className={navItemClasses} onClick={toggleProducts}>
+                <span className="group-hover:text-cyan-300 transition-colors">
+                  Products
+                </span>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                    productsOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  <path
+                    d="M7 10l5 5 5-5"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              {productsOpen && (
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                  <div className="relative z-10">
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {PRODUCTS_DATA.map((product) => (
+                        <ProductItem
+                          key={product.id}
+                          item={product}
                           onClick={handleDropdownLinkClick}
                           isClient={isClient}
                         />
-                      </div>
+                      ))}
+                      <AllProductsButton
+                        onClick={handleDropdownLinkClick}
+                        isClient={isClient}
+                      />
                     </div>
                   </div>
-                )}
-              </div>
-
-              {/* Company Dropdown */}
-              <div className="relative" ref={companyDropdownRef}>
-                <div className={navItemClasses} onClick={toggleCompany}>
-                  <span className="group-hover:text-cyan-300 transition-colors">
-                    Company
-                  </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className={`transition-all duration-200 group-hover:text-cyan-300 ${
-                      companyOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    <path
-                      d="M7 10l5 5 5-5"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
                 </div>
+              )}
+            </div>
 
-                {companyOpen && (
-                  <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
-                    <div className="relative z-10">
-                      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                        {COMPANY_DATA.map((company) => (
-                          <CompanyItem
-                            key={company.id}
-                            item={company}
-                            onClick={handleDropdownLinkClick}
-                            isClient={isClient}
-                          />
-                        ))}
-                      </div>
+            {/* Company Dropdown */}
+            <div className="relative" ref={companyDropdownRef}>
+              <div className={navItemClasses} onClick={toggleCompany}>
+                <span className="group-hover:text-cyan-300 transition-colors">
+                  Company
+                </span>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className={`transition-all duration-200 group-hover:text-cyan-300 ${
+                    companyOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  <path
+                    d="M7 10l5 5 5-5"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+
+              {companyOpen && (
+                <div className="fixed left-1/2 -translate-x-1/2 top-20 w-[800px] bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/50 pt-6 pb-4 px-6 z-[9999] animate-fadeIn">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-gray-50/90 rounded-xl" />
+                  <div className="relative z-10">
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                      {COMPANY_DATA.map((company) => (
+                        <CompanyItem
+                          key={company.id}
+                          item={company}
+                          onClick={handleDropdownLinkClick}
+                          isClient={isClient}
+                        />
+                      ))}
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

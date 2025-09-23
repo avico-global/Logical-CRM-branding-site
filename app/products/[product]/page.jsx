@@ -58,20 +58,15 @@ export default function ProductPage({ params }) {
 
   return (
     <>
-      {/* Product-specific Hero */}
       <ProductHero data={productData} />
-
       <ProductFeatures
         title={`Key Features of ${metadata.breadcrumb}`}
         features={productData.features}
       />
-
-      {/* Rest of sections - Same as home page */}
       <KeyFeatures />
       <ProductTour />
       <ChooseUs />
       <FaqSection />
-      <FinalCta />
       <FooterSection />
     </>
   );
