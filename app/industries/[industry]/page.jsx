@@ -48,6 +48,9 @@ export async function generateMetadata({ params }) {
 export default function IndustryPage({ params }) {
   const { industry } = params;
   const industryData = getIndustryData(industry);
+  const industryName = (getIndustryMetadata(industry)?.breadcrumb || industry)
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
   const metadata = getIndustryMetadata(industry);
 
   // If industry data doesn't exist, show 404
@@ -57,7 +60,7 @@ export default function IndustryPage({ params }) {
 
   return (
     <>
-      <IndustryHero data={industryData} />
+      <IndustryHero data={industryData} industryName={industryName} />
       <KeyFeatures />
       <ProductTour />
       <ChooseUs />

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function IndustryHero() {
+export default function IndustryHero({ industryName }) {
   return (
     <section className="relative pt-32 pb-20 px-4 overflow-hidden">
       {/* Background Elements */}
@@ -19,16 +19,16 @@ export default function IndustryHero() {
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#293146] mb-6 leading-tight">
-          Field Service Management
-          <br />
+          Professional {" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB700] to-orange-500">
-            For Every Industry
-          </span>
+            {industryName}
+          </span>{" "}
+          Services
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8 leading-relaxed">
-          Trusted by 5,000+ businesses across 20+ industries. Discover how
-          Logical CRM transforms field service operations in your industry.
+          Trusted {industryName} solutions designed to boost efficiency, improve
+          customer satisfaction, and maximize revenue.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
