@@ -405,27 +405,7 @@ export default function IndustriesGrid() {
                 </div>
               </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
-                <div className="text-center">
-                  <div className="text-lg font-bold text-[#FFB700]">
-                    {industry.stats.customers}
-                  </div>
-                  <div className="text-xs text-gray-500">Customers</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-[#FFB700]">
-                    {industry.stats.efficiency}
-                  </div>
-                  <div className="text-xs text-gray-500">Efficiency</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-[#FFB700]">
-                    {industry.stats.revenue}
-                  </div>
-                  <div className="text-xs text-gray-500">Revenue</div>
-                </div>
-              </div>
+				
             </Link>
           ))}
         </div>
